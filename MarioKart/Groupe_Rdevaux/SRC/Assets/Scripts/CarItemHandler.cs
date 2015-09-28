@@ -10,10 +10,13 @@ public class CarItemHandler : MonoBehaviour {
 	private CarController carCtrl = null;
 	public CarController Controller { get { return carCtrl; } }
 
+	//TODO TripleShell Around Player
+
 	public bool OnPickItemBox(Item item)
 	{
 		if (currentItem != null)
 			return false;
+
 		currentItem = item;
 
 		carCtrl = GetComponent<CarController> ();
