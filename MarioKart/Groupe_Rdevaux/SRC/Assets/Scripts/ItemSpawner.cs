@@ -10,7 +10,7 @@ public class ItemSpawner : MonoBehaviour {
 	[SerializeField]
 	private GameObject ItemBoxPrefab = null;
 
-	private bool boxSpawned = false;
+	private GameObject boxSpawned = null;
 
 	// Use this for initialization
 	void Start () {
@@ -24,7 +24,7 @@ public class ItemSpawner : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (boxSpawned == false)
+		if (boxSpawned == null)
 		{
 			LastItemSpawn += Mathf.Min (Time.deltaTime, ItemSpawnTimer - LastItemSpawn);
 
@@ -32,17 +32,24 @@ public class ItemSpawner : MonoBehaviour {
 				Vector3 boxPos = transform.position;
 				boxPos.y += 1.5f;
 
-				GameObject go = Instantiate (ItemBoxPrefab, boxPos, ItemBoxPrefab.transform.rotation) as GameObject;
-				go.SendMessage("SetSpawner", this);
+				boxSpawned = Instantiate (ItemBoxPrefab, boxPos, ItemBoxPrefab.transform.rotation) as GameObject;
 
-				boxSpawned = true;
 				LastItemSpawn = 0f;
 			}
 		}
 	}
 
-	void OnBoxDestroy()
+	void OnTriggerEnter(Collider collider)
 	{
-		boxSpawned = false;
+		CarItemHandler picker = collider.GetComponent<CarItemHandler> ();
+		
+		if (picker != null) 
+		{
+			if(picker.OnPickItemBox(Item.RandomItem()))
+			{
+				Destroy (boxSpawned);
+				boxSpawned = null;
+			}
+		}
 	}
 }

@@ -4,10 +4,10 @@ using System.Collections;
 public class ItemBox : MonoBehaviour {
 
 	[SerializeField]
-	private float RotSpeed = 10f;
+	private float RotSpeed = 20f;
 
 	[SerializeField]
-	private float movingMaxHeight = 2f;
+	private float movingMaxHeight = 1.5f;
 	[SerializeField]
 	private float movingMinHeight = 0f;
 	[SerializeField]
@@ -59,19 +59,5 @@ public class ItemBox : MonoBehaviour {
 			ColorDir *= -1f;
 
 		GetComponent<Renderer> ().material.color = c;
-	}
-
-	void SetSpawner(ItemSpawner _spawner)
-	{
-		spawner = _spawner;
-	}
-
-	void OnTriggerEnter(Collider collider)
-	{
-		//if (collider is IItemPicker) 
-		//{
-			spawner.SendMessage ("OnBoxDestroy");
-		Destroy (gameObject);
-		//}
 	}
 }
