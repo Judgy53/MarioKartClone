@@ -8,6 +8,7 @@ public class CarWaypointHandler : MonoBehaviour {
     private Transform LastWayPoint = null;
 
     private CarController carController = null;
+    private Rigidbody carRigidbody = null;
 
     private bool isCheckingForBlocked = false;
 
@@ -15,6 +16,7 @@ public class CarWaypointHandler : MonoBehaviour {
     void Start()
     {
         carController = GetComponent<CarController>();
+        carRigidbody = GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -32,8 +34,10 @@ public class CarWaypointHandler : MonoBehaviour {
 
     public void TeleportToLastWayPoint()
     {
-        transform.position = LastWayPoint.position;
-        transform.rotation = LastWayPoint.rotation;
+        carRigidbody.position = LastWayPoint.position;
+        carRigidbody.rotation = LastWayPoint.rotation;
+        carRigidbody.velocity = Vector3.zero;
+        carRigidbody.angularVelocity = Vector3.zero;
     }
 
 
