@@ -8,7 +8,7 @@ public abstract class Item {
 		None = 0,
 		Mushroom,
 		TripleMushroom,
-		//GreenShell,
+		GreenShell,
 		//TripleGreenShell,
 		//RedShell,
 		//TripleRedShell,
@@ -31,6 +31,8 @@ public abstract class Item {
 			return new ItemMushroom();
 		case ItemType.TripleMushroom:
 			return new ItemTripleMushroom();
+		case ItemType.GreenShell:
+			return new ItemGreenShell();
 		default: 
 			return null;
 		}

@@ -45,11 +45,10 @@ public class ItemSpawner : MonoBehaviour {
 		
 		if (picker != null) 
 		{
-			if(picker.OnPickItemBox(Item.RandomItem()))
-			{
-				Destroy (boxSpawned);
-				boxSpawned = null;
-			}
+			picker.OnPickItemBox(Item.RandomItem());
+			
+			Destroy (boxSpawned);
+			boxSpawned = null;
 		}
 	}
 }

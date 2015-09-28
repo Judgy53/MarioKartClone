@@ -45,6 +45,11 @@ public class CarWaypointHandler : MonoBehaviour {
         }
     }
 
+	private void NeverGonnaGiveYouUp()
+	{
+		TeleportToLastWayPoint ();
+	}
+
     public void TeleportToLastWayPoint()
     {
         carRigidbody.position = LastWayPoint.transform.position;
