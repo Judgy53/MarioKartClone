@@ -5,31 +5,44 @@ using UnityStandardAssets.Vehicles.Car;
 public class CarWaypointHandler : MonoBehaviour {
 
     [SerializeField]
-    private Transform LastWayPoint = null;
+    private WayPoint StartingWayPoint = null;
+    private WayPoint LastWayPoint = null;
 
     private CarController carController = null;
     private Rigidbody carRigidbody = null;
 
+    private int laps = 0;
+
     private bool isCheckingForBlocked = false;
+
+    public int Laps { get { return laps; } }
 
     // Use this for initialization
     void Start()
     {
         carController = GetComponent<CarController>();
         carRigidbody = GetComponent<Rigidbody>();
+
+        LastWayPoint = StartingWayPoint;
     }
 
     void Update()
     {
-        if (carController.CurrentSpeed < 5 && !isCheckingForBlocked)
+        if (carController.CurrentSpeed < 5f && !isCheckingForBlocked)
         {
             StartCoroutine("CheckForBlocked");
         }
     }
 
-    private void SetLastWayPoint(Transform WayPoint)
+    private void SetLastWayPoint(WayPoint wayPoint)
     {
-        LastWayPoint = WayPoint;
+        if (wayPoint == LastWayPoint.Next)
+        {
+            LastWayPoint = wayPoint;
+
+            if (wayPoint == StartingWayPoint)
+                ++laps;
+        }
     }
 
 	private void NeverGonnaGiveYouUp()
@@ -39,8 +52,8 @@ public class CarWaypointHandler : MonoBehaviour {
 
     public void TeleportToLastWayPoint()
     {
-        carRigidbody.position = LastWayPoint.position;
-        carRigidbody.rotation = LastWayPoint.rotation;
+        carRigidbody.position = LastWayPoint.transform.position;
+        carRigidbody.rotation = LastWayPoint.transform.rotation;
         carRigidbody.velocity = Vector3.zero;
         carRigidbody.angularVelocity = Vector3.zero;
     }

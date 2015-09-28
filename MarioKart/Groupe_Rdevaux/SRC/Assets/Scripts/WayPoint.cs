@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class WayPointScript : MonoBehaviour {
+public class WayPoint : MonoBehaviour {
 
     [SerializeField]
-    private Transform NextWayPoint = null;
+    private WayPoint NextWayPoint = null;
+
+    public WayPoint Next { get { return NextWayPoint; } }
 
 	// Use this for initialization
 	void Start () {
@@ -20,12 +22,12 @@ public class WayPointScript : MonoBehaviour {
     {
         if (collider.gameObject.tag == "Bot")
         {
-            collider.gameObject.SendMessage("SetTarget", NextWayPoint);
+            collider.gameObject.SendMessage("SetTarget", NextWayPoint.transform);
         }
 
         if (collider.gameObject.tag == "Player" || collider.gameObject.tag == "Bot")
         {
-            collider.gameObject.SendMessage("SetLastWayPoint", transform);
+            collider.gameObject.SendMessage("SetLastWayPoint", this);
         }
     }
 }
