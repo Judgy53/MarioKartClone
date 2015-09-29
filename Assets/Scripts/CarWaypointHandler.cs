@@ -12,10 +12,16 @@ public class CarWaypointHandler : MonoBehaviour {
     private Rigidbody carRigidbody = null;
 
     private int laps = 0;
+    private int wayPointCount = 0;
 
     private bool isCheckingForBlocked = false;
 
+    public WayPoint LastWp { get { return LastWayPoint; } }
+
     public int Laps { get { return laps; } }
+    public int WayPointCount { get { return wayPointCount; } }
+
+    public int rank;
 
     // Use this for initialization
     void Start()
@@ -36,9 +42,10 @@ public class CarWaypointHandler : MonoBehaviour {
 
     private void SetLastWayPoint(WayPoint wayPoint)
     {
-        if (wayPoint == LastWayPoint.Next)
+        if (wayPoint == LastWayPoint.NextWp)
         {
             LastWayPoint = wayPoint;
+            ++wayPointCount;
 
             if (wayPoint == StartingWayPoint)
                 ++laps;
