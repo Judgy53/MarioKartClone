@@ -11,7 +11,7 @@ public class Player : CarItemHandler {
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.E)) 
 		{
-			useItem();
+			useItem(Input.GetKey(KeyCode.DownArrow));
 		}
 	}
 }

@@ -6,6 +6,7 @@ using UnityStandardAssets.Vehicles.Car;
 public class CarItemHandler : MonoBehaviour {
 
 	protected Item currentItem = null;
+	public Item CurrentItem { get { return currentItem; } }
 
 	private CarController carCtrl = null;
 	public CarController Controller { get { return carCtrl; } }
@@ -24,9 +25,9 @@ public class CarItemHandler : MonoBehaviour {
 		return true;
 	}
 
-	protected void useItem()
+	protected void useItem(bool useBehind)
 	{
 		if (currentItem != null)
-			currentItem = currentItem.use (this);
+			currentItem = currentItem.use (this, useBehind);
 	}
 }

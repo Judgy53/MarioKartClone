@@ -5,9 +5,9 @@ public class ItemTripleMushroom : ItemMushroom {
 
 	private int UseLeft = 3;
 
-	public override Item use(CarItemHandler car)
+	public override Item use(CarItemHandler car, bool useBehind)
 	{
-		base.use (car);
+		base.use (car, useBehind);
 		UseLeft--;
 
 		if (UseLeft > 0)

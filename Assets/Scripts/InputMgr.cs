@@ -20,7 +20,7 @@ public class InputMgr : MonoBehaviour {
 
         carController.Move(h, v, v, handbrake);
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown ("Fire1"))
             wpHandler.TeleportToLastWayPoint();
     }
 }

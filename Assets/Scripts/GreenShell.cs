@@ -25,6 +25,14 @@ public class GreenShell : MonoBehaviour {
 		body.AddForce (0f, GravityModifier, 0f, ForceMode.Force);
 	}
 
+	void OnCollisionEnter(Collision collision)
+	{
+		if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Bot") 
+		{
+			Debug.Log ("Shell Hit A Car !");
+		}
+	}
+
 	private void NeverGonnaGiveYouUp()
 	{
 		Destroy (gameObject);

@@ -5,6 +5,6 @@ public class NeverGonnaLetYouDown : MonoBehaviour {
 
     void OnTriggerEnter(Collider collider)
     {
-		collider.gameObject.SendMessage("NeverGonnaGiveYouUp");
+		collider.gameObject.SendMessage("NeverGonnaGiveYouUp", SendMessageOptions.DontRequireReceiver);
     }
 }
