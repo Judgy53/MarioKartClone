@@ -30,6 +30,8 @@ public class GameMgr : MonoSingleton<GameMgr> {
 
     private IEnumerator RaceStart()
     {
+        state = GameState.Start;
+
         List<Rigidbody> carBodies = new List<Rigidbody>();
 
         carBodies.Add(GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>());
@@ -49,5 +51,7 @@ public class GameMgr : MonoSingleton<GameMgr> {
 
         foreach (Rigidbody body in carBodies)
             body.constraints = RigidbodyConstraints.None;
+
+        ++state;
     }
 }
