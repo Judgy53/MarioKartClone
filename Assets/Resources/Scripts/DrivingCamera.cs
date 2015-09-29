@@ -25,6 +25,8 @@ public class DrivingCamera : MonoBehaviour {
     [SerializeField]
     private float FoVMax = 120f;
 
+	public bool FollowCar = true;
+
 	// Use this for initialization
 	void Start () {
         GameObject car = GameObject.FindGameObjectWithTag("Player");
@@ -39,9 +41,17 @@ public class DrivingCamera : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-
-        transform.position = Vector3.Lerp(transform.position, FindRigidPos(), PositionSmooth);
-        transform.rotation = Quaternion.Slerp(transform.rotation, FindRigidRot(), RotationSmooth);
+		if (FollowCar) 
+		{
+			transform.position = Vector3.Lerp (transform.position, FindRigidPos (), PositionSmooth);
+			transform.rotation = Quaternion.Slerp (transform.rotation, FindRigidRot (), RotationSmooth);
+		} 
+		else 
+		{
+			Vector3 pos = carTrf.position-transform.position;
+			Quaternion newRot = Quaternion.LookRotation(pos);
+			transform.rotation = Quaternion.Lerp(transform.rotation, newRot, RotationSmooth);
+		}
 
         camera.fieldOfView = (carController.CurrentSpeed / carController.MaxSpeed) * (FoVMax - FoVMin) + FoVMin;
 

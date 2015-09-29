@@ -32,7 +32,9 @@ public class ItemSpawner : MonoBehaviour {
 				Vector3 boxPos = transform.position;
 				boxPos.y += 1.5f;
 
-				boxSpawned = Instantiate (ItemBoxPrefab, boxPos, ItemBoxPrefab.transform.rotation) as GameObject;
+				boxSpawned = Instantiate (ItemBoxPrefab) as GameObject;
+				boxSpawned.transform.position = boxPos;
+				boxSpawned.transform.rotation = Quaternion.identity;
 
 				LastItemSpawn = 0f;
 			}

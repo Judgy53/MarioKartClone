@@ -6,7 +6,7 @@ public class GreenShell : MonoBehaviour {
 	private Rigidbody body = null;
 
 	[SerializeField]
-	private float Speed = 30f;
+	private float Speed = 40f;
 	[SerializeField]
 	private float GravityModifier = -5f;
 
@@ -19,17 +19,21 @@ public class GreenShell : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Rigidbody body = GetComponent<Rigidbody> ();
-		body.velocity = body.velocity.normalized * Speed;
+		body = GetComponent<Rigidbody> ();
 
+		body.velocity = body.velocity.normalized * Speed;
 		body.AddForce (0f, GravityModifier, 0f, ForceMode.Force);
 	}
 
 	void OnCollisionEnter(Collision collision)
 	{
-		if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Bot") 
+		CarItemHandler car = collision.gameObject.GetComponent<CarItemHandler> ();
+
+		if (car != null) 
 		{
-			Debug.Log ("Shell Hit A Car !");
+			car.OnHit();
+
+			Destroy (gameObject);
 		}
 	}
 
