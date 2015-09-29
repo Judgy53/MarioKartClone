@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityStandardAssets.Vehicles.Car;
 
-public class InputMgr : MonoBehaviour {
+public class InputMgr : MonoSingleton<InputMgr> {
 
     private CarController carController; // Controller of player's car.
     private CarWaypointHandler wpHandler; // Waypoint handler of player's car.
@@ -22,5 +22,8 @@ public class InputMgr : MonoBehaviour {
 
         if (Input.GetButtonDown ("Fire1"))
             wpHandler.TeleportToLastWayPoint();
+
+        if (Input.GetButtonDown("Cancel"))
+            UIMgr.Instance.Pause();
     }
 }

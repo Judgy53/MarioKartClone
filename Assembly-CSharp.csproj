@@ -58,6 +58,7 @@
      <Compile Include="Assets\Resources\Scripts\ItemMushroom.cs" />
      <Compile Include="Assets\Resources\Scripts\ItemSpawner.cs" />
      <Compile Include="Assets\Resources\Scripts\ItemTripleMushroom.cs" />
+     <Compile Include="Assets\Resources\Scripts\MonoSingleton.cs" />
      <Compile Include="Assets\Resources\Scripts\NeverGonnaLetYouDown.cs" />
      <Compile Include="Assets\Resources\Scripts\PauseMenuFunctions.cs" />
      <Compile Include="Assets\Resources\Scripts\Player.cs" />
@@ -67,6 +68,7 @@
      <Compile Include="Assets\Resources\Scripts\TMP_SpdDisplay.cs" />
      <Compile Include="Assets\Resources\Scripts\WayPoint.cs" />
      <Compile Include="Assets\TMP_RankDisplay.cs" />
+     <Compile Include="Assets\UIMgr.cs" />
      <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendOneOne.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\NoiseEffectShaderRGB.shader" />

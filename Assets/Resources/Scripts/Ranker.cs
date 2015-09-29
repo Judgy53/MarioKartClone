@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Ranker : MonoBehaviour {
+public class Ranker : MonoSingleton<Ranker> {
 
     [SerializeField]
     private List<CarWaypointHandler> AllTheCars;
@@ -32,6 +32,11 @@ public class Ranker : MonoBehaviour {
             rank--;
         }
 	}
+
+    public CarWaypointHandler AtRank(int rank)
+    {
+        return AllTheCars[AllTheCars.Count - rank];
+    }
 
 
     private class AdvComparer : IComparer<CarWaypointHandler>
