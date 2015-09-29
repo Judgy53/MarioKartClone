@@ -12,18 +12,20 @@ public class InputMgr : MonoSingleton<InputMgr> {
         carController = player.GetComponent<CarController>();
         wpHandler = player.GetComponent<CarWaypointHandler>();
 	}
-	
+
+    void Update () {
+        if (Input.GetButtonDown("Fire1"))
+            wpHandler.TeleportToLastWayPoint();
+
+        if (Input.GetButtonDown("Cancel"))
+            UIMgr.Instance.Pause();
+    }
+
 	void FixedUpdate () {
 	    float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
         float handbrake = Input.GetAxis("Jump");
 
         carController.Move(h, v, v, handbrake);
-
-        if (Input.GetButtonDown ("Fire1"))
-            wpHandler.TeleportToLastWayPoint();
-
-        if (Input.GetButtonDown("Cancel"))
-            UIMgr.Instance.Pause();
     }
 }

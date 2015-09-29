@@ -34,7 +34,7 @@ public class CarWaypointHandler : MonoBehaviour {
 
     void Update()
     {
-        if (carController.CurrentSpeed < 5f && !isCheckingForBlocked)
+        if (carController.CurrentSpeed < 5f && !isCheckingForBlocked && GameMgr.Instance.state != GameMgr.GameState.Start)
         {
             StartCoroutine("CheckForBlocked");
         }
