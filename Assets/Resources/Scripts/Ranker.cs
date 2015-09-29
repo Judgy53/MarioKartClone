@@ -11,11 +11,17 @@ public class Ranker : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         advComparer = new AdvComparer();
+
+        AllTheCars.Add(GameObject.FindGameObjectWithTag("Player").GetComponent<CarWaypointHandler>());
+
+        GameObject[] bots = GameObject.FindGameObjectsWithTag("Bot");
+
+        foreach (GameObject bot in bots)
+            AllTheCars.Add(bot.GetComponent<CarWaypointHandler>());
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
         AllTheCars.Sort(advComparer);
 
         int rank = AllTheCars.Count;
@@ -25,7 +31,6 @@ public class Ranker : MonoBehaviour {
             car.rank = rank;
             rank--;
         }
-	
 	}
 
 

@@ -66,6 +66,7 @@
      <Compile Include="Assets\Resources\Scripts\TMP_LapDisplay.cs" />
      <Compile Include="Assets\Resources\Scripts\TMP_SpdDisplay.cs" />
      <Compile Include="Assets\Resources\Scripts\WayPoint.cs" />
+     <Compile Include="Assets\TMP_RankDisplay.cs" />
      <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendOneOne.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\NoiseEffectShaderRGB.shader" />
