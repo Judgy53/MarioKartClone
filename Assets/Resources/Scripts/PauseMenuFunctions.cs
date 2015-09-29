@@ -17,4 +17,9 @@ public class PauseMenuFunctions : MonoBehaviour {
     {
         Application.LoadLevel(Application.loadedLevel);
     }
+
+    public void ResumeGame()
+    {
+        UIMgr.Instance.Resume();
+    }
 }
