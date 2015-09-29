@@ -46,6 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Ranker.cs" />
      <Compile Include="Assets\Scripts\CarItemHandler.cs" />
      <Compile Include="Assets\Scripts\CarWaypointHandler.cs" />
      <Compile Include="Assets\Scripts\DrivingCamera.cs" />

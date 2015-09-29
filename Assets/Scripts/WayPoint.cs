@@ -6,7 +6,7 @@ public class WayPoint : MonoBehaviour {
     [SerializeField]
     private WayPoint NextWayPoint = null;
 
-    public WayPoint Next { get { return NextWayPoint; } }
+    public WayPoint NextWp { get { return NextWayPoint; } }
 
 	// Use this for initialization
 	void Start () {
