@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\GameMgr.cs" />
+     <Compile Include="Assets\RaceStart.cs" />
      <Compile Include="Assets\Resources\Scripts\CarItemHandler.cs" />
      <Compile Include="Assets\Resources\Scripts\CarWaypointHandler.cs" />
      <Compile Include="Assets\Resources\Scripts\DrivingCamera.cs" />

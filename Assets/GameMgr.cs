@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 
 public class GameMgr : MonoSingleton<GameMgr> {
 
@@ -15,7 +14,7 @@ public class GameMgr : MonoSingleton<GameMgr> {
 
 	// Use this for initialization
 	void Start () {
-        StartCoroutine("RaceStart");
+
 	}
 	
 	// Update is called once per frame
@@ -26,32 +25,5 @@ public class GameMgr : MonoSingleton<GameMgr> {
     void FixedUpdate()
     {
 
-    }
-
-    private IEnumerator RaceStart()
-    {
-        state = GameState.Start;
-
-        List<Rigidbody> carBodies = new List<Rigidbody>();
-
-        carBodies.Add(GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>());
-
-        GameObject[] bots = GameObject.FindGameObjectsWithTag("Bot");
-
-        foreach (GameObject bot in bots)
-            carBodies.Add(bot.GetComponent<Rigidbody>());
-
-
-        foreach (Rigidbody body in carBodies)
-            body.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
-
-
-        yield return new WaitForSeconds(3f);
-
-
-        foreach (Rigidbody body in carBodies)
-            body.constraints = RigidbodyConstraints.None;
-
-        ++state;
     }
 }
