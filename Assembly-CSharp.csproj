@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Resources\Scripts\CarItemHandler.cs" />
      <Compile Include="Assets\Resources\Scripts\CarWaypointHandler.cs" />
+     <Compile Include="Assets\Resources\Scripts\Clock.cs" />
      <Compile Include="Assets\Resources\Scripts\DrivingCamera.cs" />
      <Compile Include="Assets\Resources\Scripts\FuckYourEyesScript.cs" />
      <Compile Include="Assets\Resources\Scripts\GameMgr.cs" />
@@ -66,6 +67,7 @@
      <Compile Include="Assets\Resources\Scripts\Player.cs" />
      <Compile Include="Assets\Resources\Scripts\RaceStart.cs" />
      <Compile Include="Assets\Resources\Scripts\Ranker.cs" />
+     <Compile Include="Assets\Resources\Scripts\TMP_ClockDisplay.cs" />
      <Compile Include="Assets\Resources\Scripts\TMP_ItemDisplay.cs" />
      <Compile Include="Assets\Resources\Scripts\TMP_LapDisplay.cs" />
      <Compile Include="Assets\Resources\Scripts\TMP_RankDisplay.cs" />
