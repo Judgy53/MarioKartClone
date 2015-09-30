@@ -18,7 +18,7 @@ public class GreenShell : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		body = GetComponent<Rigidbody> ();
 
 		body.velocity = body.velocity.normalized * Speed;
@@ -27,11 +27,11 @@ public class GreenShell : MonoBehaviour {
 
 	void OnCollisionEnter(Collision collision)
 	{
-		CarItemHandler car = collision.gameObject.GetComponent<CarItemHandler> ();
+		IItemCollision col = collision.gameObject.GetComponent<IItemCollision> ();
 
-		if (car != null) 
+		if (col != null) 
 		{
-			car.OnHit();
+			col.OnHit(gameObject);
 
 			Destroy (gameObject);
 		}

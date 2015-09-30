@@ -3,10 +3,13 @@ using System.Collections;
 using UnityStandardAssets.Vehicles.Car;
 
 [RequireComponent(typeof(CarController))]
-public class CarItemHandler : MonoBehaviour {
+public class CarItemHandler : MonoBehaviour, IItemCollision {
 
 	protected Item currentItem = null;
 	public Item CurrentItem { get { return currentItem; } }
+
+	private Item pickedItem = null; // used for random display
+	private bool RandomDisplaying = true;
 
 	private CarController carCtrl = null;
 	public CarController Controller { get { return carCtrl; } }
@@ -15,8 +18,6 @@ public class CarItemHandler : MonoBehaviour {
 
 	[SerializeField]
 	private float OnHitTurns = 2f;
-	[SerializeField]
-	private float OnHitSpeedRatio = 0.1f;
 
 	[SerializeField]
 	private DrivingCamera cam = null;
@@ -26,27 +27,52 @@ public class CarItemHandler : MonoBehaviour {
 	void Start()
 	{
 		body = GetComponent<Rigidbody> ();
+		carCtrl = GetComponent<CarController> ();
 	}
 
 	public bool OnPickItemBox(Item item)
 	{
-		if (currentItem != null)
+		if (currentItem != null || pickedItem != null)
 			return false;
 
-		currentItem = item;
+		pickedItem = item;
 
-		carCtrl = GetComponent<CarController> ();
+		StartCoroutine ("RandomItemDisplay");
 
 		return true;
 	}
 
+	private IEnumerator RandomItemDisplay()
+	{
+		currentItem = Item.RandomItem ();
+		yield return new WaitForSeconds(0.1f); // execute one frame before to avoid null (cheaty)
+
+		for (int i = 0; i < 30 && RandomDisplaying; i++) 
+		{
+			Item newItem = Item.RandomItem();
+			while(newItem == null || (newItem.ToString() == currentItem.ToString()))
+				newItem = Item.RandomItem();
+			currentItem = newItem;
+			yield return new WaitForSeconds(0.1f);
+		}
+
+		currentItem = pickedItem;
+		pickedItem = null;
+
+		RandomDisplaying = true;
+	}
+
 	protected void useItem(bool useBehind)
 	{
-		if (currentItem != null)
+		if (pickedItem != null) // random displaying
+		{
+			RandomDisplaying = false;
+		}
+		else if (currentItem != null) // normal use
 			currentItem = currentItem.use (this, useBehind);
 	}
 	
-	public void OnHit()
+	public void OnHit(GameObject GaO)
 	{
 		StartCoroutine ("ApplyHit");
 	}
@@ -61,6 +87,10 @@ public class CarItemHandler : MonoBehaviour {
 			Vector3 brakeSpeed = body.velocity * 0.9f / steps;
 			
 			body.AddForce (0f, OnHitTurns * 3.5f * body.mass, 0f, ForceMode.Impulse);
+
+			//Hard Slow on impact
+			body.velocity /= 2f;
+			brakeSpeed /= 2f;
 
 			if(gameObject.tag == "Player")
 				cam.FollowCar = false;
