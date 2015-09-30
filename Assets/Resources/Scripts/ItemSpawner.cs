@@ -45,7 +45,7 @@ public class ItemSpawner : MonoBehaviour {
 	{
 		CarItemHandler picker = collider.GetComponent<CarItemHandler> ();
 		
-		if (picker != null) 
+		if (picker != null && boxSpawned != null) 
 		{
 			picker.OnPickItemBox(Item.RandomItem());
 			
