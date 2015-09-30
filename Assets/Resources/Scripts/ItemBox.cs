@@ -34,14 +34,6 @@ public class ItemBox : MonoBehaviour {
 	}
 
 	void Update () {
-		if(Mathf.Abs(transform.position.x) < 1f && Mathf.Abs(transform.position.x) < 1f)
-		{
-			Debug.Log ("I'm Wrong !?!?!?!?");
-			Debug.Log ("My Spawner : " + spawner.ToString());
-			Debug.Log ("X: " + spawner.transform.position.x);
-			Debug.Log ("Z: " + spawner.transform.position.z);
-			Debug.Break();
-		}
 
 		transform.Rotate (0f, RotSpeed * Time.deltaTime, 0f);
 
@@ -53,7 +45,7 @@ public class ItemBox : MonoBehaviour {
 
 		transform.position = pos;
 
-		if (Mathf.Approximately(pos.y, origHeight + movingMaxHeight) || Mathf.Approximately(pos.y, origHeight + movingMinHeight)) 
+		if (pos.y >= origHeight + movingMaxHeight || pos.y <= origHeight + movingMinHeight) 
 		{
 			movingUp = !movingUp;
 		}
@@ -75,6 +67,7 @@ public class ItemBox : MonoBehaviour {
 		spawner = _spawner;
 	}
 
+	//TODO
 	void Explode()
 	{
 		//GameObject prefabExplode = Resources.Load ("Prefabs/ItemBoxExplode") as GameObject;

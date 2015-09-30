@@ -26,7 +26,7 @@ public class ItemSpawner : MonoBehaviour {
 
 			if (LastItemSpawn >= ItemSpawnTimer) {
 				Vector3 boxPos = transform.position;
-				boxPos.y += 1.5f;
+				//boxPos.y += 1.5f;
 
 				boxSpawned = Instantiate (ItemBoxPrefab) as GameObject;
 				boxSpawned.transform.position = boxPos;
