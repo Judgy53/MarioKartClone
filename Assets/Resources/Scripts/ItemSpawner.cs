@@ -7,19 +7,15 @@ public class ItemSpawner : MonoBehaviour {
 	private float ItemSpawnTimer = 5f;
 	private float LastItemSpawn = 5f;
 
-	[SerializeField]
-	private GameObject ItemBoxPrefab = null;
-
 	private GameObject boxSpawned = null;
+
+	private GameObject ItemBoxPrefab = null;
 
 	// Use this for initialization
 	void Start () {
 		LastItemSpawn = ItemSpawnTimer;
 
-		if (ItemBoxPrefab == null) 
-		{
-			Debug.LogError("Please bind the ItemBox Prefab");
-		}
+		ItemBoxPrefab = Resources.Load ("Prefabs/ItemBox") as GameObject;
 	}
 	
 	// Update is called once per frame
@@ -30,11 +26,13 @@ public class ItemSpawner : MonoBehaviour {
 
 			if (LastItemSpawn >= ItemSpawnTimer) {
 				Vector3 boxPos = transform.position;
-				boxPos.y += 1.5f;
+				//boxPos.y += 1.5f;
 
 				boxSpawned = Instantiate (ItemBoxPrefab) as GameObject;
 				boxSpawned.transform.position = boxPos;
 				boxSpawned.transform.rotation = Quaternion.identity;
+
+				boxSpawned.SendMessage("SetSpawner", this);
 
 				LastItemSpawn = 0f;
 			}
@@ -48,6 +46,8 @@ public class ItemSpawner : MonoBehaviour {
 		if (picker != null && boxSpawned != null) 
 		{
 			picker.OnPickItemBox(Item.RandomItem());
+
+			boxSpawned.SendMessage("Explode");
 			
 			Destroy (boxSpawned);
 			boxSpawned = null;

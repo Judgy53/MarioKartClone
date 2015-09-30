@@ -15,12 +15,12 @@ public class ItemBox : MonoBehaviour {
 
 	private float origHeight;
 
-	private ItemSpawner spawner;
-
 	private bool movingUp = true;
 
 	private float ColorCursor = 0f;
 	private float ColorDir = 1f;
+
+	private ItemSpawner spawner = null;
 
 	void Start () {
 		origHeight = transform.position.y;
@@ -34,6 +34,7 @@ public class ItemBox : MonoBehaviour {
 	}
 
 	void Update () {
+
 		transform.Rotate (0f, RotSpeed * Time.deltaTime, 0f);
 
 		Vector3 pos = transform.position;
@@ -44,7 +45,7 @@ public class ItemBox : MonoBehaviour {
 
 		transform.position = pos;
 
-		if (Mathf.Approximately(pos.y, origHeight + movingMaxHeight) || Mathf.Approximately(pos.y, origHeight + movingMinHeight)) 
+		if (pos.y >= origHeight + movingMaxHeight || pos.y <= origHeight + movingMinHeight) 
 		{
 			movingUp = !movingUp;
 		}
@@ -59,5 +60,20 @@ public class ItemBox : MonoBehaviour {
 			ColorDir *= -1f;
 
 		GetComponent<Renderer> ().material.color = c;
+	}
+
+	void SetSpawner(ItemSpawner _spawner)
+	{
+		spawner = _spawner;
+	}
+
+	//TODO
+	void Explode()
+	{
+		//GameObject prefabExplode = Resources.Load ("Prefabs/ItemBoxExplode") as GameObject;
+
+		//ItemBoxExplode box = Instantiate (prefabExplode, transform.position, transform.rotation) as ItemBoxExplode;
+
+		//box.Setup (this);
 	}
 }

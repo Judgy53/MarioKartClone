@@ -12,8 +12,6 @@ public class ItemGreenShell : Item {
 		float dir = useBehind ? -1f : 1f;
 
 		Vector3 translation = car.transform.position + car.transform.forward * 5f * dir;
-		//Debug.Log (prefab.GetComponent<Collider> ().bounds.extents.y);
-		//translation.y += prefab.GetComponent<BoxCollider> ().bounds.extents.y;
 
 		Quaternion rotation = car.transform.rotation;
 		if (useBehind)
