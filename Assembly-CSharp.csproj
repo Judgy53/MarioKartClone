@@ -52,6 +52,7 @@
      <Compile Include="Assets\Resources\Scripts\FuckYourEyesScript.cs" />
      <Compile Include="Assets\Resources\Scripts\GameMgr.cs" />
      <Compile Include="Assets\Resources\Scripts\GreenShell.cs" />
+     <Compile Include="Assets\Resources\Scripts\IItemCollision.cs" />
      <Compile Include="Assets\Resources\Scripts\InputMgr.cs" />
      <Compile Include="Assets\Resources\Scripts\Item.cs" />
      <Compile Include="Assets\Resources\Scripts\ItemBox.cs" />

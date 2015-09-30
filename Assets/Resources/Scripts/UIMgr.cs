@@ -48,8 +48,6 @@ public class UIMgr : MonoSingleton<UIMgr> {
 
         Text[] numbers = RaceCountDown.GetComponentsInChildren<Text>();
 
-        Debug.Log(numbers.Length.ToString());
-
         Text[] orderedNums = new Text[3];
 
         for (int ite = 0; ite < 3; ++ite)
