@@ -42,12 +42,12 @@ public class TMP_ClockDisplay : MonoBehaviour {
         for (ite = 0; ite < 2; ++ite)
             text.text += digits[ite].ToString();
 
-        text.text += ":";
+        text.text += "'";
 
         for (ite = 2; ite < 4; ++ite)
             text.text += digits[ite].ToString();
 
-        text.text += ":";
+        text.text += "\"";
 
         for (ite = 4; ite < 7; ++ite)
             text.text += digits[ite].ToString();
