@@ -32,7 +32,7 @@ public class CarItemHandler : MonoBehaviour, IItemCollision {
 
 	public bool OnPickItemBox(Item item)
 	{
-		if (currentItem != null || pickedItem != null || Hitted == true)
+		if (currentItem != null || pickedItem != null)
 			return false;
 
 		pickedItem = item;
@@ -64,6 +64,9 @@ public class CarItemHandler : MonoBehaviour, IItemCollision {
 
 	protected void useItem(bool useBehind)
 	{
+		if (Hitted) //can't use item while hit animation 
+			return;
+
 		if (pickedItem != null) // random displaying
 		{
 			RandomDisplaying = false;

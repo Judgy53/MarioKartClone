@@ -4,31 +4,24 @@ using System.Collections;
 public class ItemBox : MonoBehaviour {
 
 	[SerializeField]
-	private float RotSpeed = 20f;
+	protected float RotSpeed = 20f;
 
 	[SerializeField]
-	private float movingMaxHeight = 1.5f;
+	protected float MovingMaxHeight = 1.5f;
 	[SerializeField]
-	private float movingMinHeight = 0f;
+	protected float MovingMinHeight = 0f;
 	[SerializeField]
-	private float movingSpeed = 0.5f;
+	protected float MovingSpeed = 0.5f;
 
-	private float origHeight;
+	protected float OrigHeight;
 
-	private bool movingUp = true;
+	protected bool MovingUp = true;
 
-	private float ColorCursor = 0f;
-	private float ColorDir = 1f;
+	protected float ColorCursor = 0f;
+	protected float ColorDir = 1f;
 
 	protected virtual void Start () {
-		origHeight = transform.position.y;
-		ColorCursor = Random.Range (0, 128);
-		ColorDir = Random.Range (0, 2);
-
-		movingUp = Random.Range (0, 2) == 1 ? true : false;
-
-		transform.Rotate(Random.value * 45f, Random.value * 360.0f, Random.value * 45f);
-		transform.Translate(0f, Random.Range (movingMinHeight, movingMaxHeight), 0f);
+		Setup ();
 	}
 
 	protected virtual void Update () {
@@ -36,16 +29,16 @@ public class ItemBox : MonoBehaviour {
 		transform.Rotate (0f, RotSpeed * Time.deltaTime, 0f);
 
 		Vector3 pos = transform.position;
-		if (movingUp) 
-			pos.y = Mathf.MoveTowards(pos.y, origHeight + movingMaxHeight, movingSpeed);
+		if (MovingUp) 
+			pos.y = Mathf.MoveTowards(pos.y, OrigHeight + MovingMaxHeight, MovingSpeed * Time.deltaTime);
 		else
-			pos.y = Mathf.MoveTowards(pos.y, origHeight + movingMinHeight, movingSpeed);
+			pos.y = Mathf.MoveTowards(pos.y, OrigHeight + MovingMinHeight, MovingSpeed * Time.deltaTime);
 
 		transform.position = pos;
 
-		if (pos.y >= origHeight + movingMaxHeight || pos.y <= origHeight + movingMinHeight) 
+		if (pos.y >= OrigHeight + MovingMaxHeight || pos.y <= OrigHeight + MovingMinHeight) 
 		{
-			movingUp = !movingUp;
+			MovingUp = !MovingUp;
 		}
 
 		Color c = GetColor ();
@@ -60,8 +53,19 @@ public class ItemBox : MonoBehaviour {
 		SetColor(c);
 	}
 
-	//TODO
-	void Explode()
+	protected void Setup() // Separate from Start to allow delayed init
+	{
+		OrigHeight = transform.position.y;
+		ColorCursor = Random.Range (0, 128);
+		ColorDir = Random.Range (0, 2);
+		
+		MovingUp = Random.Range (0, 2) == 1 ? true : false;
+		
+		transform.Rotate(Random.value * 45f, Random.value * 360.0f, Random.value * 45f);
+		transform.Translate(0f, Random.Range (MovingMinHeight, MovingMaxHeight), 0f);
+	}
+	
+	protected void Explode()
 	{
 		GameObject prefabExplode = Resources.Load ("Prefabs/ItemBoxExplode") as GameObject;
 
