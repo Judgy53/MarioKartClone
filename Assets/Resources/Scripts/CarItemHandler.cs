@@ -32,7 +32,7 @@ public class CarItemHandler : MonoBehaviour, IItemCollision {
 
 	public bool OnPickItemBox(Item item)
 	{
-		if (currentItem != null || pickedItem != null)
+		if (currentItem != null || pickedItem != null || Hitted == true)
 			return false;
 
 		pickedItem = item;

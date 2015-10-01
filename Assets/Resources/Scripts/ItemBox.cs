@@ -20,9 +20,7 @@ public class ItemBox : MonoBehaviour {
 	private float ColorCursor = 0f;
 	private float ColorDir = 1f;
 
-	private ItemSpawner spawner = null;
-
-	void Start () {
+	protected virtual void Start () {
 		origHeight = transform.position.y;
 		ColorCursor = Random.Range (0, 128);
 		ColorDir = Random.Range (0, 2);
@@ -33,7 +31,7 @@ public class ItemBox : MonoBehaviour {
 		transform.Translate(0f, Random.Range (movingMinHeight, movingMaxHeight), 0f);
 	}
 
-	void Update () {
+	protected virtual void Update () {
 
 		transform.Rotate (0f, RotSpeed * Time.deltaTime, 0f);
 
@@ -50,7 +48,7 @@ public class ItemBox : MonoBehaviour {
 			movingUp = !movingUp;
 		}
 
-		Color c = GetComponent<Renderer> ().material.color;
+		Color c = GetColor ();
 		c.b = (128f + ColorCursor) / 256f;
 		c.g = (256f - ColorCursor) / 256f;
 
@@ -59,21 +57,30 @@ public class ItemBox : MonoBehaviour {
 		if (ColorCursor >= 128f || ColorCursor <= 0f) 
 			ColorDir *= -1f;
 
-		GetComponent<Renderer> ().material.color = c;
-	}
-
-	void SetSpawner(ItemSpawner _spawner)
-	{
-		spawner = _spawner;
+		SetColor(c);
 	}
 
 	//TODO
 	void Explode()
 	{
-		//GameObject prefabExplode = Resources.Load ("Prefabs/ItemBoxExplode") as GameObject;
+		GameObject prefabExplode = Resources.Load ("Prefabs/ItemBoxExplode") as GameObject;
 
-		//ItemBoxExplode box = Instantiate (prefabExplode, transform.position, transform.rotation) as ItemBoxExplode;
+		GameObject GaO = Instantiate (prefabExplode) as GameObject;
+		GaO.transform.position = transform.position;
+		GaO.transform.rotation = Quaternion.identity;
 
-		//box.Setup (this);
+		ItemBoxExplode box = GaO.GetComponent<ItemBoxExplode> ();
+
+		box.SetColor (GetComponent<Renderer> ().material.color);
+	}
+
+	public void SetColor(Color color)
+	{
+		GetComponent<Renderer> ().material.color = color;
+	}
+
+	public Color GetColor()
+	{
+		return GetComponent<Renderer> ().material.color;
 	}
 }
