@@ -82,6 +82,11 @@ public class UIMgr : MonoSingleton<UIMgr> {
         RaceCountDown.gameObject.SetActive(false);
     }
 
+    public void EndOfLapDisplay()
+    {
+        InGameInterface.BroadcastMessage("EndOfLap");
+    }
+
     public void NoUI()
     {
         PauseMenu.gameObject.SetActive(false);
