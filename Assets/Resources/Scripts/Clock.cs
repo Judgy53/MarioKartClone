@@ -8,7 +8,6 @@ public class Clock : MonoBehaviour {
     private bool hasBeenStarted = false;
 
     public float LocalTime { get { return hasBeenStarted ? Time.time - startTime : 0f; } }
-    public float LocalTimeAsMs { get { return LocalTime * 1000f; } }
 
     public bool HasBeenStarted { get { return hasBeenStarted; } } 
 
