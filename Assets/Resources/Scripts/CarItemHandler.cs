@@ -19,7 +19,6 @@ public class CarItemHandler : MonoBehaviour, IItemCollision {
 	[SerializeField]
 	private float OnHitTurns = 2f;
 
-	[SerializeField]
 	private DrivingCamera cam = null;
 
 	private bool Hitted = false;
@@ -28,6 +27,7 @@ public class CarItemHandler : MonoBehaviour, IItemCollision {
 	{
 		body = GetComponent<Rigidbody> ();
 		carCtrl = GetComponent<CarController> ();
+        cam = Camera.main.GetComponent<DrivingCamera>();
 	}
 
 	public bool OnPickItemBox(Item item)
