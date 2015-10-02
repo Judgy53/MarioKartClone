@@ -12,8 +12,6 @@ public class CarWaypointHandler : MonoBehaviour {
     private CarController carController = null;
     private Rigidbody carRigidbody = null;
 
-    private Clock raceClock = null;
-
     private int laps = 0;
     private int waypointCount = 0;
     private float timeAtLastLap = 0;
@@ -33,7 +31,6 @@ public class CarWaypointHandler : MonoBehaviour {
     {
         carController = GetComponent<CarController>();
         carRigidbody = GetComponent<Rigidbody>();
-        raceClock = GameObject.FindGameObjectWithTag("RaceClock").GetComponent<Clock>();
 
         LastWaypoint = StartingWaypoint;
     }
@@ -44,6 +41,11 @@ public class CarWaypointHandler : MonoBehaviour {
         {
             StartCoroutine("CheckForBlocked");
         }
+    }
+
+    private void SetStartingWaypoint(Waypoint startWp)  // To call only on level initialization.
+    {
+        StartingWaypoint = startWp;
     }
 
     private void SetLastWaypoint(Waypoint Waypoint)
@@ -60,7 +62,7 @@ public class CarWaypointHandler : MonoBehaviour {
                 if (gameObject.tag == "Player") // Should not stay that way.
                     UIMgr.Instance.EndOfLapDisplay();
 
-                timeAtLastLap = raceClock.LocalTime;
+                timeAtLastLap = LevelMgr.Instance.raceClock.LocalTime;
             }
         }
     }

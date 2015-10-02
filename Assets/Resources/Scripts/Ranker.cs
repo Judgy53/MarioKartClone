@@ -6,11 +6,13 @@ public class Ranker : MonoSingleton<Ranker> {
 
     [SerializeField]
     private List<CarWaypointHandler> AllTheCars;
-    private AdvComparer advComparer;
+    private CarPosComparer carPosComparer;
 
 	// Use this for initialization
 	void Start () {
-        advComparer = new AdvComparer();
+        carPosComparer = new CarPosComparer();
+
+        AllTheCars = new List<CarWaypointHandler>();
 
         AllTheCars.Add(GameObject.FindGameObjectWithTag("Player").GetComponent<CarWaypointHandler>());
 
@@ -22,7 +24,7 @@ public class Ranker : MonoSingleton<Ranker> {
 	
 	// Update is called once per frame
 	void Update () {
-        AllTheCars.Sort(advComparer);
+        AllTheCars.Sort(carPosComparer);
 
         int rank = AllTheCars.Count;
 
@@ -39,7 +41,7 @@ public class Ranker : MonoSingleton<Ranker> {
     }
 
 
-    private class AdvComparer : IComparer<CarWaypointHandler>
+    private class CarPosComparer : IComparer<CarWaypointHandler>
     {
         public int Compare(CarWaypointHandler car1, CarWaypointHandler car2)
         {

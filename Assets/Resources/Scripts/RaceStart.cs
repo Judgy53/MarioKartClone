@@ -4,11 +4,10 @@ using System.Collections.Generic;
 
 public class RaceStart : MonoBehaviour {
 
-    Clock raceClock;
     List<Rigidbody> carBodies;
 
 	// Use this for initialization
-	void Start () { // Getting the rigidbodies to block then launching coroutine and the race clock.
+	void Start () { // Getting the rigidbodies to block then launching coroutine.
         carBodies = new List<Rigidbody>();
 
         carBodies.Add(GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>());
@@ -17,8 +16,6 @@ public class RaceStart : MonoBehaviour {
 
         foreach (GameObject bot in bots)
             carBodies.Add(bot.GetComponent<Rigidbody>());
-
-        raceClock = GameObject.FindGameObjectWithTag("RaceClock").GetComponent<Clock>();
 
         StartCoroutine("CountDown");
 	}
@@ -43,7 +40,7 @@ public class RaceStart : MonoBehaviour {
 
         yield return new WaitForSeconds(4f);
 
-        raceClock.StartClock();
+        LevelMgr.Instance.raceClock.StartClock();
         ReleaseCars();
 
         GameMgr.Instance.state++;
