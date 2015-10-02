@@ -33,7 +33,7 @@ public class CarWaypointHandler : MonoBehaviour {
     {
         carController = GetComponent<CarController>();
         carRigidbody = GetComponent<Rigidbody>();
-        //raceClock = GameObject.FindGameObjectWithTag("RaceClock").GetComponent<Clock>();
+        raceClock = GameObject.FindGameObjectWithTag("RaceClock").GetComponent<Clock>();
 
         LastWaypoint = StartingWaypoint;
     }
