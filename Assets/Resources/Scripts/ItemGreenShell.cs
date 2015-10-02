@@ -7,11 +7,9 @@ public class ItemGreenShell : Item {
 	{
 		GameObject prefab = Resources.Load ("prefabs/GreenShell") as GameObject;
 
-		prefab.transform.position = car.transform.position + car.transform.forward;
+		float dir = useBehind ? -0.75f : 1f;
 
-		float dir = useBehind ? -1f : 1f;
-
-		Vector3 translation = car.transform.position + car.transform.forward * 5f * dir;
+		Vector3 translation = car.transform.position + car.transform.forward * 6f * dir;
 
 		Quaternion rotation = car.transform.rotation;
 		if (useBehind)

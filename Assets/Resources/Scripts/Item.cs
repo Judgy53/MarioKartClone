@@ -15,7 +15,7 @@ public abstract class Item {
 		//BobOmb,
 		//Banana,
 		//TripleBanana,
-		//TrappedCube,
+		TrappedCube,
 		//FuckYourEyesStar,
 
 		Count
@@ -33,6 +33,8 @@ public abstract class Item {
 			return new ItemTripleMushroom();
 		case ItemType.GreenShell:
 			return new ItemGreenShell();
+		case ItemType.TrappedCube:
+			return new ItemTrappedCube();
 		default: 
 			return null;
 		}

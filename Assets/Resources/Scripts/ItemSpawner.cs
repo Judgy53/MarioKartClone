@@ -26,13 +26,10 @@ public class ItemSpawner : MonoBehaviour {
 
 			if (LastItemSpawn >= ItemSpawnTimer) {
 				Vector3 boxPos = transform.position;
-				//boxPos.y += 1.5f;
 
 				boxSpawned = Instantiate (ItemBoxPrefab) as GameObject;
 				boxSpawned.transform.position = boxPos;
 				boxSpawned.transform.rotation = Quaternion.identity;
-
-				boxSpawned.SendMessage("SetSpawner", this);
 
 				LastItemSpawn = 0f;
 			}
