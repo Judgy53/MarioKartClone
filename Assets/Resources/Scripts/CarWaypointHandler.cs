@@ -5,8 +5,9 @@ using UnityStandardAssets.Vehicles.Car;
 public class CarWaypointHandler : MonoBehaviour {
 
     [SerializeField]
-    private WayPoint StartingWayPoint = null;
-    private WayPoint LastWayPoint = null;
+    private Waypoint StartingWaypoint = null;
+    [SerializeField]
+    private Waypoint LastWaypoint = null;
 
     private CarController carController = null;
     private Rigidbody carRigidbody = null;
@@ -14,15 +15,15 @@ public class CarWaypointHandler : MonoBehaviour {
     private Clock raceClock = null;
 
     private int laps = 0;
-    private int wayPointCount = 0;
+    private int waypointCount = 0;
     private float timeAtLastLap = 0;
 
     private bool isCheckingForBlocked = false;
 
-    public WayPoint LastWp { get { return LastWayPoint; } }
+    public Waypoint LastWp { get { return LastWaypoint; } }
 
     public int Laps { get { return laps; } }
-    public int WayPointCount { get { return wayPointCount; } }
+    public int WaypointCount { get { return waypointCount; } }
     public float TimeAtLastLap { get { return timeAtLastLap; } }
 
     public int rank;
@@ -32,9 +33,9 @@ public class CarWaypointHandler : MonoBehaviour {
     {
         carController = GetComponent<CarController>();
         carRigidbody = GetComponent<Rigidbody>();
-        raceClock = GameObject.FindGameObjectWithTag("RaceClock").GetComponent<Clock>();
+        //raceClock = GameObject.FindGameObjectWithTag("RaceClock").GetComponent<Clock>();
 
-        LastWayPoint = StartingWayPoint;
+        LastWaypoint = StartingWaypoint;
     }
 
     void Update()
@@ -45,14 +46,14 @@ public class CarWaypointHandler : MonoBehaviour {
         }
     }
 
-    private void SetLastWayPoint(WayPoint wayPoint)
+    private void SetLastWaypoint(Waypoint Waypoint)
     {
-        if (wayPoint == LastWayPoint.NextWp)
+        if (Waypoint == LastWaypoint.NextWp)
         {
-            LastWayPoint = wayPoint;
-            ++wayPointCount;
+            LastWaypoint = Waypoint;
+            ++waypointCount;
 
-            if (wayPoint == StartingWayPoint)
+            if (Waypoint == StartingWaypoint)
             {
                 ++laps;
 
@@ -66,13 +67,13 @@ public class CarWaypointHandler : MonoBehaviour {
 
 	private void NeverGonnaGiveYouUp()
 	{
-		TeleportToLastWayPoint ();
+		TeleportToLastWaypoint ();
 	}
 
-    public void TeleportToLastWayPoint()
+    public void TeleportToLastWaypoint()
     {
-        carRigidbody.position = LastWayPoint.transform.position;
-        carRigidbody.rotation = LastWayPoint.transform.rotation;
+        carRigidbody.position = LastWaypoint.transform.position;
+        carRigidbody.rotation = LastWaypoint.transform.rotation;
         carRigidbody.velocity = Vector3.zero;
         carRigidbody.angularVelocity = Vector3.zero;
     }
@@ -88,7 +89,7 @@ public class CarWaypointHandler : MonoBehaviour {
         }
 
         if (carController.CurrentSpeed < 5f)
-            TeleportToLastWayPoint();
+            TeleportToLastWaypoint();
 
         isCheckingForBlocked = false;
     }

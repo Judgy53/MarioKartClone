@@ -43,10 +43,10 @@ public class Ranker : MonoSingleton<Ranker> {
     {
         public int Compare(CarWaypointHandler car1, CarWaypointHandler car2)
         {
-            if (car1.WayPointCount > car2.WayPointCount)
+            if (car1.WaypointCount > car2.WaypointCount)
                 return 1;   // Car1 is in front of car2.
 
-            else if (car1.WayPointCount < car2.WayPointCount)
+            else if (car1.WaypointCount < car2.WaypointCount)
                 return -1;  // Car2 is in front of car1;
 
             else

@@ -15,7 +15,7 @@ public class InputMgr : MonoSingleton<InputMgr> {
 
     void Update () {
         if (Input.GetButtonDown("Fire1"))
-            wpHandler.TeleportToLastWayPoint();
+            wpHandler.TeleportToLastWaypoint();
 
         if (Input.GetButtonDown("Cancel"))
             UIMgr.Instance.Pause();

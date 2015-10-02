@@ -17,6 +17,6 @@ public class TMP_LapDisplay : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        text.text = "Lap: " + ((int)carWpHandler.Laps).ToString() + "/999";
+        text.text = "Lap: " + ((int)carWpHandler.Laps + 1).ToString() + "/999";
     }
 }
