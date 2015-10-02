@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GreenShell : MonoBehaviour {
+public class GreenShell : MonoBehaviour, IItemCollision {
 
 	private Rigidbody body = null;
 
@@ -35,6 +35,11 @@ public class GreenShell : MonoBehaviour {
 
 			Destroy (gameObject);
 		}
+	}
+
+	public void OnHit(GameObject GaO)
+	{
+		Destroy (gameObject);
 	}
 
 	private void NeverGonnaGiveYouUp()

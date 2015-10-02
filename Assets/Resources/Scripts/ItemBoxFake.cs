@@ -9,7 +9,6 @@ public class ItemBoxFake : ItemBox {
 
 	// Use this for initialization
 	protected override void Start () {
-		//MovingMaxHeight = 1.0f;
 		col = GetComponent<Collider> ();
 
 		Color c = GetColor ();
