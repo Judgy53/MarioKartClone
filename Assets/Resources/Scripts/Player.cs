@@ -8,7 +8,9 @@ public class Player : CarItemHandler {
 		{
 			//OnHit ();
 			useItem(Input.GetKey(KeyCode.DownArrow));
-			//currentItem = new ItemBanana();
+
+			//if(currentItem == null)
+			//	currentItem = new ItemTripleBanana();
 		}
 	}
 }

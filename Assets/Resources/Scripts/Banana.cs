@@ -4,6 +4,8 @@ using System.Collections;
 public class Banana : MonoBehaviour {
 
 	private Collider col = null;
+
+	public bool Updatable = true;
 	
 	// Use this for initialization
 	void Start () {

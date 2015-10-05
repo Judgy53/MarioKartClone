@@ -6,7 +6,7 @@ public class DrivingCamera : MonoBehaviour {
 
     private Transform carTrf = null;
     private CarController carController = null;
-    private Camera camera;
+    private Camera cam;
 
     [SerializeField]
     private float ZOffSet = 1f;
@@ -33,7 +33,7 @@ public class DrivingCamera : MonoBehaviour {
         carTrf = car.transform;
         carController = car.GetComponent<CarController>();
 
-        camera = GetComponent<Camera>();
+        cam = GetComponent<Camera>();
 
         transform.position = FindRigidPos();
         transform.rotation = FindRigidRot();
@@ -53,7 +53,7 @@ public class DrivingCamera : MonoBehaviour {
 			transform.rotation = Quaternion.Lerp(transform.rotation, newRot, RotationSmooth);
 		}
 
-        camera.fieldOfView = (carController.CurrentSpeed / carController.MaxSpeed) * (FoVMax - FoVMin) + FoVMin;
+        cam.fieldOfView = (carController.CurrentSpeed / carController.MaxSpeed) * (FoVMax - FoVMin) + FoVMin;
 
 	}
 

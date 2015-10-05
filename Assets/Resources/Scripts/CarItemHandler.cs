@@ -30,6 +30,14 @@ public class CarItemHandler : MonoBehaviour, IItemCollision {
         cam = Camera.main.GetComponent<DrivingCamera>();
 	}
 
+	void FixedUpdate()
+	{
+		if (currentItem is IItemUpdatable) 
+		{
+			((IItemUpdatable)currentItem).Update(this);
+		}
+	}
+
 	public bool OnPickItemBox(Item item)
 	{
 		if (currentItem != null || pickedItem != null)

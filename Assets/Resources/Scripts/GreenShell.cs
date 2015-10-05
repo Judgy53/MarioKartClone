@@ -10,19 +10,21 @@ public class GreenShell : MonoBehaviour, IItemCollision {
 	[SerializeField]
 	private float GravityModifier = -5f;
 
-	// Use this for initialization
+	public bool Updatable = true;
+	
 	void Start () {
 		body = GetComponent<Rigidbody> ();
 
-		body.AddForce (transform.forward, ForceMode.Impulse);
+		if (Updatable)
+			body.AddForce (transform.forward, ForceMode.Impulse);
 	}
-	
-	// Update is called once per frame
-	void FixedUpdate () {
-		body = GetComponent<Rigidbody> ();
 
-		body.velocity = body.velocity.normalized * Speed;
-		body.AddForce (0f, GravityModifier, 0f, ForceMode.Force);
+	void FixedUpdate () {
+		if (Updatable) 
+		{
+			body.velocity = body.velocity.normalized * Speed;
+			body.AddForce (0f, GravityModifier, 0f, ForceMode.Force);
+		}
 	}
 
 	void OnCollisionEnter(Collision collision)
