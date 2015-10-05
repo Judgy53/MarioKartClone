@@ -5,7 +5,6 @@ using System.Collections;
 public class TMP_ClockDisplay : MonoBehaviour {
 
     private Text text = null;
-    private Clock raceClock = null;
     private CarWaypointHandler carWpHandler = null;
 
     private bool endOfLapAnimRun = false;
@@ -14,7 +13,6 @@ public class TMP_ClockDisplay : MonoBehaviour {
     void Start()
     {
         text = GetComponent<Text>();
-        raceClock = GameObject.FindGameObjectWithTag("RaceClock").GetComponent<Clock>();
         carWpHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<CarWaypointHandler>();
     }
 
@@ -25,7 +23,7 @@ public class TMP_ClockDisplay : MonoBehaviour {
         {
             int[] digits;
 
-            TimeToDigits(raceClock.LocalTime, out digits);
+            TimeToDigits(LevelMgr.Instance.raceClock.LocalTime, out digits);
 
             SetDigitsToDisplay(digits);
         }
@@ -40,7 +38,7 @@ public class TMP_ClockDisplay : MonoBehaviour {
     {
         endOfLapAnimRun = true;
 
-        float lapTime = raceClock.LocalTime - carWpHandler.TimeAtLastLap;
+        float lapTime = LevelMgr.Instance.raceClock.LocalTime - carWpHandler.TimeAtLastLap;
 
         int[] digits;
 
