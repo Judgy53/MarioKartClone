@@ -36,7 +36,7 @@ public class ItemSpawner : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerEnter(Collider collider)
+	void OnTriggerStay(Collider collider)
 	{
 		CarItemHandler picker = collider.GetComponent<CarItemHandler> ();
 		
