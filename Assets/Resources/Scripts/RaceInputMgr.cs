@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityStandardAssets.Vehicles.Car;
 
-public class InputMgr : MonoSingleton<InputMgr> {
+public class RaceInputMgr : MonoSingleton<RaceInputMgr> {
 
     private CarController carController; // Controller of player's car.
     private CarWaypointHandler wpHandler; // Waypoint handler of player's car.

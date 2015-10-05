@@ -60,7 +60,16 @@ public class CarWaypointHandler : MonoBehaviour {
                 ++laps;
 
                 if (gameObject.tag == "Player") // Should not stay that way.
+                {
                     UIMgr.Instance.EndOfLapDisplay();
+
+                    if (laps == LevelMgr.Instance.LapsToDo)
+                    {
+                        gameObject.AddComponent<UnityStandardAssets.Vehicles.Car.CarAIControl>();
+                        gameObject.SendMessage("SetTarget", LastWaypoint.NextWp.transform);
+                        gameObject.tag = "Bot";
+                    }
+                }
 
                 timeAtLastLap = LevelMgr.Instance.raceClock.LocalTime;
             }

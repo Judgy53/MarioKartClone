@@ -3,6 +3,7 @@ using System.Collections;
 
 public class GameMgr : MonoSingleton<GameMgr> {
 
+    //// I dunno about this...
     public enum GameState : int
     {
         Start = 0,
@@ -11,6 +12,9 @@ public class GameMgr : MonoSingleton<GameMgr> {
     }
 
     public GameState state = 0;
+
+    [SerializeField]
+    private string[] Levels;
 
 	// Use this for initialization
 	void Start () {
@@ -25,5 +29,10 @@ public class GameMgr : MonoSingleton<GameMgr> {
     void FixedUpdate()
     {
 
+    }
+
+    public void LaunchLevel(int level)
+    {
+        Application.LoadLevel(Levels[level]);
     }
 }
