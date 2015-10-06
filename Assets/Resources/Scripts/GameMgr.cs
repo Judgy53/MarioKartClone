@@ -6,9 +6,10 @@ public class GameMgr : MonoSingleton<GameMgr> {
     //// I dunno about this...
     public enum GameState : int
     {
-        Start = 0,
-        Racing = 1,
-        End = 2
+        Menu = 0,
+        StartOfRace = 1, // The countdown part.
+        Racing = 2,
+        EndOfRace = 3
     }
 
     public GameState state = 0;
@@ -18,7 +19,7 @@ public class GameMgr : MonoSingleton<GameMgr> {
 
 	// Use this for initialization
 	void Start () {
-
+        state = 0;
 	}
 	
 	// Update is called once per frame
@@ -26,13 +27,16 @@ public class GameMgr : MonoSingleton<GameMgr> {
 	
 	}
 
-    void FixedUpdate()
-    {
-
-    }
 
     public void LaunchLevel(int level)
     {
         Application.LoadLevel(Levels[level]);
+        state = GameState.StartOfRace;
+    }
+
+    public void EndRace()
+    {
+        UIMgr.Instance.DisplayRanking();
+        state = GameState.EndOfRace;
     }
 }

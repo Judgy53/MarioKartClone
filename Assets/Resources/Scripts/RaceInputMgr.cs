@@ -19,6 +19,12 @@ public class RaceInputMgr : MonoSingleton<RaceInputMgr> {
 
         if (Input.GetButtonDown("Cancel"))
             UIMgr.Instance.Pause();
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+            UIMgr.Instance.DisplayRanking();
+
+        if (Input.GetKeyUp(KeyCode.Tab))
+            UIMgr.Instance.DisplayRankingNot();
     }
 
 	void FixedUpdate () {

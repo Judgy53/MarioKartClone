@@ -37,7 +37,7 @@ public class CarWaypointHandler : MonoBehaviour {
 
     void Update()
     {
-        if (carController.CurrentSpeed < 5f && !isCheckingForBlocked && GameMgr.Instance.state != GameMgr.GameState.Start)
+        if (carController.CurrentSpeed < 5f && !isCheckingForBlocked && GameMgr.Instance.state != GameMgr.GameState.StartOfRace)
         {
             StartCoroutine("CheckForBlocked");
         }
@@ -58,18 +58,7 @@ public class CarWaypointHandler : MonoBehaviour {
             if (Waypoint == StartingWaypoint)
             {
                 ++laps;
-
-                if (gameObject.tag == "Player") // Should not stay that way.
-                {
-                    UIMgr.Instance.EndOfLapDisplay();
-
-                    if (laps == LevelMgr.Instance.LapsToDo)
-                    {
-                        gameObject.AddComponent<UnityStandardAssets.Vehicles.Car.CarAIControl>();
-                        gameObject.SendMessage("SetTarget", LastWaypoint.NextWp.transform);
-                        gameObject.tag = "Bot";
-                    }
-                }
+                gameObject.SendMessage("LapEnded", laps, SendMessageOptions.DontRequireReceiver);
 
                 timeAtLastLap = LevelMgr.Instance.raceClock.LocalTime;
             }

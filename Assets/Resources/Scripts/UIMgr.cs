@@ -10,6 +10,8 @@ public class UIMgr : MonoSingleton<UIMgr> {
     private Canvas InGameInterface = null;
     [SerializeField]
     private Canvas RaceCountDown = null;
+    [SerializeField]
+    private Canvas Ranking = null;
 
 
 	// Use this for initialization
@@ -19,6 +21,12 @@ public class UIMgr : MonoSingleton<UIMgr> {
 
         if (InGameInterface == null)
             Debug.Log("Please bind an in-game interface to the UI manager.");
+
+        if (RaceCountDown == null)
+            Debug.Log("Please bind a 4-seconds countdown animation to the UI manager.");
+
+        if (Ranking == null)
+            Debug.Log("Please bind a rank interface to the UI manager.");
 
         Resume();
 	}
@@ -30,6 +38,7 @@ public class UIMgr : MonoSingleton<UIMgr> {
 
     public void Pause()
     {
+        Ranking.gameObject.SetActive(false);
         InGameInterface.gameObject.SetActive(false);
         PauseMenu.gameObject.SetActive(true);
         Time.timeScale = 0f;
@@ -40,6 +49,17 @@ public class UIMgr : MonoSingleton<UIMgr> {
         PauseMenu.gameObject.SetActive(false);
         InGameInterface.gameObject.SetActive(true);
         Time.timeScale = 1f;
+    }
+
+    public void DisplayRanking()
+    {
+        if (!PauseMenu.gameObject.activeSelf)
+            Ranking.gameObject.SetActive(true);
+    }
+
+    public void DisplayRankingNot()
+    {
+        Ranking.gameObject.SetActive(false);
     }
 
     public IEnumerator RaceCountDownDisplay()

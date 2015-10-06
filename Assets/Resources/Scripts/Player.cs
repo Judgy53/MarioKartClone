@@ -13,4 +13,18 @@ public class Player : CarItemHandler {
 			//	currentItem = new ItemTripleBanana();
 		}
 	}
+
+    void LapEnded(int laps)
+    {
+        UIMgr.Instance.EndOfLapDisplay();
+
+        if (laps == LevelMgr.Instance.LapsToDo)
+        {
+            GameMgr.Instance.EndRace();
+
+            gameObject.AddComponent<UnityStandardAssets.Vehicles.Car.CarAIControl>();
+            gameObject.SendMessage("SetTarget", GetComponent<CarWaypointHandler>().LastWp.NextWp.transform);
+            gameObject.tag = "Bot";
+        }
+    }
 }
