@@ -39,10 +39,6 @@ public class ItemTripleBanana : ItemBanana, IItemUpdatable {
 		if (launched < BananaCount) 
 			return this;
 
-		foreach (Banana b in bananas)
-			if (b != null)
-				GameObject.Destroy (b.gameObject);
-
 		return null;
 	}
 
@@ -115,6 +111,8 @@ public class ItemTripleBanana : ItemBanana, IItemUpdatable {
 
 		Transform target = car.transform;
 
+		bool updated = false;
+
 		for (int i = 0; i < BananaCount; i++) 
 		{
 			Vector3 targetPos = car.transform.position - (target.forward * BaseOffset + target.forward * DistBetweenBananas * (float)i);
@@ -133,16 +131,19 @@ public class ItemTripleBanana : ItemBanana, IItemUpdatable {
 			}
 			
 			if(currentBanana == null)
-				return false;
+				continue;
 
-			
+			//currentBanana.gameObject.transform.position = targetPos;
+			//currentBanana.gameObject.transform.rotation = targetRot;
 			currentBanana.gameObject.transform.position = Vector3.Lerp(currentBanana.gameObject.transform.position, targetPos, 0.25f);
 			currentBanana.gameObject.transform.rotation = Quaternion.Lerp(currentBanana.gameObject.transform.rotation, targetRot, 0.25f);
 
 
 			target = currentBanana.transform;
+
+			updated = true;
 		}
 
-		return true;
+		return updated;
 	}
 }

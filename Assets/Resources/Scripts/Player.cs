@@ -5,15 +5,12 @@ public class Player : CarItemHandler {
 
 	void Awake()
 	{
-		currentItem = new ItemTripleGreenShell();
+		currentItem = new ItemTripleBanana();
 	}
 
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.E)) 
-		{
-			//OnHit ();
 			useItem(Input.GetKey(KeyCode.DownArrow));
-		}
 	}
 
     void LapEnded(int laps)
