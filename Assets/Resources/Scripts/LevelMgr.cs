@@ -23,6 +23,8 @@ public class LevelMgr : MonoSingleton<LevelMgr> {
 
     void Awake()
     {
+        StartingLine.SendMessage("Awake"); // Fuck unity.
+
         //// MUST NOT STAY THERE !!!
         GameMgr.Instance.state = GameMgr.GameState.StartOfRace;
         ////
@@ -33,18 +35,20 @@ public class LevelMgr : MonoSingleton<LevelMgr> {
 
         for (int count = 0; count < TotalOfCars - 1; ++count)
         {
-            pos = StartingLine.transform.position;
-            pos.x += (count % 4) * 6 - 9;
-            pos.z -= count * 3 + 5;
+            pos = StartingLine.Floor;
+            pos.x += (count % 4) * 6f - 9f;
+            pos.z -= count * 3f + 5f;
+            pos.y += 3f;
 
             GameObject newBotCar = Instantiate(BotCarPrefab, pos, StartingLine.transform.rotation) as GameObject;
             newBotCar.transform.parent = Cars.transform;
             newBotCar.name = "BotCar" + (count+1).ToString();
         }
 
-        pos = StartingLine.transform.position;
-        pos.x += ((TotalOfCars-1) % 4) * 6 - 9;
-        pos.z -= (TotalOfCars-1) * 3 + 5;
+        pos = StartingLine.Floor;
+        pos.x += ((TotalOfCars-1) % 4) * 6f - 9f;
+        pos.z -= (TotalOfCars-1) * 3f + 5f;
+        pos.y += 3f;
 
         GameObject playerCar = Instantiate(PlayerCarPrefab, pos, StartingLine.transform.rotation) as GameObject;
         playerCar.transform.parent = Cars.transform;

@@ -77,7 +77,8 @@ public class CarWaypointHandler : MonoBehaviour {
 
     public void TeleportToLastWaypoint()
     {
-        carRigidbody.position = LastWaypoint.transform.position;
+        Vector3 newCarPos = LastWaypoint.Floor + Vector3.up * 10f;
+        carRigidbody.position = newCarPos;
         carRigidbody.rotation = LastWaypoint.transform.rotation;
         carRigidbody.velocity = Vector3.zero;
         carRigidbody.angularVelocity = Vector3.zero;
@@ -86,9 +87,6 @@ public class CarWaypointHandler : MonoBehaviour {
 
     private IEnumerator CheckForBlocked()
     {
-        Debug.Log("Burn.");
-
-
         isCheckingForBlocked = true;
 
         for (int ite = 0; ite < 30 && carController.CurrentSpeed < 5; ++ite)
