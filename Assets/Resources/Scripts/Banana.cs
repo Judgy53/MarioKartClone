@@ -54,4 +54,9 @@ public class Banana : MonoBehaviour {
 	{
 		Destroy (gameObject);
 	}
+
+	public void SetColor(Color color)
+	{
+		GetComponent<Renderer> ().material.color = color;
+	}
 }

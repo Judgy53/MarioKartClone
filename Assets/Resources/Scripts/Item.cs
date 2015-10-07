@@ -14,7 +14,7 @@ public abstract class Item {
 		//TripleRedShell,
 		//BobOmb,
 		Banana,
-		//TripleBanana,
+		TripleBanana,
 		TrappedCube,
 		//FuckYourEyesStar,
 
@@ -37,8 +37,8 @@ public abstract class Item {
 			return new ItemTripleGreenShell();
 		case ItemType.Banana:
 			return new ItemBanana();
-		//case ItemType.TripleBanana:
-		//	return new ItemTripleBanana();
+		case ItemType.TripleBanana:
+			return new ItemTripleBanana();
 		case ItemType.TrappedCube:
 			return new ItemTrappedCube();
 		default: 
