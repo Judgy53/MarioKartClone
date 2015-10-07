@@ -17,6 +17,13 @@ public class TMP_LapDisplay : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        text.text = "Lap: " + ((int)carWpHandler.Laps + 1).ToString() + "/999";
+        string manyLaps;
+
+        if (GameMgr.Instance.state == GameMgr.GameState.EndOfRace)
+            manyLaps = LevelMgr.Instance.LapsToDo.ToString();   // Yea... Nobody's gonna see the difference.
+        else
+            manyLaps = ((int)carWpHandler.Laps + 1).ToString();
+
+            text.text = "Lap: " + manyLaps + "/" + LevelMgr.Instance.LapsToDo.ToString();
     }
 }

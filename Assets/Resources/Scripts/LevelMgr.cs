@@ -10,14 +10,23 @@ public class LevelMgr : MonoSingleton<LevelMgr> {
     private int TotalOfCars = 8;
 
     [SerializeField]
+    private int MaxLaps = 3;
+
+    [SerializeField]
     private GameObject PlayerCarPrefab = null;
     [SerializeField]
     private GameObject BotCarPrefab = null;
+
+    public int LapsToDo { get { return MaxLaps; } }
 
     public Clock raceClock;
 
     void Awake()
     {
+        //// MUST NOT STAY THERE !!!
+        GameMgr.Instance.state = GameMgr.GameState.StartOfRace;
+        ////
+
         GameObject Cars = new GameObject("Cars");
 
         Vector3 pos = new Vector3();

@@ -24,7 +24,8 @@ public class CarWaypointHandler : MonoBehaviour {
     public int WaypointCount { get { return waypointCount; } }
     public float TimeAtLastLap { get { return timeAtLastLap; } }
 
-    public int rank;
+    public int rank = 0;
+    public bool rankIsLocked = false;
 
     // Use this for initialization
     void Start()
@@ -37,7 +38,7 @@ public class CarWaypointHandler : MonoBehaviour {
 
     void Update()
     {
-        if (carController.CurrentSpeed < 5f && !isCheckingForBlocked && GameMgr.Instance.state != GameMgr.GameState.Start)
+        if (carController.CurrentSpeed < 5f && !isCheckingForBlocked && GameMgr.Instance.state != GameMgr.GameState.StartOfRace)
         {
             StartCoroutine("CheckForBlocked");
         }
@@ -55,14 +56,16 @@ public class CarWaypointHandler : MonoBehaviour {
             LastWaypoint = Waypoint;
             ++waypointCount;
 
-            if (Waypoint == StartingWaypoint)
+            if (Waypoint == StartingWaypoint && laps < LevelMgr.Instance.LapsToDo)
             {
                 ++laps;
 
-                if (gameObject.tag == "Player") // Should not stay that way.
-                    UIMgr.Instance.EndOfLapDisplay();
+                gameObject.SendMessage("LapEnded", laps, SendMessageOptions.DontRequireReceiver);
 
                 timeAtLastLap = LevelMgr.Instance.raceClock.LocalTime;
+
+                if (laps == LevelMgr.Instance.LapsToDo)
+                    Ranker.Instance.LockFirstNotLocked();
             }
         }
     }
@@ -83,6 +86,9 @@ public class CarWaypointHandler : MonoBehaviour {
 
     private IEnumerator CheckForBlocked()
     {
+        Debug.Log("Burn.");
+
+
         isCheckingForBlocked = true;
 
         for (int ite = 0; ite < 30 && carController.CurrentSpeed < 5; ++ite)

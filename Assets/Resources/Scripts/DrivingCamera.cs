@@ -25,6 +25,9 @@ public class DrivingCamera : MonoBehaviour {
     [SerializeField]
     private float FoVMax = 120f;
 
+    private bool rotatingAroundCar = false;
+    private float rotateStartTime;
+
 	public bool FollowCar = true;
 
 	// Use this for initialization
@@ -45,7 +48,7 @@ public class DrivingCamera : MonoBehaviour {
 		{
 			transform.position = Vector3.Lerp (transform.position, FindRigidPos (), PositionSmooth);
 			transform.rotation = Quaternion.Slerp (transform.rotation, FindRigidRot (), RotationSmooth);
-		} 
+		}
 		else 
 		{
 			Vector3 pos = carTrf.position-transform.position;
@@ -54,13 +57,21 @@ public class DrivingCamera : MonoBehaviour {
 		}
 
         cam.fieldOfView = (carController.CurrentSpeed / carController.MaxSpeed) * (FoVMax - FoVMin) + FoVMin;
-
 	}
 
     Vector3 FindRigidPos()
     {
-        Vector3 pos = new Vector3(0f, DistanceFromCar * Mathf.Sin(AngleDown), DistanceFromCar * -Mathf.Cos(AngleDown));
-        pos = carTrf.TransformPoint(pos);
+        Vector3 pos;
+        if (rotatingAroundCar)
+        {
+            pos = new Vector3((DistanceFromCar * -Mathf.Cos(AngleDown)) * Mathf.Sin(Time.time - rotateStartTime), DistanceFromCar * Mathf.Sin(AngleDown), (DistanceFromCar * -Mathf.Cos(AngleDown)) * Mathf.Cos(Time.time - rotateStartTime));
+            pos = carTrf.TransformPoint(pos);
+        }
+        else
+        {
+            pos = new Vector3(0f, DistanceFromCar * Mathf.Sin(AngleDown), DistanceFromCar * -Mathf.Cos(AngleDown));
+            pos = carTrf.TransformPoint(pos);
+        }
         return pos;
     }
 
@@ -69,5 +80,11 @@ public class DrivingCamera : MonoBehaviour {
         Vector3 centering = carTrf.position;
         centering.y += ZOffSet;
         return Quaternion.LookRotation(centering - transform.position, Vector3.up);
+    }
+
+    public void EnterRotatingMode()
+    {
+        rotatingAroundCar = true;
+        rotateStartTime = Time.time;
     }
 }

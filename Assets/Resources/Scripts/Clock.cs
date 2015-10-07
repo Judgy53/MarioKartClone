@@ -5,15 +5,27 @@ public class Clock {
 
     private float startTime;
 
-    private bool hasBeenStarted = false;
+    private bool stopped = true;
 
-    public float LocalTime { get { return hasBeenStarted ? Time.time - startTime : 0f; } }
+    private float timeBeforeStopped = 0f;
 
-    public bool HasBeenStarted { get { return hasBeenStarted; } } 
+    public float LocalTime { get { return stopped ? timeBeforeStopped : timeBeforeStopped + Time.time - startTime; } }
 
-	public void StartClock()
+	public void Start()
     {
         startTime = Time.time;
-        hasBeenStarted = true;
+        stopped = false;
+    }
+
+    public void Stop()
+    {
+        timeBeforeStopped = LocalTime;
+        stopped = true;
+    }
+
+    public void Reset()
+    {
+        startTime = Time.time;
+        timeBeforeStopped = 0f;
     }
 }

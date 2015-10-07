@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityStandardAssets.Vehicles.Car;
 
-public class InputMgr : MonoSingleton<InputMgr> {
+public class RaceInputMgr : MonoSingleton<RaceInputMgr> {
 
     private CarController carController; // Controller of player's car.
     private CarWaypointHandler wpHandler; // Waypoint handler of player's car.
@@ -19,6 +19,12 @@ public class InputMgr : MonoSingleton<InputMgr> {
 
         if (Input.GetButtonDown("Cancel"))
             UIMgr.Instance.Pause();
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+            UIMgr.Instance.DisplayRanking();
+
+        if (Input.GetKeyUp(KeyCode.Tab))
+            UIMgr.Instance.DisplayRankingNot();
     }
 
 	void FixedUpdate () {

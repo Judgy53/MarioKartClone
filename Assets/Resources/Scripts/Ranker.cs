@@ -6,6 +6,7 @@ public class Ranker : MonoSingleton<Ranker> {
 
     [SerializeField]
     private List<CarWaypointHandler> AllTheCars;
+    private List<CarWaypointHandler> LockedCars; // Fuck thieves. 
     private CarPosComparer carPosComparer;
 
 	// Use this for initialization
@@ -13,6 +14,7 @@ public class Ranker : MonoSingleton<Ranker> {
         carPosComparer = new CarPosComparer();
 
         AllTheCars = new List<CarWaypointHandler>();
+        LockedCars = new List<CarWaypointHandler>();
 
         AllTheCars.Add(GameObject.FindGameObjectWithTag("Player").GetComponent<CarWaypointHandler>());
 
@@ -26,30 +28,46 @@ public class Ranker : MonoSingleton<Ranker> {
 	void Update () {
         AllTheCars.Sort(carPosComparer);
 
-        int rank = AllTheCars.Count;
+        int rank = 0;
+
+        foreach (CarWaypointHandler car in LockedCars)
+        {
+            ++rank;
+            car.rank = rank;
+        }
 
         foreach (CarWaypointHandler car in AllTheCars)
         {
+            ++rank;
             car.rank = rank;
-            rank--;
         }
 	}
 
     public CarWaypointHandler AtRank(int rank)
     {
-        return AllTheCars[AllTheCars.Count - rank];
+        rank--;
+
+        if (rank < LockedCars.Count)
+            return LockedCars[rank];
+        else
+            return AllTheCars[rank - LockedCars.Count];
     }
 
+    public void LockFirstNotLocked()
+    {
+        LockedCars.Add(AllTheCars[0]);
+        AllTheCars.RemoveAt(0);
+    }
 
     private class CarPosComparer : IComparer<CarWaypointHandler>
     {
         public int Compare(CarWaypointHandler car1, CarWaypointHandler car2)
         {
             if (car1.WaypointCount > car2.WaypointCount)
-                return 1;   // Car1 is in front of car2.
+                return -1;   // Car1 is in front of car2.
 
             else if (car1.WaypointCount < car2.WaypointCount)
-                return -1;  // Car2 is in front of car1;
+                return 1;  // Car2 is in front of car1;
 
             else
             {
@@ -57,10 +75,10 @@ public class Ranker : MonoSingleton<Ranker> {
                 float distFromNextWp2 = (car2.LastWp.NextWp.transform.position - car2.transform.position).magnitude;
 
                 if (distFromNextWp1 < distFromNextWp2)
-                    return 1;   // Car1 is in front of car2.
+                    return -1;   // Car1 is in front of car2.
 
                 else if (distFromNextWp1 > distFromNextWp2)
-                    return -1;  // Car2 is in front of car1.
+                    return 1;  // Car2 is in front of car1.
 
                 else
                     return 0;   // Car1 and car2 are at the same point.
