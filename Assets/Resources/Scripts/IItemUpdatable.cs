@@ -3,5 +3,6 @@ using System.Collections;
 
 public interface IItemUpdatable {
 
-	void Update(CarItemHandler car);
+	// return true if successfully updated, should be destroyed if not
+	bool Update(CarItemHandler car);
 }

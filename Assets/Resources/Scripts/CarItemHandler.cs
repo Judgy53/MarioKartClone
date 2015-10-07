@@ -32,9 +32,12 @@ public class CarItemHandler : MonoBehaviour, IItemCollision {
 
 	void FixedUpdate()
 	{
-		if (currentItem is IItemUpdatable) 
+		if (currentItem is IItemUpdatable && pickedItem == null) // should not update whle random picking 
 		{
-			((IItemUpdatable)currentItem).Update(this);
+			bool sucess = ((IItemUpdatable)currentItem).Update(this);
+
+			if(!sucess)
+				currentItem = null;
 		}
 	}
 
@@ -52,13 +55,14 @@ public class CarItemHandler : MonoBehaviour, IItemCollision {
 
 	private IEnumerator RandomItemDisplay()
 	{
-		currentItem = Item.RandomItem ();
-		yield return new WaitForSeconds(0.1f); // execute one frame before to avoid null (cheaty)
-
 		for (int i = 0; i < 30 && RandomDisplaying; i++) 
 		{
 			Item newItem = Item.RandomItem();
-			while(newItem == null || (newItem.ToString() == currentItem.ToString()))
+
+			//while(currentItem == null)
+			//	currentItem = Item.RandomItem ();
+
+			while(newItem == null || (currentItem != null && (newItem.ToString() == currentItem.ToString())))
 				newItem = Item.RandomItem();
 			currentItem = newItem;
 			yield return new WaitForSeconds(0.1f);
@@ -76,9 +80,7 @@ public class CarItemHandler : MonoBehaviour, IItemCollision {
 			return;
 
 		if (pickedItem != null) // random displaying
-		{
 			RandomDisplaying = false;
-		}
 		else if (currentItem != null) // normal use
 			currentItem = currentItem.use (this, useBehind);
 	}
