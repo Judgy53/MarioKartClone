@@ -9,11 +9,11 @@ public class DrivingCamera : MonoBehaviour {
     private Camera cam;
 
     [SerializeField]
-    private float ZOffSet = 1f;
+    private float ZOffSet = 3f;
     [SerializeField]
-    private float DistanceFromCar = 10f;
+    private float DistanceFromCar = 7f;
     [SerializeField]
-    private float AngleDown = 0.01f;
+    private float AngleDown = 0.8f;
 
     [SerializeField]
     private float PositionSmooth = 0.2f;
@@ -21,7 +21,7 @@ public class DrivingCamera : MonoBehaviour {
     private float RotationSmooth = 0.2f;
 
     [SerializeField]
-    private float FoVMin = 60f;
+    private float FoVMin = 80f;
     [SerializeField]
     private float FoVMax = 120f;
 
