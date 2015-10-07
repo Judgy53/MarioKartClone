@@ -9,8 +9,21 @@ public class ItemTripleBanana : ItemBanana, IItemUpdatable {
 	private const int BananaCount = 3;
 	private Banana[] bananas = new Banana[BananaCount];
 
-	private float BaseOffset = 5f;
-	private float DistBetweenBananas = 3f;
+	private float BaseOffset = 3f;
+	private float DistBetweenBananas = 2f;
+
+	private GameObject prefab;
+	private float height;
+
+	public ItemTripleBanana()
+	{
+		prefab = Resources.Load ("Prefabs/Banana") as GameObject;
+
+		//get collider height by creating a temp banana
+		GameObject temp = GameObject.Instantiate (prefab) as GameObject;
+		height = temp.GetComponent<Collider> ().bounds.extents.y;
+		GameObject.Destroy (temp);
+	}
 
 	public override Item use(CarItemHandler car, bool useBehind)
 	{
@@ -26,21 +39,21 @@ public class ItemTripleBanana : ItemBanana, IItemUpdatable {
 		if (launched < BananaCount) 
 			return this;
 
+		foreach (Banana b in bananas)
+			if (b != null)
+				GameObject.Destroy (b.gameObject);
+
 		return null;
 	}
 
 	void SummonBananas(CarItemHandler car)
 	{
-		GameObject prefab = Resources.Load ("Prefabs/Banana") as GameObject;
-
 		for (int i = 0; i < BananaCount; i++) 
 		{
 			Vector3 position = car.transform.position - (car.transform.forward * BaseOffset + car.transform.forward * DistBetweenBananas * (float)i);
-			position += new Vector3(0f, 2f, 0f);
+			position += new Vector3(0f, height, 0f);
 
 			Quaternion rotation = car.transform.rotation;
-			rotation.x = 0f;
-			rotation.z = 0f;
 
 			GameObject gao = Object.Instantiate(prefab) as GameObject;
 
@@ -49,6 +62,7 @@ public class ItemTripleBanana : ItemBanana, IItemUpdatable {
 
 			Banana banana = gao.GetComponent<Banana>();
 			banana.Updatable = false;
+			banana.owner = car.gameObject;
 
 			bananas[i] = banana;
 		}
@@ -56,55 +70,70 @@ public class ItemTripleBanana : ItemBanana, IItemUpdatable {
 
 	void LaunchBanana(CarItemHandler car, bool useBehind)
 	{
-		launched++;
+		int bananaPos = -1;
 
-		Banana currentBanana = bananas [BananaCount - launched];
+		if (useBehind)
+			bananaPos = BananaCount - 1;
+		else
+			bananaPos = 0;
 
-		while(currentBanana == null && launched < BananaCount)
-		{
-			launched++;
-			currentBanana = bananas [BananaCount - launched];
-		}
+		while ((bananas[bananaPos] == null || bananas[bananaPos].owner == null) && bananaPos >= 0 && bananaPos < BananaCount)
+			bananaPos += useBehind ? -1 : 1;
 
-		if(currentBanana == null)
+		Banana currentBanana = bananas [bananaPos];
+
+		if (currentBanana == null)
 			return;
 
-		if (!useBehind)
+		if (!useBehind) 
 		{
-			Object.Destroy(currentBanana.gameObject);
+			Object.Destroy (currentBanana.gameObject);
 			base.use (car, useBehind);
+		} 
+		else 
+		{
+			Quaternion rot = currentBanana.transform.rotation;
+			rot.x = 0f;
+			rot.z = 0f;
+
+			currentBanana.transform.rotation = rot;
 		}
 
 		currentBanana.Updatable = true;
+		currentBanana.owner = null;
+
+		bananas [bananaPos] = null; // set it to null because we don't want to interact with it anymore
+		//currentBanana.gameObject.SetActive(false); // desactivate because we don't want to interact with it anymore
 
 
-		bananas [BananaCount - launched] = null; // set it to null because we don't want to interact with it anymore
+		launched++;
 	}
 
-	public void Update (CarItemHandler car) {
+	public bool Update (CarItemHandler car) {
+		if (!summoned)
+			return true;
+
 		Transform target = car.transform;
 
 		for (int i = 0; i < BananaCount; i++) 
 		{
 			Vector3 targetPos = car.transform.position - (target.forward * BaseOffset + target.forward * DistBetweenBananas * (float)i);
-			targetPos += new Vector3(0f, 2f, 0f);
+			targetPos += new Vector3(0f, height, 0f);
 			
 			Quaternion targetRot = target.rotation;
-			targetRot.x = 0f;
-			targetRot.z = 0f;
 
 			int bananaId = i;
 
 			Banana currentBanana = bananas [bananaId];
 			
-			while(currentBanana == null && bananaId < BananaCount - 1)
+			while((currentBanana == null || currentBanana.owner == null) && bananaId < BananaCount - 1)
 			{
 				bananaId++;
 				currentBanana = bananas [bananaId];
 			}
 			
 			if(currentBanana == null)
-				return;
+				return false;
 
 			
 			currentBanana.gameObject.transform.position = Vector3.Lerp(currentBanana.gameObject.transform.position, targetPos, 0.25f);
@@ -113,5 +142,7 @@ public class ItemTripleBanana : ItemBanana, IItemUpdatable {
 
 			target = currentBanana.transform;
 		}
+
+		return true;
 	}
 }

@@ -9,12 +9,12 @@ public abstract class Item {
 		Mushroom,
 		TripleMushroom,
 		GreenShell,
-		//TripleGreenShell,
+		TripleGreenShell,
 		//RedShell,
 		//TripleRedShell,
 		//BobOmb,
 		Banana,
-		TripleBanana,
+		//TripleBanana,
 		TrappedCube,
 		//FuckYourEyesStar,
 
@@ -33,13 +33,16 @@ public abstract class Item {
 			return new ItemTripleMushroom();
 		case ItemType.GreenShell:
 			return new ItemGreenShell();
+		case ItemType.TripleGreenShell:
+			return new ItemTripleGreenShell();
 		case ItemType.Banana:
 			return new ItemBanana();
-		case ItemType.TripleBanana:
-			return new ItemTripleBanana();
+		//case ItemType.TripleBanana:
+		//	return new ItemTripleBanana();
 		case ItemType.TrappedCube:
 			return new ItemTrappedCube();
 		default: 
+			Debug.Log ("RandomItem null (id:" + typeId + ")");
 			return null;
 		}
 	}

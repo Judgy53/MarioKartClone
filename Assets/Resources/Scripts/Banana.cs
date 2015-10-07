@@ -6,6 +6,7 @@ public class Banana : MonoBehaviour {
 	private Collider col = null;
 
 	public bool Updatable = true;
+	public GameObject owner = null;
 	
 	// Use this for initialization
 	void Start () {
@@ -21,7 +22,15 @@ public class Banana : MonoBehaviour {
 	void OnCollisionEnter(Collision collision)
 	{
 		IItemCollision collider = collision.gameObject.GetComponent<IItemCollision> ();
-		
+
+		Banana bCollider = collision.gameObject.GetComponent<Banana> ();
+
+		if (bCollider != null && !bCollider.Updatable) // don't collide with other bananas from the triple bonus
+			return;
+
+		if (owner != null && owner == collision.gameObject) // don't collide with owner
+			return;
+
 		if (collider != null) 
 		{
 			collider.OnHit (gameObject);
@@ -38,6 +47,7 @@ public class Banana : MonoBehaviour {
 	public void OnHit(GameObject GaO)
 	{
 		Destroy (gameObject);
+		//gameObject.SetActive (false);
 	}
 	
 	private void NeverGonnaGiveYouUp()
