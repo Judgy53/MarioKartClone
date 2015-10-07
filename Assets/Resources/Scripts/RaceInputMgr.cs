@@ -1,15 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityStandardAssets.Vehicles.Car;
 
 public class RaceInputMgr : MonoSingleton<RaceInputMgr> {
 
-    private CarController carController; // Controller of player's car.
     private CarWaypointHandler wpHandler; // Waypoint handler of player's car.
 
 	void Start () {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        carController = player.GetComponent<CarController>();
         wpHandler = player.GetComponent<CarWaypointHandler>();
 	}
 
@@ -27,11 +24,8 @@ public class RaceInputMgr : MonoSingleton<RaceInputMgr> {
             UIMgr.Instance.DisplayRankingNot();
     }
 
-	void FixedUpdate () {
-	    float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
-        float handbrake = Input.GetAxis("Jump");
-
-        carController.Move(h, v, v, handbrake);
+    public Vector2 GetXYAxes()
+    {
+        return new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
     }
 }
