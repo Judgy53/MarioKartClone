@@ -23,6 +23,10 @@ public class LevelMgr : MonoSingleton<LevelMgr> {
 
     void Awake()
     {
+        //// MUST NOT STAY THERE !!!
+        GameMgr.Instance.state = GameMgr.GameState.StartOfRace;
+        ////
+
         GameObject Cars = new GameObject("Cars");
 
         Vector3 pos = new Vector3();

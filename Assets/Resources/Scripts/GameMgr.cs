@@ -19,7 +19,7 @@ public class GameMgr : MonoSingleton<GameMgr> {
 
 	// Use this for initialization
 	void Start () {
-        state = 0;
+        //state = 0; should be there.
 	}
 	
 	// Update is called once per frame
@@ -36,7 +36,9 @@ public class GameMgr : MonoSingleton<GameMgr> {
 
     public void EndRace()
     {
+        Camera.main.GetComponent<DrivingCamera>().EnterRotatingMode();
         UIMgr.Instance.DisplayRanking();
+        LevelMgr.Instance.raceClock.Stop();
         state = GameState.EndOfRace;
     }
 }

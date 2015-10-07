@@ -22,7 +22,7 @@ public class Player : CarItemHandler {
         {
             GameMgr.Instance.EndRace();
 
-            gameObject.AddComponent<UnityStandardAssets.Vehicles.Car.CarAIControl>();
+            gameObject.GetComponent<UnityStandardAssets.Vehicles.Car.CarAIControl>().enabled = true;
             gameObject.SendMessage("SetTarget", GetComponent<CarWaypointHandler>().LastWp.NextWp.transform);
             gameObject.tag = "Bot";
         }

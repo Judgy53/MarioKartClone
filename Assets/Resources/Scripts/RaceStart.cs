@@ -40,9 +40,9 @@ public class RaceStart : MonoBehaviour {
 
         yield return new WaitForSeconds(4f);
 
-        LevelMgr.Instance.raceClock.StartClock();
+        LevelMgr.Instance.raceClock.Start();
         ReleaseCars();
 
-        GameMgr.Instance.state++;
+        GameMgr.Instance.state = GameMgr.GameState.Racing;
     }
 }
