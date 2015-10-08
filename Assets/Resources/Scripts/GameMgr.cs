@@ -15,11 +15,15 @@ public class GameMgr : MonoSingleton<GameMgr> {
     public GameState state = 0;
 
     [SerializeField]
+    private string LevelSelector;
+
+    [SerializeField]
     private string[] Levels;
 
 	// Use this for initialization
 	void Start () {
         //state = 0; should be there.
+        DontDestroyOnLoad(gameObject);
 	}
 	
 	// Update is called once per frame
@@ -34,16 +38,34 @@ public class GameMgr : MonoSingleton<GameMgr> {
         state = GameState.StartOfRace;
     }
 
+    public void RestartLevel()
+    {
+        Application.LoadLevel(Application.loadedLevel);
+    }
+
+    public void LaunchLevelSelector()
+    {
+        Application.LoadLevel(LevelSelector);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
     public void EndRace()
     {
         Camera.main.GetComponent<DrivingCamera>().EnterRotatingMode();
         UIMgr.Instance.DisplayRanking();
         LevelMgr.Instance.raceClock.Stop();
         state = GameState.EndOfRace;
+
+        StartCoroutine("DelayedBackToSelector");
     }
 
-    public void QuitGame()
+    IEnumerator DelayedBackToSelector()
     {
-        Application.Quit();
+        yield return new WaitForSeconds(10f);
+        LaunchLevelSelector();
     }
 }
