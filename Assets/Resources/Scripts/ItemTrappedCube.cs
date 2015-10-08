@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ItemTrappedCube : Item {
 
-	public override Item use(CarItemHandler car, bool useBehind)
+	public override Item StartUse(CarItemHandler car, bool useBehind)
 	{
 		GameObject prefab = Resources.Load ("prefabs/ItemBoxFake") as GameObject;
 		
@@ -24,5 +24,10 @@ public class ItemTrappedCube : Item {
 
 
 		return null;
+	}
+
+	public override Item StopUse(CarItemHandler car, bool useBehind)
+	{
+		return this;
 	}
 }

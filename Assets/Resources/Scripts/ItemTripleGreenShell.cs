@@ -31,7 +31,7 @@ public class ItemTripleGreenShell : ItemGreenShell, IItemUpdatable {
 		GameObject.Destroy (temp);
 	}
 
-	public override Item use(CarItemHandler car, bool useBehind)
+	public override Item StartUse(CarItemHandler car, bool useBehind)
 	{
 		if (!Summoned) 
 		{
@@ -45,6 +45,11 @@ public class ItemTripleGreenShell : ItemGreenShell, IItemUpdatable {
 			return this;
 
 		return null;
+	}
+
+	public override Item StopUse(CarItemHandler car, bool useBehind)
+	{
+		return this;
 	}
 
 	private void SummonShells(CarItemHandler car)
@@ -74,7 +79,7 @@ public class ItemTripleGreenShell : ItemGreenShell, IItemUpdatable {
 
 	private void LaunchShell(CarItemHandler car, bool useBehind)
 	{
-		base.use (car, useBehind);
+		base.StartUse (car, useBehind);
 
 		float minShellDist = -1;
 		int shellToRemove = -1;

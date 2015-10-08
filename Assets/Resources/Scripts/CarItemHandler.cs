@@ -32,11 +32,11 @@ public class CarItemHandler : MonoBehaviour, IItemCollision {
 
 	void FixedUpdate()
 	{
-		if (currentItem is IItemUpdatable && pickedItem == null) // should not update whle random picking 
+		if (currentItem is IItemUpdatable && pickedItem == null) // should not update while random picking 
 		{
-			bool sucess = ((IItemUpdatable)currentItem).Update(this);
+			bool success = ((IItemUpdatable)currentItem).Update(this);
 
-			if(!sucess)
+			if(!success)
 				currentItem = null;
 		}
 	}
@@ -74,15 +74,29 @@ public class CarItemHandler : MonoBehaviour, IItemCollision {
 		RandomDisplaying = true;
 	}
 
-	protected void useItem(bool useBehind)
+	public void StartUseItem(bool useBehind)
+	{
+		if(CanUseItem())
+			currentItem = currentItem.StartUse (this, useBehind);
+	}
+
+	public void StopUseItem(bool useBehind)
+	{
+		if(CanUseItem())
+			currentItem = currentItem.StopUse (this, useBehind);
+	}
+
+	private bool CanUseItem()
 	{
 		if (Hitted) //can't use item while hit animation 
-			return;
-
+			return false;
+		
 		if (pickedItem != null) // random displaying
 			RandomDisplaying = false;
 		else if (currentItem != null) // normal use
-			currentItem = currentItem.use (this, useBehind);
+			return true;
+
+		return false;
 	}
 	
 	public void OnHit(GameObject GaO)

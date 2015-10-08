@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ItemGreenShell : Item {
 	
-	public override Item use(CarItemHandler car, bool useBehind)
+	public override Item StartUse(CarItemHandler car, bool useBehind)
 	{
 		GameObject prefab = Resources.Load ("prefabs/GreenShell") as GameObject;
 
@@ -21,5 +21,10 @@ public class ItemGreenShell : Item {
 
 
 		return null;
+	}
+
+	public override Item StopUse(CarItemHandler car, bool useBehind)
+	{
+		return this;
 	}
 }

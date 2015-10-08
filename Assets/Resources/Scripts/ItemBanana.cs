@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ItemBanana : Item {
 
-	public override Item use(CarItemHandler car, bool useBehind)
+	public override Item StartUse(CarItemHandler car, bool useBehind)
 	{
 		GameObject prefab = Resources.Load ("prefabs/Banana") as GameObject;
 		
@@ -26,5 +26,10 @@ public class ItemBanana : Item {
 		
 		
 		return null;
+	}
+
+	public override Item StopUse(CarItemHandler car, bool useBehind)
+	{
+		return this;
 	}
 }

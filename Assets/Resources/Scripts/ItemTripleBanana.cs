@@ -25,7 +25,7 @@ public class ItemTripleBanana : ItemBanana, IItemUpdatable {
 		GameObject.Destroy (temp);
 	}
 
-	public override Item use(CarItemHandler car, bool useBehind)
+	public override Item StartUse(CarItemHandler car, bool useBehind)
 	{
 		if (!summoned) 
 		{
@@ -40,6 +40,11 @@ public class ItemTripleBanana : ItemBanana, IItemUpdatable {
 			return this;
 
 		return null;
+	}
+
+	public override Item StopUse(CarItemHandler car, bool useBehind)
+	{
+		return this;
 	}
 
 	void SummonBananas(CarItemHandler car)
@@ -84,7 +89,7 @@ public class ItemTripleBanana : ItemBanana, IItemUpdatable {
 		if (!useBehind) 
 		{
 			Object.Destroy (currentBanana.gameObject);
-			base.use (car, useBehind);
+			base.StartUse (car, useBehind);
 		} 
 		else 
 		{

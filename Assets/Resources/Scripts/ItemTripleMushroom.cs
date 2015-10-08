@@ -5,14 +5,19 @@ public class ItemTripleMushroom : ItemMushroom {
 
 	private int UseLeft = 3;
 
-	public override Item use(CarItemHandler car, bool useBehind)
+	public override Item StartUse(CarItemHandler car, bool useBehind)
 	{
-		base.use (car, useBehind);
+		base.StartUse (car, useBehind);
 		UseLeft--;
 
 		if (UseLeft > 0)
 			return this;
 
 		return null;
+	}
+
+	public override Item StopUse(CarItemHandler car, bool useBehind)
+	{
+		return this;
 	}
 }

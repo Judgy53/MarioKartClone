@@ -25,6 +25,12 @@ public class RaceInputMgr : MonoSingleton<RaceInputMgr> {
 
         if (Input.GetKeyUp(KeyCode.Tab))
             UIMgr.Instance.DisplayRankingNot();
+
+		if (Input.GetKeyDown(KeyCode.Space))
+			Player.Instance.StartUseItem(Input.GetKey(KeyCode.DownArrow));
+		
+		if (Input.GetKeyUp(KeyCode.Space))
+			Player.Instance.StopUseItem(Input.GetKey(KeyCode.DownArrow));
     }
 
 	void FixedUpdate () {

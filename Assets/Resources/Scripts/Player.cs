@@ -3,14 +3,21 @@ using System.Collections;
 
 public class Player : CarItemHandler {
 
+	private static Player instance = null;
+	public static Player Instance {
+		get
+		{
+			if(instance == null)
+				instance = new Player();
+
+			return instance;
+		}
+	}
+
 	void Awake()
 	{
 		currentItem = new ItemTripleBanana();
-	}
-
-	void Update () {
-		if (Input.GetKeyDown (KeyCode.E)) 
-			useItem(Input.GetKey(KeyCode.DownArrow));
+		instance = this;
 	}
 
     void LapEnded(int laps)

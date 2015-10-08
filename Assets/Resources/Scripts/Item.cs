@@ -47,5 +47,6 @@ public abstract class Item {
 		}
 	}
 
-	public abstract Item use(CarItemHandler car, bool useBehind);
+	public abstract Item StartUse(CarItemHandler car, bool useBehind);
+	public abstract Item StopUse(CarItemHandler car, bool useBehind);
 }

@@ -6,7 +6,7 @@ public class ItemMushroom : Item {
 	[SerializeField]
 	private float SpeedBoost = 25f;
 
-	public override Item use(CarItemHandler car, bool useBehind)
+	public override Item StartUse(CarItemHandler car, bool useBehind)
 	{
 		Rigidbody body = car.Controller.GetComponent<Rigidbody> ();
 
@@ -14,5 +14,10 @@ public class ItemMushroom : Item {
 
 		car.Controller.SendMessage ("CapSpeed");
 		return null;
+	}
+
+	public override Item StopUse(CarItemHandler car, bool useBehind)
+	{
+		return this;
 	}
 }
