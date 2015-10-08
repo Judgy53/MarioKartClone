@@ -41,4 +41,9 @@ public class GameMgr : MonoSingleton<GameMgr> {
         LevelMgr.Instance.raceClock.Stop();
         state = GameState.EndOfRace;
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }
