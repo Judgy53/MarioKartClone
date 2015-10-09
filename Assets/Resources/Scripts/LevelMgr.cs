@@ -4,7 +4,8 @@ using System.Collections;
 public class LevelMgr : MonoSingleton<LevelMgr> {
 
     [SerializeField]
-    Waypoint StartingLine = null;
+    private GameObject Waypoints = null;
+    private Waypoint startingLine = null;
 
     [SerializeField]
     private int TotalOfCars = 8;
@@ -21,9 +22,16 @@ public class LevelMgr : MonoSingleton<LevelMgr> {
 
     public Clock raceClock;
 
+
     void Awake()
     {
-        StartingLine.SendMessage("Awake"); // Fuck unity.
+        Waypoint[] waypointArray = Waypoints.GetComponentsInChildren<Waypoint>();
+
+        WaypointOrganizer.Organize(waypointArray);
+
+        startingLine = waypointArray[0];
+
+        startingLine.SendMessage("Awake"); // Fuck unity.
 
         //// MUST NOT STAY THERE !!!
         GameMgr.Instance.state = GameMgr.GameState.StartOfRace;
@@ -35,22 +43,22 @@ public class LevelMgr : MonoSingleton<LevelMgr> {
 
         for (int count = 0; count < TotalOfCars - 1; ++count)
         {
-            pos = StartingLine.Floor;
+            pos = startingLine.Floor;
             pos.x += (count % 4) * 6f - 9f;
             pos.z -= count * 3f + 5f;
             pos.y += 3f;
 
-            GameObject newBotCar = Instantiate(BotCarPrefab, pos, StartingLine.transform.rotation) as GameObject;
+            GameObject newBotCar = Instantiate(BotCarPrefab, pos, startingLine.transform.rotation) as GameObject;
             newBotCar.transform.parent = Cars.transform;
             newBotCar.name = "BotCar" + (count+1).ToString();
         }
 
-        pos = StartingLine.Floor;
+        pos = startingLine.Floor;
         pos.x += ((TotalOfCars-1) % 4) * 6f - 9f;
         pos.z -= (TotalOfCars-1) * 3f + 5f;
         pos.y += 3f;
 
-        GameObject playerCar = Instantiate(PlayerCarPrefab, pos, StartingLine.transform.rotation) as GameObject;
+        GameObject playerCar = Instantiate(PlayerCarPrefab, pos, startingLine.transform.rotation) as GameObject;
         playerCar.transform.parent = Cars.transform;
         playerCar.name = "PlayerCar";
 
@@ -58,8 +66,8 @@ public class LevelMgr : MonoSingleton<LevelMgr> {
         ranker.AddComponent<Ranker>();
 
 
-        Cars.BroadcastMessage("SetTarget", StartingLine.NextWp.transform);
-        Cars.BroadcastMessage("SetStartingWaypoint", StartingLine);
+        Cars.BroadcastMessage("SetTarget", startingLine.NextWp.transform);
+        Cars.BroadcastMessage("SetStartingWaypoint", startingLine);
 
         raceClock = new Clock();
     }

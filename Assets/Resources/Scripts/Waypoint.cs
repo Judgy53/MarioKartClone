@@ -3,12 +3,11 @@ using System.Collections;
 
 public class Waypoint : MonoBehaviour {
 
-    [SerializeField]
-    private Waypoint NextWaypoint = null;
+    private Waypoint nextWaypoint = null;
 
     private Vector3 floor;
 
-    public Waypoint NextWp { get { return NextWaypoint; } }
+    public Waypoint NextWp { get { return nextWaypoint; } }
     public Vector3 Floor { get { return floor; } }
 
 	// Use this for initialization
@@ -21,11 +20,16 @@ public class Waypoint : MonoBehaviour {
 	
 	}
 
+    public void SetNextWaypoint(Waypoint wp)
+    {
+        nextWaypoint = wp;
+    }
+
     void OnTriggerEnter(Collider collider)
     {
         if (collider.gameObject.tag == "Bot")
         {
-            collider.gameObject.SendMessage("SetTarget", NextWaypoint.transform);
+            collider.gameObject.SendMessage("SetTarget", nextWaypoint.transform);
         }
 
         if (collider.gameObject.tag == "Player" || collider.gameObject.tag == "Bot")

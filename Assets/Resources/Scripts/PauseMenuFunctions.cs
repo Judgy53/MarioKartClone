@@ -22,4 +22,9 @@ public class PauseMenuFunctions : MonoBehaviour {
     {
         UIMgr.Instance.Resume();
     }
+
+    public void Quit()
+    {
+        GameMgr.Instance.QuitGame();
+    }
 }
