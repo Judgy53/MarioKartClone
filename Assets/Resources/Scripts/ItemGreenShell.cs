@@ -1,30 +1,87 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ItemGreenShell : Item {
+public class ItemGreenShell : Item, IItemUpdatable {
+
+	private bool Summoned = false;
+	private GreenShell Shell = null;
+
+	private float DistFromCar = 5.0f;
+
+	private GameObject prefab = null;
+
+	public ItemGreenShell()
+	{
+		prefab = Resources.Load ("prefabs/GreenShell") as GameObject;
+	}
 	
 	public override Item StartUse(CarItemHandler car, bool useBehind)
 	{
-		GameObject prefab = Resources.Load ("prefabs/GreenShell") as GameObject;
-
-		float dir = useBehind ? -0.75f : 1f;
-
-		Vector3 translation = car.transform.position + car.transform.forward * 6f * dir;
+		Vector3 translation = car.transform.position + car.transform.forward * DistFromCar * -1;
 
 		Quaternion rotation = car.transform.rotation;
-		if (useBehind)
-			rotation = Quaternion.LookRotation (-car.transform.forward);
 
-		GameObject GaO = Object.Instantiate(prefab, translation, rotation) as GameObject;
+		Shell = SummonShell(translation, rotation);
 
-		GaO.transform.Translate(0f, GaO.GetComponent<BoxCollider> ().bounds.extents.y, 0f);
+		Shell.Updatable = false;
 
+		Summoned = true;
 
-		return null;
+		return this;
 	}
 
 	public override Item StopUse(CarItemHandler car, bool useBehind)
 	{
-		return this;
+		if (Shell == null)
+			return null;
+
+		if (useBehind) 
+			Shell.transform.rotation = Quaternion.LookRotation(-car.transform.forward);
+		else 
+			Shell.transform.position = car.transform.position + car.transform.forward * DistFromCar;
+
+		ReleaseShell (Shell);
+
+		return null;
 	}
+
+	public virtual bool Update(CarItemHandler car)
+	{
+		if (!Summoned)
+			return true;
+		else if (Shell == null)
+			return false;
+		else 
+		{
+			Shell.transform.position = car.transform.position + car.transform.forward * DistFromCar * -1;
+			Shell.transform.rotation = car.transform.rotation;
+		}
+
+		return true;
+	}
+
+	protected GreenShell SummonShell(Vector3 position, Quaternion rotation)
+	{
+		GameObject GaO = Object.Instantiate(prefab, position, rotation) as GameObject;
+		
+		GaO.transform.Translate(0f, GaO.GetComponent<BoxCollider> ().bounds.extents.y, 0f);
+
+		return GaO.GetComponent<GreenShell> ();
+	}
+
+	protected void ReleaseShell(GreenShell shell)
+	{
+		shell.Updatable = true;
+		shell.Init ();
+	}
+
+	protected void ReleaseShell(GreenShell shell, Vector3 position, Quaternion rotation)
+	{
+		shell.transform.position = position;
+	
+		shell.transform.rotation = rotation;
+
+		ReleaseShell (shell);
+	}
+
 }

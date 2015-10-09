@@ -8,7 +8,10 @@ public class Player : CarItemHandler {
 		get
 		{
 			if(instance == null)
+			{
+				Debug.Log ("Trying to get an unknown Player Instance. Undefined Behaviour may happen");
 				instance = new Player();
+			}
 
 			return instance;
 		}
@@ -16,7 +19,7 @@ public class Player : CarItemHandler {
 
 	void Awake()
 	{
-		currentItem = new ItemTripleBanana();
+		currentItem = new ItemGreenShell();
 		instance = this;
 	}
 
