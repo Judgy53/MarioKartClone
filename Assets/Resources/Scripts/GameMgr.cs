@@ -17,7 +17,7 @@ public class GameMgr : MonoSingleton<GameMgr> {
     private string NameOfPlayer;
 
     [SerializeField]
-    private string LevelSelector;
+    private string MainMenu;
 
     [SerializeField]
     private string[] Levels;
@@ -27,7 +27,7 @@ public class GameMgr : MonoSingleton<GameMgr> {
 	// Use this for initialization
 	void Start () {
         //state = 0; should be there.
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject); CAUTION: THE GAME WILL SHIT ITSELF.
 	}
 	
 	// Update is called once per frame
@@ -47,9 +47,9 @@ public class GameMgr : MonoSingleton<GameMgr> {
         Application.LoadLevel(Application.loadedLevel);
     }
 
-    public void LaunchLevelSelector()
+    public void LaunchMenu()
     {
-        Application.LoadLevel(LevelSelector);
+        Application.LoadLevel(MainMenu);
     }
 
     public void QuitGame()
@@ -64,12 +64,12 @@ public class GameMgr : MonoSingleton<GameMgr> {
         LevelMgr.Instance.raceClock.Stop();
         state = GameState.EndOfRace;
 
-        StartCoroutine("DelayedBackToSelector");
+        StartCoroutine("DelayedBackToMenu");
     }
 
-    IEnumerator DelayedBackToSelector()
+    IEnumerator DelayedBackToMenu()
     {
         yield return new WaitForSeconds(10f);
-        LaunchLevelSelector();
+        LaunchMenu();
     }
 }
