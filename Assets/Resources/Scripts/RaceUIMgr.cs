@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class UIMgr : MonoSingleton<UIMgr> {
+public class RaceUIMgr : MonoSingleton<RaceUIMgr> {
 
     [SerializeField]
     private Canvas PauseMenu = null;
@@ -17,16 +17,16 @@ public class UIMgr : MonoSingleton<UIMgr> {
 	// Use this for initialization
 	void Start () {
         if (PauseMenu == null)
-            Debug.Log("Please bind a pause menu to the UI manager.");
+            Debug.Log("Please bind a pause menu canvas to the UI manager.");
 
         if (InGameInterface == null)
-            Debug.Log("Please bind an in-game interface to the UI manager.");
+            Debug.Log("Please bind an in-game interface canvas to the UI manager.");
 
         if (RaceCountDown == null)
-            Debug.Log("Please bind a 4-seconds countdown animation to the UI manager.");
+            Debug.Log("Please bind a 4-seconds countdown animation canvas to the UI manager.");
 
         if (Ranking == null)
-            Debug.Log("Please bind a rank interface to the UI manager.");
+            Debug.Log("Please bind a rank interface canvas to the UI manager.");
 
         Resume();
 	}

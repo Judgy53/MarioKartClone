@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class LevelSelectorInputMgr : MonoBehaviour {
+public class MainMenuInputMgr : MonoSingleton<MainMenuInputMgr> {
 
     [SerializeField]
     private int nbrOfTracks = 0;
 
     private int choice = 0;
+
+    public int Choice { get { return choice; } }
 
 	// Use this for initialization
 	void Start () {
@@ -28,9 +30,21 @@ public class LevelSelectorInputMgr : MonoBehaviour {
             choice = choice == 0 ? nbrOfTracks - 1 : choice - 1;
         }
 
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space))
         {
             GameMgr.Instance.LaunchLevel(choice);
+        }
+
+
+
+        if (Input.GetKeyDown("w"))
+        {
+            FileTranslator.WriteShit("SP", "AAAAAAAAA\nAAAAAAAAAAAAAAAAAAAAAAA\nAA\nAAAAAAAAAAAAAAAAAAAAAAA\nAAA\nAA\nA\nAA\nAAA\nAAAAA\nACE");
+        }
+
+        if (Input.GetKeyDown("r"))
+        {
+            Debug.Log(FileTranslator.ReadShit("SP"));
         }
     }
 }

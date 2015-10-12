@@ -3,7 +3,6 @@ using System.Collections;
 
 public class GameMgr : MonoSingleton<GameMgr> {
 
-    //// I dunno about this...
     public enum GameState : int
     {
         Menu = 0,
@@ -15,10 +14,15 @@ public class GameMgr : MonoSingleton<GameMgr> {
     public GameState state = 0;
 
     [SerializeField]
+    private string NameOfPlayer;
+
+    [SerializeField]
     private string LevelSelector;
 
     [SerializeField]
     private string[] Levels;
+
+    public string PlayerName { get { return NameOfPlayer; } }
 
 	// Use this for initialization
 	void Start () {
@@ -56,7 +60,7 @@ public class GameMgr : MonoSingleton<GameMgr> {
     public void EndRace()
     {
         Camera.main.GetComponent<DrivingCamera>().EnterRotatingMode();
-        UIMgr.Instance.DisplayRanking();
+        RaceUIMgr.Instance.DisplayRanking();
         LevelMgr.Instance.raceClock.Stop();
         state = GameState.EndOfRace;
 

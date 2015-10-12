@@ -36,7 +36,7 @@ public class RaceStart : MonoBehaviour {
     {
         FreezeCars();
 
-        StartCoroutine( UIMgr.Instance.RaceCountDownDisplay() );
+        StartCoroutine( RaceUIMgr.Instance.RaceCountDownDisplay() );
 
         yield return new WaitForSeconds(4f);
 

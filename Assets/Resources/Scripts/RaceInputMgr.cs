@@ -15,13 +15,13 @@ public class RaceInputMgr : MonoSingleton<RaceInputMgr> {
             wpHandler.TeleportToLastWaypoint();
 
         if (Input.GetButtonDown("Cancel"))
-            UIMgr.Instance.Pause();
+            RaceUIMgr.Instance.Pause();
 
         if (Input.GetKeyDown(KeyCode.Tab))
-            UIMgr.Instance.DisplayRanking();
+            RaceUIMgr.Instance.DisplayRanking();
 
         if (Input.GetKeyUp(KeyCode.Tab))
-            UIMgr.Instance.DisplayRankingNot();
+            RaceUIMgr.Instance.DisplayRankingNot();
 
 		if (Input.GetKeyDown(KeyCode.Space))
 			Player.Instance.StartUseItem(Input.GetKey(KeyCode.DownArrow));

@@ -20,7 +20,7 @@ public class PauseMenuFunctions : MonoBehaviour {
 
     public void ResumeGame()
     {
-        UIMgr.Instance.Resume();
+        RaceUIMgr.Instance.Resume();
     }
 
     public void Quit()

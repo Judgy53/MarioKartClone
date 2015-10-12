@@ -22,7 +22,7 @@ public class Player : CarItemHandler {
 
     void LapEnded(int laps)
     {
-        UIMgr.Instance.EndOfLapDisplay();
+        RaceUIMgr.Instance.EndOfLapDisplay();
 
         if (laps == LevelMgr.Instance.LapsToDo)
         {
