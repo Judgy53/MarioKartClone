@@ -23,8 +23,8 @@ public class PauseMenuFunctions : MonoBehaviour {
         RaceUIMgr.Instance.Resume();
     }
 
-    public void Quit()
+    public void MainMenu()
     {
-        GameMgr.Instance.QuitGame();
+        GameMgr.Instance.LaunchMenu();
     }
 }

@@ -21,5 +21,6 @@ public class MainMenuFunctions : MonoBehaviour {
     public void SelectLevel()
     {
         MainMenuUIMgr.Instance.LevelSelection();
+        GameMgr.Instance.state = GameMgr.GameState.LevelSelector;
     }
 }

@@ -18,19 +18,17 @@ public class MainMenuInputMgr : MonoSingleton<MainMenuInputMgr> {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyDown(KeyCode.RightArrow) && GameMgr.Instance.state == GameMgr.GameState.LevelSelector)
         {
-            CircuitShowdown.Instance.NextCircuit();
-            choice = (choice + 1) % nbrOfTracks;
+            SelectNextCircuit();
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && GameMgr.Instance.state == GameMgr.GameState.LevelSelector)
         {
-            CircuitShowdown.Instance.PreviousCircuit();
-            choice = choice == 0 ? nbrOfTracks - 1 : choice - 1;
+            SelectPreviousCircuit();
         }
 
-        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space))
+        if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space)) && GameMgr.Instance.state == GameMgr.GameState.LevelSelector)
         {
             GameMgr.Instance.LaunchLevel(choice);
         }
@@ -46,5 +44,17 @@ public class MainMenuInputMgr : MonoSingleton<MainMenuInputMgr> {
         {
             Debug.Log(FileTranslator.ReadShit("SP"));
         }
+    }
+
+    public void SelectNextCircuit()
+    {
+        CircuitShowdown.Instance.NextCircuit();
+        choice = (choice + 1) % nbrOfTracks;
+    }
+
+    public void SelectPreviousCircuit()
+    {
+        CircuitShowdown.Instance.PreviousCircuit();
+        choice = choice == 0 ? nbrOfTracks - 1 : choice - 1;
     }
 }

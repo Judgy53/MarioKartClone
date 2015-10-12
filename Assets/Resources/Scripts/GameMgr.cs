@@ -5,10 +5,12 @@ public class GameMgr : MonoSingleton<GameMgr> {
 
     public enum GameState : int
     {
-        Menu = 0,
-        StartOfRace = 1, // The countdown part.
-        Racing = 2,
-        EndOfRace = 3
+        MainMenu = 0,
+        LevelSelector = 1,
+        Highscores = 2,
+        StartOfRace = 3, // The countdown part.
+        Racing = 4,
+        EndOfRace = 5
     }
 
     public GameState state = 0;
@@ -50,6 +52,7 @@ public class GameMgr : MonoSingleton<GameMgr> {
     public void LaunchMenu()
     {
         Application.LoadLevel(MainMenu);
+        state = GameState.MainMenu;
     }
 
     public void QuitGame()

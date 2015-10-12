@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class LevelSelectorFunctions : MonoBehaviour {
+public class LevelSelectorFunctions : MonoSingleton<LevelSelectorFunctions> {
 
 	// Use this for initialization
 	void Start () {
@@ -16,11 +16,22 @@ public class LevelSelectorFunctions : MonoBehaviour {
     public void GoBack()
     {
         MainMenuUIMgr.Instance.Menu();
+        GameMgr.Instance.state = GameMgr.GameState.MainMenu;
     }
 
     public void PlayLevel()
     {
         GameMgr.Instance.LaunchLevel(MainMenuInputMgr.Instance.Choice);
+    }
+
+    public void NextCircuit()
+    {
+        MainMenuInputMgr.Instance.SelectNextCircuit();
+    }
+
+    public void PreviousCircuit()
+    {
+        MainMenuInputMgr.Instance.SelectPreviousCircuit();
     }
 
 }
