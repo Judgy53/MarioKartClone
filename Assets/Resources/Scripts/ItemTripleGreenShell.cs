@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-public class ItemTripleGreenShell : ItemGreenShell, IItemUpdatable {
+public class ItemTripleGreenShell : ItemGreenShell {
 
 	private bool Summoned = false;
 

@@ -6,17 +6,20 @@ public class GreenShell : MonoBehaviour, IItemCollision {
 	private Rigidbody body = null;
 
 	[SerializeField]
-	private float Speed = 40f;
+	private float Speed = 70f;
 	[SerializeField]
-	private float GravityModifier = -5f;
+	private float GravityModifier = -7f;
 
 	public bool Updatable = true;
 	
 	void Start () {
 		body = GetComponent<Rigidbody> ();
+	}
 
+	public void Init()
+	{
 		if (Updatable)
-			body.AddForce (transform.forward, ForceMode.Impulse);
+			body.velocity = transform.forward;
 	}
 
 	void FixedUpdate () {
