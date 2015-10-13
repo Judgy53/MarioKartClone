@@ -19,7 +19,7 @@ public class Player : CarItemHandler {
 
 	void Awake()
 	{
-		currentItem = new ItemTrappedCube();
+		//currentItem = new ItemGreenShell();
 		instance = this;
 	}
 
