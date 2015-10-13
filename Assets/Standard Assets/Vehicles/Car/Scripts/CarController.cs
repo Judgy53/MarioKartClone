@@ -32,6 +32,7 @@ namespace UnityStandardAssets.Vehicles.Car
         [SerializeField] private float m_Downforce = 100f;
         [SerializeField] private SpeedType m_SpeedType;
         [SerializeField] private float m_Topspeed = 200;
+        [SerializeField] private float m_AccelerationFactor = 1f;
         [SerializeField] private static int NoOfGears = 5;
         [SerializeField] private float m_RevRangeBoundary = 1f;
         [SerializeField] private float m_SlipLimit;
@@ -58,8 +59,8 @@ namespace UnityStandardAssets.Vehicles.Car
         // Use this for initialization
         private void Start()
         {
-            m_WheelMeshLocalRotations = new Quaternion[4];
-            for (int i = 0; i < 4; i++)
+            m_WheelMeshLocalRotations = new Quaternion[m_WheelMeshes.Length];
+            for (int i = 0; i < m_WheelMeshes.Length; i++)
             {
                 m_WheelMeshLocalRotations[i] = m_WheelMeshes[i].transform.localRotation;
             }
@@ -128,7 +129,7 @@ namespace UnityStandardAssets.Vehicles.Car
 
         public void Move(float steering, float accel, float footbrake, float handbrake)
         {
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < m_WheelColliders.Length; i++)
             {
                 Quaternion quat;
                 Vector3 position;
@@ -148,6 +149,12 @@ namespace UnityStandardAssets.Vehicles.Car
             m_SteerAngle = steering*m_MaximumSteerAngle;
             m_WheelColliders[0].steerAngle = m_SteerAngle;
             m_WheelColliders[1].steerAngle = m_SteerAngle;
+
+            if (m_WheelColliders.Length == 6)
+            {
+                m_WheelColliders[2].steerAngle = m_SteerAngle;
+                m_WheelColliders[3].steerAngle = m_SteerAngle;
+            }
 
             SteerHelper();
             ApplyDrive(accel, footbrake);
@@ -192,6 +199,13 @@ namespace UnityStandardAssets.Vehicles.Car
             }
         }
 
+        /*
+         2pr
+         * 2p, p
+         * 1 , 0.5
+         * 
+         */
+
 
         private void ApplyDrive(float accel, float footbrake)
         {
@@ -200,10 +214,10 @@ namespace UnityStandardAssets.Vehicles.Car
             switch (m_CarDriveType)
             {
                 case CarDriveType.FourWheelDrive:
-                    thrustTorque = accel * (m_CurrentTorque / 4f);
-                    for (int i = 0; i < 4; i++)
+                    thrustTorque = accel * (m_CurrentTorque / m_WheelColliders.Length) * m_AccelerationFactor;
+                    for (int i = 0; i < m_WheelColliders.Length; i++)
                     {
-                        m_WheelColliders[i].motorTorque = thrustTorque;
+                        m_WheelColliders[i].motorTorque = thrustTorque * m_WheelColliders[i].radius * m_WheelColliders[i].radius;
                     }
                     break;
 
@@ -219,7 +233,7 @@ namespace UnityStandardAssets.Vehicles.Car
 
             }
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < m_WheelColliders.Length; i++)
             {
                 if (CurrentSpeed > 5 && Vector3.Angle(transform.forward, m_Rigidbody.velocity) < 50f)
                 {
@@ -236,7 +250,7 @@ namespace UnityStandardAssets.Vehicles.Car
 
         private void SteerHelper()
         {
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < m_WheelColliders.Length; i++)
             {
                 WheelHit wheelhit;
                 m_WheelColliders[i].GetGroundHit(out wheelhit);
@@ -273,7 +287,7 @@ namespace UnityStandardAssets.Vehicles.Car
             // loop through all wheels
             for (int i = 0; i < 4; i++)
             {
-                WheelHit wheelHit;
+                /*WheelHit wheelHit;
                 m_WheelColliders[i].GetGroundHit(out wheelHit);
 
                 // is the tire slipping above the given threshhold
@@ -296,7 +310,7 @@ namespace UnityStandardAssets.Vehicles.Car
                     m_WheelEffects[i].StopAudio();
                 }
                 // end the trail generation
-                m_WheelEffects[i].EndSkidTrail();
+                m_WheelEffects[i].EndSkidTrail();*/
             }
         }
 
@@ -308,7 +322,7 @@ namespace UnityStandardAssets.Vehicles.Car
             {
                 case CarDriveType.FourWheelDrive:
                     // loop through all wheels
-                    for (int i = 0; i < 4; i++)
+                    for (int i = 0; i < m_WheelColliders.Length; i++)
                     {
                         m_WheelColliders[i].GetGroundHit(out wheelHit);
 
@@ -317,10 +331,10 @@ namespace UnityStandardAssets.Vehicles.Car
                     break;
 
                 case CarDriveType.RearWheelDrive:
-                    m_WheelColliders[2].GetGroundHit(out wheelHit);
+                    m_WheelColliders[m_WheelColliders.Length-2].GetGroundHit(out wheelHit);
                     AdjustTorque(wheelHit.forwardSlip);
 
-                    m_WheelColliders[3].GetGroundHit(out wheelHit);
+                    m_WheelColliders[m_WheelColliders.Length-1].GetGroundHit(out wheelHit);
                     AdjustTorque(wheelHit.forwardSlip);
                     break;
 
