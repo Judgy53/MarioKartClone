@@ -3,9 +3,11 @@ using System.Collections;
 
 public class ItemBoxFake : ItemBox {
 
-	private bool Setuped = false;
+	public bool Setuped = false;
 
 	private Collider col = null;
+
+	public bool Updatable = true;
 
 	// Use this for initialization
 	protected override void Start () {
@@ -20,6 +22,9 @@ public class ItemBoxFake : ItemBox {
 	
 	// Update is called once per frame
 	protected override void Update () {
+		if (!Updatable)
+			return;
+
 		if (!Setuped) 
 		{
 			GetComponent<Rigidbody>().AddForce (0f, -10f, 0f, ForceMode.Force);
@@ -38,6 +43,9 @@ public class ItemBoxFake : ItemBox {
 
 	void OnTriggerEnter(Collider collid)
 	{
+		if (!Updatable)
+			return;
+
 		CarItemHandler car = collid.GetComponent<CarItemHandler> ();
 
 		if (car != null) 
@@ -48,8 +56,11 @@ public class ItemBoxFake : ItemBox {
 		}
 	}
 
-	void OnCollisionEnter(Collision collision)
+	void OnCollisionStay(Collision collision)
 	{
+		if (!Updatable)
+			return;
+
 		if (IsGrounded())
 		{
 			Destroy (GetComponent<Rigidbody> ());

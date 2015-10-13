@@ -53,7 +53,7 @@ public class ItemBox : MonoBehaviour {
 		SetColor(c);
 	}
 
-	protected void Setup() // Separate from Start to allow delayed init
+	public void Setup() // Separate from Start to allow delayed init
 	{
 		OrigHeight = transform.position.y;
 		ColorCursor = Random.Range (0, 128);

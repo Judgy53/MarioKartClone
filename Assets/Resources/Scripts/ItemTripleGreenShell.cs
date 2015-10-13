@@ -79,8 +79,6 @@ public class ItemTripleGreenShell : ItemGreenShell {
 
 	private void LaunchShell(CarItemHandler car, bool useBehind)
 	{
-		base.StartUse (car, useBehind);
-
 		float minShellDist = -1;
 		int shellToRemove = -1;
 
@@ -102,13 +100,20 @@ public class ItemTripleGreenShell : ItemGreenShell {
 			}
 		}
 
-		GameObject.Destroy (Shells [shellToRemove].gameObject);
+		if (shellToRemove == -1)
+			return;
+
+		Shell = Shells [shellToRemove];
+		Shell.GetComponent<Rigidbody>().isKinematic = false;
+
+		base.StopUse (car, useBehind);
+
 		Shells [shellToRemove] = null;
 
 		NbLaunchedShells++;
 	}
 
-	public bool Update(CarItemHandler car)
+	public override bool Update(CarItemHandler car)
 	{
 		if (!Summoned)
 			return true;

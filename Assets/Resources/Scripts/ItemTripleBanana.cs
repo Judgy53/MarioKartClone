@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ItemTripleBanana : ItemBanana, IItemUpdatable {
+public class ItemTripleBanana : ItemBanana {
 
 	private bool summoned = false;
 	private int launched = 0;
@@ -86,31 +86,19 @@ public class ItemTripleBanana : ItemBanana, IItemUpdatable {
 		if (currentBanana == null)
 			return;
 
-		if (!useBehind) 
-		{
-			Object.Destroy (currentBanana.gameObject);
-			base.StartUse (car, useBehind);
-		} 
-		else 
-		{
-			Quaternion rot = currentBanana.transform.rotation;
-			rot.x = 0f;
-			rot.z = 0f;
-
-			currentBanana.transform.rotation = rot;
-		}
-
 		currentBanana.Updatable = true;
 		currentBanana.owner = null;
 
-		bananas [bananaPos] = null; // set it to null because we don't want to interact with it anymore
-		//currentBanana.gameObject.SetActive(false); // desactivate because we don't want to interact with it anymore
+		banana = currentBanana;
+		DistFromCar = BaseOffset + DistBetweenBananas * bananaPos;
+		base.StopUse (car, useBehind);
 
+		bananas [bananaPos] = null; // set it to null because we don't want to interact with it anymore
 
 		launched++;
 	}
 
-	public bool Update (CarItemHandler car) {
+	public override bool Update (CarItemHandler car) {
 		if (!summoned)
 			return true;
 

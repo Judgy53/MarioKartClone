@@ -4,7 +4,7 @@ using System.Collections;
 public class ItemGreenShell : Item, IItemUpdatable {
 
 	private bool Summoned = false;
-	private GreenShell Shell = null;
+	protected GreenShell Shell = null;
 
 	private float DistFromCar = 5.0f;
 
@@ -36,9 +36,15 @@ public class ItemGreenShell : Item, IItemUpdatable {
 			return null;
 
 		if (useBehind) 
-			Shell.transform.rotation = Quaternion.LookRotation(-car.transform.forward);
+		{
+			Shell.transform.position = car.transform.position + car.transform.forward * DistFromCar * -1;
+			Shell.transform.rotation = Quaternion.LookRotation (-car.transform.forward);
+		}
 		else 
+		{
+			Shell.transform.rotation = Quaternion.LookRotation(car.transform.forward);
 			Shell.transform.position = car.transform.position + car.transform.forward * DistFromCar;
+		}
 
 		ReleaseShell (Shell);
 
