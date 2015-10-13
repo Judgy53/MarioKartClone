@@ -23,6 +23,8 @@ public class CarItemHandler : MonoBehaviour, IItemCollision {
 
 	private bool Hitted = false;
 
+	private bool UseStarted = false;
+
 	void Start()
 	{
 		body = GetComponent<Rigidbody> ();
@@ -59,9 +61,6 @@ public class CarItemHandler : MonoBehaviour, IItemCollision {
 		{
 			Item newItem = Item.RandomItem();
 
-			//while(currentItem == null)
-			//	currentItem = Item.RandomItem ();
-
 			while(newItem == null || (currentItem != null && (newItem.ToString() == currentItem.ToString())))
 				newItem = Item.RandomItem();
 			currentItem = newItem;
@@ -76,14 +75,19 @@ public class CarItemHandler : MonoBehaviour, IItemCollision {
 
 	public void StartUseItem(bool useBehind)
 	{
-		if(CanUseItem())
+		if (CanUseItem ()) 
+		{
+			UseStarted = true;
 			currentItem = currentItem.StartUse (this, useBehind);
+		}
 	}
 
 	public void StopUseItem(bool useBehind)
 	{
-		if(CanUseItem())
+		if(CanUseItem() && UseStarted)
 			currentItem = currentItem.StopUse (this, useBehind);
+
+		UseStarted = false;
 	}
 
 	private bool CanUseItem()
