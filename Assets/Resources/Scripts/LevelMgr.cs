@@ -44,8 +44,8 @@ public class LevelMgr : MonoSingleton<LevelMgr> {
         for (int count = 0; count < TotalOfCars - 1; ++count)
         {
             pos = startingLine.Floor;
-            pos.x += (count % 4) * 6f - 9f;
-            pos.z -= count * 3f + 5f;
+            pos += startingLine.transform.right * ((count % 4) * 6f - 9f);
+            pos -= startingLine.transform.forward * (count * 3f + 5f);
             pos.y += 3f;
 
             GameObject newBotCar = Instantiate(BotCarPrefab, pos, startingLine.transform.rotation) as GameObject;
@@ -54,8 +54,8 @@ public class LevelMgr : MonoSingleton<LevelMgr> {
         }
 
         pos = startingLine.Floor;
-        pos.x += ((TotalOfCars-1) % 4) * 6f - 9f;
-        pos.z -= (TotalOfCars-1) * 3f + 5f;
+        pos += startingLine.transform.right * (((TotalOfCars - 1) % 4) * 6f - 9f);
+        pos -= startingLine.transform.forward * ((TotalOfCars-1) * 3f + 5f);
         pos.y += 3f;
 
         GameObject playerCar = Instantiate(PlayerCarPrefab, pos, startingLine.transform.rotation) as GameObject;
