@@ -22,4 +22,9 @@ public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
 			return m_instance;
 		}
 	}
+
+    protected static bool InstanceExists()
+    {
+        return (m_instance != null);
+    }
 }
