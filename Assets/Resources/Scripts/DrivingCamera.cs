@@ -28,6 +28,11 @@ public class DrivingCamera : MonoBehaviour {
     private bool rotatingAroundCar = false;
     private float rotateStartTime;
 
+    [SerializeField]
+    private float shakeFactor = 0.1f;
+    private Vector3 lastShake = Vector3.zero;
+    private float lastShakeTime = 0f;
+
 	public bool FollowCar = true;
 
 	// Use this for initialization
@@ -56,10 +61,14 @@ public class DrivingCamera : MonoBehaviour {
 			transform.rotation = Quaternion.Lerp(transform.rotation, newRot, RotationSmooth);
 		}
 
-        cam.fieldOfView = (carController.CurrentSpeed / carController.MaxSpeed) * (FoVMax - FoVMin) + FoVMin;
+        float speedRatio = carController.CurrentSpeed / carController.MaxSpeed;
+
+        cam.fieldOfView = speedRatio * (FoVMax - FoVMin) + FoVMin;
+
+        Shake(speedRatio*speedRatio);
 	}
 
-    Vector3 FindRigidPos()
+    private Vector3 FindRigidPos()
     {
         Vector3 pos;
         if (rotatingAroundCar)
@@ -75,11 +84,33 @@ public class DrivingCamera : MonoBehaviour {
         return pos;
     }
 
-    Quaternion FindRigidRot()
+    private Quaternion FindRigidRot()
     {
         Vector3 centering = carTrf.position;
         centering.y += ZOffSet;
         return Quaternion.LookRotation(centering - transform.position, Vector3.up);
+    }
+
+    private void Shake(float power)
+    {
+        if (Time.fixedTime - lastShakeTime > 0.030)
+        {
+            lastShakeTime = Time.fixedTime;
+
+            transform.position -= lastShake;
+
+            float shakeAngle = Random.Range(0f, 6.28f);
+
+            Vector3 newShake = new Vector3(Mathf.Cos(shakeAngle), Mathf.Sin(shakeAngle), 0f);
+
+            newShake *= power * shakeFactor;
+
+            //newShake = transform.InverseTransformPoint(newShake);
+
+            transform.position += newShake;
+
+            lastShake = newShake;
+        }
     }
 
     public void EnterRotatingMode()

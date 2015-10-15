@@ -6,7 +6,7 @@ public static class FileTranslator {
 
 	public static void WriteShit(string file, string text)
     {
-        StreamWriter writer = new StreamWriter(file, true);
+        StreamWriter writer = new StreamWriter(file);
         writer.Write(text);
         writer.Close();
     }
