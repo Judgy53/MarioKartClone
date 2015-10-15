@@ -8,10 +8,18 @@ public class RecordKeeper : MonoSingleton<RecordKeeper> {
 
     public List<Record> HighScores { get { return highScores; } }
 
-    void awake()
+    void Awake()
     {
-        if (InstanceExists())
-            Destroy(gameObject, 0f);
+        if (FindObjectsOfType(GetType()).Length > 1)
+        {
+            Destroy(gameObject);
+        }
+        //if (InstanceExists())
+        //    Destroy(gameObject);
+
+        //SetInstance(this);
+
+        DontDestroyOnLoad(gameObject);
     }
 
 	// Use this for initialization
@@ -52,15 +60,17 @@ public class RecordKeeper : MonoSingleton<RecordKeeper> {
         for (int i = 0; i < highScores.Count; ++i)
         {
             result += (i+1).ToString() + "\n";
-            result += highScores[i].Holder + "\n";
-            result += highScores[i].TotalTime.ToString() + "\n";
-            
-            for (int j = 0; j < highScores[i].LapTimes.Count; ++j)
-                result += highScores[i].LapTimes[j] + "\n";
+
+            result += highScores[i].RecordToString();
 
             result += "-----\n-----\n";
         }
 
         return result;
+    }
+
+    public void HighScoresFromString()
+    {
+
     }
 }
