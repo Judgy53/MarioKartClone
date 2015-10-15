@@ -6,17 +6,18 @@ public abstract class Item {
 	public enum ItemType
 	{
 		None = 0,
+
 		Mushroom,
 		TripleMushroom,
 		GreenShell,
 		TripleGreenShell,
-		//RedShell,
-		//TripleRedShell,
+		RedShell,
+		TripleRedShell,
 		BobOmb,
 		Banana,
 		TripleBanana,
 		TrappedCube,
-		//FuckYourEyesStar,
+		Star,
 
 		Count
 	}
@@ -35,6 +36,10 @@ public abstract class Item {
 			return new ItemGreenShell();
 		case ItemType.TripleGreenShell:
 			return new ItemTripleGreenShell();
+		case ItemType.RedShell:
+			return new ItemRedShell();
+		case ItemType.TripleRedShell:
+			return new ItemTripleRedShell();
 		case ItemType.BobOmb:
 			return new ItemBobOmb();
 		case ItemType.Banana:
@@ -43,6 +48,8 @@ public abstract class Item {
 			return new ItemTripleBanana();
 		case ItemType.TrappedCube:
 			return new ItemTrappedCube();
+		case ItemType.Star:
+			return new ItemStar();
 		default: 
 			Debug.Log ("RandomItem null (id:" + typeId + ")");
 			return null;

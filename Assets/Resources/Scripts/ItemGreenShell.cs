@@ -8,7 +8,7 @@ public class ItemGreenShell : Item, IItemUpdatable {
 
 	private float DistFromCar = 5.0f;
 
-	private GameObject prefab = null;
+	protected GameObject prefab = null;
 
 	public ItemGreenShell()
 	{

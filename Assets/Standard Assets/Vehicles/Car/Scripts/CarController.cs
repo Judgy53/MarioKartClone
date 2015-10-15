@@ -377,5 +377,10 @@ namespace UnityStandardAssets.Vehicles.Car
             }
             return false;
         }
+
+		public void MultiplyAcceleration(float factor)
+		{
+			m_AccelerationFactor *= factor;
+		}
     }
 }

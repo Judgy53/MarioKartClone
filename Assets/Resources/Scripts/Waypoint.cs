@@ -32,7 +32,7 @@ public class Waypoint : MonoBehaviour {
             collider.gameObject.SendMessage("SetTarget", nextWaypoint.transform);
         }
 
-        if (collider.gameObject.tag == "Player" || collider.gameObject.tag == "Bot")
+		if (collider.gameObject.tag == "Player" || collider.gameObject.tag == "Bot" || collider.gameObject.tag == "RedShell")
         {
             collider.gameObject.SendMessage("SetLastWaypoint", this);
         }

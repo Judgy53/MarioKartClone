@@ -3,26 +3,27 @@ using System.Collections;
 
 public class GreenShell : MonoBehaviour, IItemCollision {
 
-	private Rigidbody body = null;
+	protected Rigidbody body = null;
 
 	[SerializeField]
 	private float Speed = 70f;
 	[SerializeField]
 	private float GravityModifier = -7f;
 
+	[HideInInspector]
 	public bool Updatable = true;
 	
 	void Start () {
 		body = GetComponent<Rigidbody> ();
 	}
 
-	public void Init()
+	public virtual void Init()
 	{
 		if (Updatable)
 			body.velocity = transform.forward;
 	}
 
-	void FixedUpdate () {
+	protected virtual void FixedUpdate () {
 		if (Updatable) 
 		{
 			body.velocity = body.velocity.normalized * Speed;

@@ -77,7 +77,7 @@ public class ItemTripleGreenShell : ItemGreenShell {
 		Summoned = true;
 	}
 
-	private void LaunchShell(CarItemHandler car, bool useBehind)
+	protected virtual void LaunchShell(CarItemHandler car, bool useBehind)
 	{
 		float minShellDist = -1;
 		int shellToRemove = -1;
@@ -139,5 +139,10 @@ public class ItemTripleGreenShell : ItemGreenShell {
 		}
 
 		return updated;
+	}
+
+	protected virtual GreenShell GetShellComponent(GameObject gao)
+	{
+		return gao.GetComponent<GreenShell> ();
 	}
 }
