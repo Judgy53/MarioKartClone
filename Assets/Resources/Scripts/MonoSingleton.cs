@@ -13,11 +13,11 @@ public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
 		{
 			if (m_instance == null)
 			{
-				T target = GameObject.FindObjectOfType(typeof(T)) as T;
-				if(target != null)
-				{
-					m_instance = target;
-				}
+                T target = GameObject.FindObjectOfType(typeof(T)) as T;
+                if (target != null)
+                {
+                    m_instance = target;
+                }
 			}
 			return m_instance;
 		}
@@ -25,6 +25,7 @@ public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
 
     protected static bool InstanceExists()
     {
-        return (m_instance != null);
+        return (FindObjectsOfType(typeof(T)).Length > 1);
     }
+
 }

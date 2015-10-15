@@ -27,16 +27,18 @@ public class GameMgr : MonoSingleton<GameMgr> {
     public string PlayerName { get { return NameOfPlayer; } }
 
 
+
     void Awake()
     {
         if (InstanceExists())
-            Destroy(gameObject, 0f);
+            Destroy(gameObject);
+
+        DontDestroyOnLoad(gameObject);
     }
 
 	// Use this for initialization
 	void Start () {
         //state = 0; should be there.
-        DontDestroyOnLoad(gameObject);
 	}
 	
 	// Update is called once per frame
