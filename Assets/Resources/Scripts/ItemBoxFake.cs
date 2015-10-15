@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ItemBoxFake : ItemBox {
 
-	public bool Setuped = false;
+	public bool Set = false;
 
 	private Collider col = null;
 
@@ -25,7 +25,7 @@ public class ItemBoxFake : ItemBox {
 		if (!Updatable)
 			return;
 
-		if (!Setuped) 
+		if (!Set) 
 		{
 			GetComponent<Rigidbody>().AddForce (0f, -10f, 0f, ForceMode.Force);
 		} 
@@ -70,7 +70,7 @@ public class ItemBoxFake : ItemBox {
 
 			Setup ();
 			
-			Setuped = true;
+			Set = true;
 		}
 	}
 	
