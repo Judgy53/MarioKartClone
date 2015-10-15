@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using UnityStandardAssets.Vehicles.Car;
 
-public class TMP_SpdDisplay : MonoBehaviour {
+public class SpdDisplay : MonoBehaviour {
 
     private Text text = null;
     private CarController carController = null;

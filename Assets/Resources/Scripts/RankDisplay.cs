@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class TMP_RankDisplay : MonoBehaviour
+public class RankDisplay : MonoBehaviour
 {
 
     private Text text = null;

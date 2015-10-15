@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class TMP_ItemDisplay : MonoBehaviour {
+public class ItemDisplay : MonoBehaviour {
 
 	private Player player = null;
 	private Text text = null;

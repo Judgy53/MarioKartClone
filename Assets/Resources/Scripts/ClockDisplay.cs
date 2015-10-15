@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class TMP_ClockDisplay : MonoBehaviour {
+public class ClockDisplay : MonoBehaviour {
 
     private Text text = null;
     private CarWaypointHandler carWpHandler = null;
@@ -25,7 +25,7 @@ public class TMP_ClockDisplay : MonoBehaviour {
 
             TimeToDigits(LevelMgr.Instance.raceClock.LocalTime, out digits);
 
-            SetDigitsToDisplay(digits);
+            text.text = DigitsToString(digits);
         }
     }
 
@@ -46,7 +46,7 @@ public class TMP_ClockDisplay : MonoBehaviour {
 
         for (int ite = 0; ite < 10; ++ite)
         {
-            SetDigitsToDisplay(digits);
+            text.text = DigitsToString(digits);
 
             yield return new WaitForSeconds(0.1f);
 
@@ -58,7 +58,7 @@ public class TMP_ClockDisplay : MonoBehaviour {
         endOfLapAnimRun = false;
     }
 
-    private void TimeToDigits(float time, out int[] digits)
+    public static void TimeToDigits(float time, out int[] digits)
     {
         int timeAsMs = (int)(time*1000f);
 
@@ -79,28 +79,31 @@ public class TMP_ClockDisplay : MonoBehaviour {
         }
     }
 
-    private void SetDigitsToDisplay(int[] digits) // There should be 7 digits, no less;
+    public static string DigitsToString(int[] digits) // There should be 7 digits, no less;
     {
+        string str = string.Empty;
+
         if (digits.Length != 7)
         {
             Debug.Log("The array passed to SetDigitsToDisplay is " + digits.Length.ToString() + ", not 7!");
+            return str;
         }
-
-        text.text = string.Empty;
 
         int ite;
 
         for (ite = 0; ite < 2; ++ite)
-            text.text += digits[ite].ToString();
+            str += digits[ite].ToString();
 
-        text.text += "'";
+        str += "'";
 
         for (ite = 2; ite < 4; ++ite)
-            text.text += digits[ite].ToString();
+            str += digits[ite].ToString();
 
-        text.text += "\"";
+        str += "\"";
 
         for (ite = 4; ite < 7; ++ite)
-            text.text += digits[ite].ToString();
+            str += digits[ite].ToString();
+
+        return str;
     }
 }

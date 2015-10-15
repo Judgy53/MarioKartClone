@@ -4,14 +4,14 @@ using System.IO;
 
 public static class FileTranslator {
 
-	public static void WriteShit(string file, string text)
+	public static void WriteFile(string file, string text)
     {
         StreamWriter writer = new StreamWriter(file);
         writer.Write(text);
         writer.Close();
     }
 
-    public static string ReadShit(string file)
+    public static string ReadFile(string file)
     {
         if (File.Exists(file))
         {

@@ -4,27 +4,26 @@ using System.Collections.Generic;
 
 public class RecordKeeper : MonoSingleton<RecordKeeper> {
 
-    private List<Record> highScores = new List<Record>();
+    [SerializeField]
 
-    public List<Record> HighScores { get { return highScores; } }
+    private List<Record>[] highScores;  // Array of leaderboards (one leaderboard per level)
+
+    public List<Record>[] HighScores { get { return highScores; } }
 
     void Awake()
     {
-        if (FindObjectsOfType(GetType()).Length > 1)
-        {
+        if (InstanceExists())
             Destroy(gameObject);
+
+        DontDestroyOnLoad(gameObject);
+
+
+        highScores = new List<Record>[GameMgr.Instance.LevelNames.Length];
+
+        for (int lvl = 0; lvl < GameMgr.Instance.LevelNames.Length; ++lvl)
+        {
+            highScores[lvl] = LeaderboardFromString(FileTranslator.ReadFile(GameMgr.Instance.LevelNames[lvl] + ".sav"));
         }
-        //if (InstanceExists())
-        //    Destroy(gameObject);
-
-        //SetInstance(this);
-
-        DontDestroyOnLoad(gameObject);
-    }
-
-	// Use this for initialization
-	void Start () {
-        DontDestroyOnLoad(gameObject);
 	}
 	
 	// Update is called once per frame
@@ -34,15 +33,17 @@ public class RecordKeeper : MonoSingleton<RecordKeeper> {
 
     public void SubmitHighScore(Record newRecord)
     {
-        highScores.Add(newRecord);
-        highScores.Sort(new RecordComparer());
+        int currLvl = GameMgr.Instance.CurrentLevel;
 
-        if (highScores.Count > 10)
+        highScores[currLvl].Add(newRecord);
+        highScores[currLvl].Sort(new RecordComparer());
+
+        if (highScores[currLvl].Count > 10)
         {
-            highScores.RemoveAt(10);
+            highScores[currLvl].RemoveAt(10);
         }
 
-        FileTranslator.WriteShit("sav.sav", HighScoresToString());
+        FileTranslator.WriteFile(GameMgr.Instance.LevelNames[currLvl] + ".sav", LeaderboardToString());
     }
 
     private class RecordComparer : IComparer<Record>
@@ -53,24 +54,33 @@ public class RecordKeeper : MonoSingleton<RecordKeeper> {
         }
     }
 
-    public string HighScoresToString()
+    public string LeaderboardToString()
     {
+        int currLvl = GameMgr.Instance.CurrentLevel;
+
         string result = string.Empty;
 
-        for (int i = 0; i < highScores.Count; ++i)
+        for (int i = 0; i < highScores[currLvl].Count; ++i)
         {
-            result += (i+1).ToString() + "\n";
+            result += highScores[currLvl][i].RecordToString();
 
-            result += highScores[i].RecordToString();
-
-            result += "-----\n-----\n";
+            result += "#";
         }
 
         return result;
     }
 
-    public void HighScoresFromString()
+    public List<Record> LeaderboardFromString(string str)
     {
+        List<Record> leaderboard = new List<Record>();
 
+        string[] subStr = str.Split(new char[]{'#'});
+
+        for (int ite = 0; ite < subStr.Length - 1; ++ite)
+        {
+            leaderboard.Add(Record.RecordFromString(subStr[ite]));
+        }
+
+        return leaderboard;
     }
 }

@@ -8,6 +8,8 @@ public class MainMenuUIMgr : MonoSingleton<MainMenuUIMgr> {
     private Canvas MainMenu = null;
     [SerializeField]
     private Canvas LevelSelector = null;
+    [SerializeField]
+    private Canvas HighScores = null;
 
 	// Use this for initialization
 	void Start () {
@@ -16,6 +18,9 @@ public class MainMenuUIMgr : MonoSingleton<MainMenuUIMgr> {
 
         if (LevelSelector == null)
             Debug.Log("Please bind a level selector canvas to the UI manager.");
+
+        if (HighScores == null)
+            Debug.Log("Please bind a high-scores canvas to the UI manager.");
 
         Menu();
 	}
@@ -28,12 +33,21 @@ public class MainMenuUIMgr : MonoSingleton<MainMenuUIMgr> {
     public void Menu()
     {
         LevelSelector.gameObject.SetActive(false);
+        HighScores.gameObject.SetActive(false);
         MainMenu.gameObject.SetActive(true);
     }
 
     public void LevelSelection()
     {
         MainMenu.gameObject.SetActive(false);
+        HighScores.gameObject.SetActive(false);
         LevelSelector.gameObject.SetActive(true);
+    }
+
+    public void ViewHighScores()
+    {
+        MainMenu.gameObject.SetActive(false);
+        LevelSelector.gameObject.SetActive(false);
+        HighScores.gameObject.SetActive(true);
     }
 }

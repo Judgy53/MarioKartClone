@@ -7,7 +7,7 @@ public class GameMgr : MonoSingleton<GameMgr> {
     {
         MainMenu = 0,
         LevelSelector = 1,
-        Highscores = 2,
+        HighScores = 2,
         StartOfRace = 3, // The countdown part.
         Racing = 4,
         EndOfRace = 5
@@ -24,7 +24,13 @@ public class GameMgr : MonoSingleton<GameMgr> {
     [SerializeField]
     private string[] Levels;
 
+    private int currentLevel = 0;
+
     public string PlayerName { get { return NameOfPlayer; } }
+
+    public string[] LevelNames { get { return Levels; } }
+
+    public int CurrentLevel { get { return currentLevel; } }
 
 
 
@@ -51,11 +57,12 @@ public class GameMgr : MonoSingleton<GameMgr> {
     {
         Application.LoadLevel(Levels[level]);
         state = GameState.StartOfRace;
+        currentLevel = level;
     }
 
     public void RestartLevel()
     {
-        Application.LoadLevel(Application.loadedLevel);
+        LaunchLevel(CurrentLevel);
     }
 
     public void LaunchMenu()

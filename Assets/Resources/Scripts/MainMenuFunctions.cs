@@ -23,4 +23,10 @@ public class MainMenuFunctions : MonoBehaviour {
         MainMenuUIMgr.Instance.LevelSelection();
         GameMgr.Instance.state = GameMgr.GameState.LevelSelector;
     }
+
+    public void BeholdHighscores()
+    {
+        MainMenuUIMgr.Instance.ViewHighScores();
+        GameMgr.Instance.state = GameMgr.GameState.HighScores;
+    }
 }

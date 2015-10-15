@@ -18,31 +18,37 @@ public class MainMenuInputMgr : MonoSingleton<MainMenuInputMgr> {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.RightArrow) && GameMgr.Instance.state == GameMgr.GameState.LevelSelector)
+        if (GameMgr.Instance.state == GameMgr.GameState.LevelSelector)
         {
-            SelectNextCircuit();
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                SelectNextCircuit();
+            }
+
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                SelectPreviousCircuit();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space))
+            {
+                GameMgr.Instance.LaunchLevel(choice);
+            }
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow) && GameMgr.Instance.state == GameMgr.GameState.LevelSelector)
+        if (GameMgr.Instance.state == GameMgr.GameState.HighScores)
         {
-            SelectPreviousCircuit();
-        }
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                SelectNextCircuit();
+                HighScoresDisplay.Instance.LoadLeaderboard(choice);
+            }
 
-        if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space)) && GameMgr.Instance.state == GameMgr.GameState.LevelSelector)
-        {
-            GameMgr.Instance.LaunchLevel(choice);
-        }
-
-
-
-        if (Input.GetKeyDown("w"))
-        {
-            FileTranslator.WriteShit("SP", "AAAAAAAAA\nAAAAAAAAAAAAAAAAAAAAAAA\nAA\nAAAAAAAAAAAAAAAAAAAAAAA\nAAA\nAA\nA\nAA\nAAA\nAAAAA\nACE");
-        }
-
-        if (Input.GetKeyDown("r"))
-        {
-            Debug.Log(FileTranslator.ReadShit("SP"));
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                SelectPreviousCircuit();
+                HighScoresDisplay.Instance.LoadLeaderboard(choice);
+            }
         }
     }
 

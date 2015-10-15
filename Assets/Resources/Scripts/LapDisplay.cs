@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class TMP_LapDisplay : MonoBehaviour {
+public class LapDisplay : MonoBehaviour {
 
     private Text text = null;
     private CarWaypointHandler carWpHandler = null;
