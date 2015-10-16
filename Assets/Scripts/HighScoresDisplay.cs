@@ -4,7 +4,7 @@ using System.Collections;
 
 public class HighScoresDisplay : MonoSingleton<HighScoresDisplay> {
 
-    Text[] name = new Text[10];
+    Text[] title = new Text[10];
     Text[] totalTime = new Text[10];
     Text[] lapTimes = new Text[10];
 
@@ -26,7 +26,7 @@ public class HighScoresDisplay : MonoSingleton<HighScoresDisplay> {
             for (int ite2 = 0; ite2 < 3; ++ite2)
             {
                 if (texts[ite2].gameObject.name == "RankName")
-                    name[rank] = texts[ite2];
+                    title[rank] = texts[ite2];
 
                 else if (texts[ite2].gameObject.name == "Total")
                     totalTime[rank] = texts[ite2];
@@ -63,7 +63,7 @@ public class HighScoresDisplay : MonoSingleton<HighScoresDisplay> {
         for (int rank = 0; rank < recordsCount; ++rank)   // Not actually rank but rank -1;
         {
             Record beingWrit = RecordKeeper.Instance.HighScores[level][rank];
-            name[rank].text = (rank + 1).ToString() + "- " + beingWrit.Holder;
+            title[rank].text = (rank + 1).ToString() + "- " + beingWrit.Holder;
 
             int[] digits;
             ClockDisplay.TimeToDigits(beingWrit.TotalTime, out digits);

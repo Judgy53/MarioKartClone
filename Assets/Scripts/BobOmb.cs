@@ -80,7 +80,7 @@ public class BobOmb : MonoBehaviour {
 		return Physics.Raycast (transform.position, - Vector3.up, radius + 0.1f);
 	}
 	
-	private void NeverGonnaGiveYouUp()
+	private void OnOutOfMap()
 	{
 		Destroy (gameObject);
 	}

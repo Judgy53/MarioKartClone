@@ -48,7 +48,7 @@ public class GreenShell : MonoBehaviour, IItemCollision {
 		Destroy (gameObject);
 	}
 
-	private void NeverGonnaGiveYouUp()
+	private void OnOutOfMap()
 	{
 		Destroy (gameObject);
 	}

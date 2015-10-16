@@ -80,7 +80,7 @@ public class ItemBoxFake : ItemBox {
 		return Physics.Raycast (transform.position, - Vector3.up, col.bounds.extents.y + 0.6f, layerMask);
 	}
 
-	private void NeverGonnaGiveYouUp()
+	private void OnOutOfMap()
 	{
 		Destroy (gameObject);
 	}

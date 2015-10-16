@@ -50,7 +50,7 @@ public class Banana : MonoBehaviour {
 		//gameObject.SetActive (false);
 	}
 	
-	private void NeverGonnaGiveYouUp()
+	private void OnOutOfMap()
 	{
 		Destroy (gameObject);
 	}

@@ -13,7 +13,10 @@ public class RecordKeeper : MonoSingleton<RecordKeeper> {
     void Awake()
     {
         if (InstanceExists())
+        {
             Destroy(gameObject);
+            return;
+        }
 
         DontDestroyOnLoad(gameObject);
 
