@@ -199,14 +199,6 @@ namespace UnityStandardAssets.Vehicles.Car
             }
         }
 
-        /*
-         2pr
-         * 2p, p
-         * 1 , 0.5
-         * 
-         */
-
-
         private void ApplyDrive(float accel, float footbrake)
         {
 

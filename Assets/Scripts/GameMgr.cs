@@ -37,7 +37,10 @@ public class GameMgr : MonoSingleton<GameMgr> {
     void Awake()
     {
         if (InstanceExists())
+        {
             Destroy(gameObject);
+            return;
+        }
 
         DontDestroyOnLoad(gameObject);
     }
@@ -49,7 +52,7 @@ public class GameMgr : MonoSingleton<GameMgr> {
 	
 	// Update is called once per frame
 	void Update () {
-	
+
 	}
 
 

@@ -70,9 +70,9 @@ public class CarWaypointHandler : MonoBehaviour {
         }
     }
 
-	private void NeverGonnaGiveYouUp()
+	private void OnOutOfMap()
 	{
-		TeleportToLastWaypoint ();
+		TeleportToLastWaypoint();
 	}
 
     public void TeleportToLastWaypoint()
