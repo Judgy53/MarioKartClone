@@ -20,4 +20,9 @@ public class ItemMushroom : Item {
 	{
 		return this;
 	}
+
+	public override SpriteIndex GetSpriteIndex()
+	{
+		return SpriteIndex.Mushroom;
+	}
 }

@@ -90,4 +90,9 @@ public class ItemGreenShell : Item, IItemUpdatable {
 		ReleaseShell (shell);
 	}
 
+	public override SpriteIndex GetSpriteIndex()
+	{
+		return SpriteIndex.GreenShell;
+	}
+
 }

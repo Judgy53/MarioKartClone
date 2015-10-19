@@ -22,7 +22,7 @@ public class CarAutoDrive : MonoBehaviour {
         Quaternion quat = Quaternion.FromToRotation(transform.forward, ((target - transform.position) + transform.forward)/2f);
 
         float angle = quat.eulerAngles.y;
-        float angleb = -360 + angle;
+        float angleb = -360f + angle;
 
         angle = (angle < Mathf.Abs(angleb)) ? angle : angleb;
 

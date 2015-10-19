@@ -19,4 +19,9 @@ public class ItemTripleRedShell : ItemTripleGreenShell {
 	{
 		return gao.GetComponent<RedShell> ();
 	}
+
+	public override SpriteIndex GetSpriteIndex()
+	{
+		return SpriteIndex.TripleRedShell;
+	}
 }

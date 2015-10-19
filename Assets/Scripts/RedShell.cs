@@ -12,7 +12,7 @@ public class RedShell : GreenShell {
 	public override void Init()
 	{
 		if (Updatable)
-			body.velocity = new Vector3(transform.forward.x, 0f, transform.forward.z);
+			body.velocity = transform.forward;
 	}
 
 	protected override void FixedUpdate () {
@@ -20,7 +20,7 @@ public class RedShell : GreenShell {
 		if (!Updatable)
 			return;
 
-		if (TargetCar == null) 
+		if (TargetCar == null)  // act as GreenShell
 		{
 			base.FixedUpdate();
 			return;
@@ -33,11 +33,12 @@ public class RedShell : GreenShell {
 		else
 			target = LastWaypoint.NextWp.Floor;
 
+
 		transform.LookAt (target);
 
-		body.velocity = new Vector3 (transform.forward.x, -0.1f, transform.forward.z);
+		Vector3 vel = new Vector3 (transform.forward.x, 0f, transform.forward.z);
 
-		base.FixedUpdate ();
+		transform.position += vel;
 	}
 
 	public void SetLastWaypoint(Waypoint wp)
@@ -51,7 +52,7 @@ public class RedShell : GreenShell {
 		
 		if (carWaypoint == null) 
 		{
-			Debug.Log ("Red Shell launched by a non Waypoint based car");
+			Debug.LogError ("Red Shell launched by a non Waypoint based car");
 			return;
 		}
 		
@@ -62,4 +63,10 @@ public class RedShell : GreenShell {
 		}
 	}
 
+
+	private bool OnGround(int xOffset = 0)
+	{
+		Vector3 offset = new Vector3(xOffset, 0f, 0f);
+		return Physics.Raycast (transform.position + offset, -transform.up, 2.7f);
+	}
 }

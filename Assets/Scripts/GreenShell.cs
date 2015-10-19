@@ -6,9 +6,9 @@ public class GreenShell : MonoBehaviour, IItemCollision {
 	protected Rigidbody body = null;
 
 	[SerializeField]
-	private float Speed = 70f;
+	protected float Speed = 70f;
 	[SerializeField]
-	private float GravityModifier = -7f;
+	protected float GravityModifier = -7f;
 
 	[HideInInspector]
 	public bool Updatable = true;
@@ -26,7 +26,11 @@ public class GreenShell : MonoBehaviour, IItemCollision {
 	protected virtual void FixedUpdate () {
 		if (Updatable) 
 		{
-			body.velocity = body.velocity.normalized * Speed;
+			Vector3 vel = body.velocity.normalized * Speed;
+			vel.y = body.velocity.y;
+
+			body.velocity = vel;
+
 			body.AddForce (0f, GravityModifier, 0f, ForceMode.Force);
 		}
 	}

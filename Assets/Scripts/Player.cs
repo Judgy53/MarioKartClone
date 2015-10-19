@@ -21,7 +21,7 @@ public class Player : CarItemHandler {
 
 	void Awake()
 	{
-		//currentItem = new ItemStar();
+		currentItem = new ItemRedShell();
 		instance = this;
 
         record = new Record();

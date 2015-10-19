@@ -16,4 +16,9 @@ public class ItemRedShell : ItemGreenShell {
 		
 		return null;
 	}
+
+	public override SpriteIndex GetSpriteIndex()
+	{
+		return SpriteIndex.RedShell;
+	}
 }

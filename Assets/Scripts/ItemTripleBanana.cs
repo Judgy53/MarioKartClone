@@ -139,4 +139,9 @@ public class ItemTripleBanana : ItemBanana {
 
 		return updated;
 	}
+
+	public override SpriteIndex GetSpriteIndex()
+	{
+		return SpriteIndex.TripleBanana;
+	}
 }
