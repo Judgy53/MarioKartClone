@@ -3,7 +3,6 @@ using System.Collections;
 
 public class MainMenuInputMgr : MonoSingleton<MainMenuInputMgr> {
 
-    [SerializeField]
     private int nbrOfTracks = 0;
 
     private int choice = 0;
@@ -12,8 +11,7 @@ public class MainMenuInputMgr : MonoSingleton<MainMenuInputMgr> {
 
 	// Use this for initialization
 	void Start () {
-        if (nbrOfTracks == 0)
-            Debug.Log("Please set a number of tracks in the level selector input manager.");
+        nbrOfTracks = GameMgr.Instance.LevelNames.Length;
 	}
 	
 	// Update is called once per frame

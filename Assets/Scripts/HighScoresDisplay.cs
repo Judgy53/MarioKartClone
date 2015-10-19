@@ -44,7 +44,7 @@ public class HighScoresDisplay : MonoSingleton<HighScoresDisplay> {
 
     void OnEnable()
     {
-        LoadLeaderboard(0);
+        LoadLeaderboard(MainMenuInputMgr.Instance.Choice);
     }
 
     public void LoadLeaderboard(int level)
