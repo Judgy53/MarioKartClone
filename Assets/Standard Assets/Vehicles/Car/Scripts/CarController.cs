@@ -374,5 +374,10 @@ namespace UnityStandardAssets.Vehicles.Car
 		{
 			m_AccelerationFactor *= factor;
 		}
+
+        private void SetDownForce(float downForce)
+        {
+            m_Downforce = downForce;
+        }
     }
 }

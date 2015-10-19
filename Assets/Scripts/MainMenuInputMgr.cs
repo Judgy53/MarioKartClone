@@ -48,6 +48,12 @@ public class MainMenuInputMgr : MonoSingleton<MainMenuInputMgr> {
                 HighScoresDisplay.Instance.LoadLeaderboard(choice);
             }
         }
+
+        if (GameMgr.Instance.state == GameMgr.GameState.MainMenu)
+        {
+            if (Input.GetKeyDown("t"))
+                RandomKickLine.Instance.ChangeLine();
+        }
     }
 
     public void SelectNextCircuit()

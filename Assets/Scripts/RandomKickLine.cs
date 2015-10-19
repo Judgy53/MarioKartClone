@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class RandomKickLine : MonoBehaviour {
+public class RandomKickLine : MonoSingleton<RandomKickLine> {
 
     private Text text = null;
     private string[] lines = null;
@@ -16,6 +16,11 @@ public class RandomKickLine : MonoBehaviour {
 	}
 
     void OnEnable()
+    {
+        ChangeLine();
+    }
+
+    public void ChangeLine()
     {
         text.text = lines[Random.Range(0, lines.Length)];
     }

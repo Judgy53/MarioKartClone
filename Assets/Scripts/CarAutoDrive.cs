@@ -28,9 +28,11 @@ public class CarAutoDrive : MonoBehaviour {
 
         angle += Random.Range(-15f, 15f);
 
-        float speedCautionCoef = (carController.MaxSpeed - carController.CurrentSpeed)/carController.MaxSpeed * 3f;
+        //float speedCautionCoef = (carController.MaxSpeed - carController.CurrentSpeed)/carController.MaxSpeed * 3f;
 
-        float steer = Mathf.Clamp((angle / 180f), -speedCautionCoef, speedCautionCoef);
+       // float steer = Mathf.Clamp((angle / 180f), -speedCautionCoef, speedCautionCoef);
+
+        float steer = Mathf.Clamp((angle / 180f), -90, 90);
 
         float accel = 1f;
         
