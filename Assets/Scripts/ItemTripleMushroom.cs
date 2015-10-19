@@ -20,4 +20,19 @@ public class ItemTripleMushroom : ItemMushroom {
 	{
 		return this;
 	}
+
+	public override SpriteIndex GetSpriteIndex()
+	{
+		switch (UseLeft) 
+		{
+		case 3:
+			return SpriteIndex.TripleMushroom;
+		case 2:
+			return SpriteIndex.DoubleMushroom;
+		case 1:
+			return SpriteIndex.Mushroom;
+		default:
+			return SpriteIndex.TripleMushroom; // Should never happen
+		}
+	}
 }

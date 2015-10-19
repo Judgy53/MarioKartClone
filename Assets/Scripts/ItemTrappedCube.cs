@@ -94,4 +94,9 @@ public class ItemTrappedCube : Item, IItemUpdatable {
 		
 		return true;
 	}
+
+	public override SpriteIndex GetSpriteIndex()
+	{
+		return SpriteIndex.TrappedCube;
+	}
 }

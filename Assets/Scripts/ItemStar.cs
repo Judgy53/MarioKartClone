@@ -16,4 +16,9 @@ public class ItemStar : Item {
 	{
 		return null;
 	}
+
+	public override SpriteIndex GetSpriteIndex()
+	{
+		return SpriteIndex.Star;
+	}
 }

@@ -94,4 +94,9 @@ public class ItemBobOmb : Item, IItemUpdatable {
 
 		return true;
 	}
+
+	public override SpriteIndex GetSpriteIndex()
+	{
+		return SpriteIndex.BobOmb;
+	}
 }
