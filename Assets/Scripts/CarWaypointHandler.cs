@@ -8,6 +8,7 @@ public class CarWaypointHandler : MonoBehaviour {
     private Waypoint StartingWaypoint = null;
     [SerializeField]
     private Waypoint LastWaypoint = null;
+    private Waypoint RespawnWaypoint = null;
 
     private CarController carController = null;
     private Rigidbody carRigidbody = null;
@@ -34,6 +35,7 @@ public class CarWaypointHandler : MonoBehaviour {
         carRigidbody = GetComponent<Rigidbody>();
 
         LastWaypoint = StartingWaypoint;
+        RespawnWaypoint = StartingWaypoint;
     }
 
     void Update()
@@ -49,20 +51,27 @@ public class CarWaypointHandler : MonoBehaviour {
         StartingWaypoint = startWp;
     }
 
-    private void SetLastWaypoint(Waypoint Waypoint)
+    private void SetLastWaypoint(Waypoint waypoint)
     {
-        if (Waypoint == LastWaypoint.NextWp)
+        if (waypoint == LastWaypoint.NextWp)
         {
-            LastWaypoint = Waypoint;
+            LastWaypoint = waypoint;
             ++waypointCount;
 
-            if (Waypoint == StartingWaypoint && laps < LevelMgr.Instance.LapsToDo)
+            if (waypoint.CanRespawnHere)
+            {
+                RespawnWaypoint = waypoint;
+            }
+
+            if (waypoint == StartingWaypoint && laps < LevelMgr.Instance.LapsToDo)
             {
                 ++laps;
 
                 gameObject.SendMessage("LapEnded", laps, SendMessageOptions.DontRequireReceiver);
 
                 timeAtLastLap = LevelMgr.Instance.raceClock.LocalTime;
+
+                Debug.Log(timeAtLastLap.ToString());
 
                 if (laps == LevelMgr.Instance.LapsToDo)
                     Ranker.Instance.LockFirstNotLocked();
@@ -77,11 +86,14 @@ public class CarWaypointHandler : MonoBehaviour {
 
     public void TeleportToLastWaypoint()
     {
-        Vector3 newCarPos = LastWaypoint.Floor + Vector3.up * 10f;
+        Vector3 newCarPos = RespawnWaypoint.Floor + Vector3.up * 10f;
         carRigidbody.position = newCarPos;
-        carRigidbody.rotation = LastWaypoint.transform.rotation;
+        carRigidbody.rotation = RespawnWaypoint.transform.rotation;
         carRigidbody.velocity = Vector3.zero;
         carRigidbody.angularVelocity = Vector3.zero;
+
+        LastWaypoint = RespawnWaypoint;
+        gameObject.SendMessage("SetTarget", LastWaypoint.NextWp.transform);
     }
 
 

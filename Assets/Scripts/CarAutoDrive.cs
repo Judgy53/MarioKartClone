@@ -19,7 +19,8 @@ public class CarAutoDrive : MonoBehaviour {
         //angle = Vector3.Angle(transform.forward, target.forward);
 
 
-        Quaternion quat = Quaternion.FromToRotation(transform.forward, ((target - transform.position) + transform.forward)/2f);
+        //Quaternion quat = Quaternion.FromToRotation(transform.forward, ((target - transform.position) + transform.forward)/2f);
+        Quaternion quat = Quaternion.FromToRotation(Vector3.forward, (transform.InverseTransformPoint(target) + Vector3.forward) / 2f);
 
         float angle = quat.eulerAngles.y;
         float angleb = -360f + angle;
@@ -28,9 +29,9 @@ public class CarAutoDrive : MonoBehaviour {
 
         angle += Random.Range(-15f, 15f);
 
-        //float speedCautionCoef = (carController.MaxSpeed - carController.CurrentSpeed)/carController.MaxSpeed * 3f;
+        float speedCautionCoef = (carController.MaxSpeed - carController.CurrentSpeed)/carController.MaxSpeed * 3f;
 
-       // float steer = Mathf.Clamp((angle / 180f), -speedCautionCoef, speedCautionCoef);
+        //float steer = Mathf.Clamp((angle / 180f), -speedCautionCoef, speedCautionCoef);
 
         float steer = Mathf.Clamp((angle / 180f), -90, 90);
 
