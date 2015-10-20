@@ -3,7 +3,6 @@ using System.Collections;
 
 public class ItemTripleBanana : ItemBanana {
 
-	private bool summoned = false;
 	private int launched = 0;
 
 	private const int BananaCount = 3;
@@ -27,10 +26,10 @@ public class ItemTripleBanana : ItemBanana {
 
 	public override Item StartUse(CarItemHandler car, bool useBehind)
 	{
-		if (!summoned) 
+		if (!Summoned) 
 		{
 			SummonBananas(car);
-			summoned = true;
+			Summoned = true;
 			return this;
 		}
 
@@ -99,7 +98,7 @@ public class ItemTripleBanana : ItemBanana {
 	}
 
 	public override bool Update (CarItemHandler car) {
-		if (!summoned)
+		if (!Summoned)
 			return true;
 
 		Transform target = car.transform;

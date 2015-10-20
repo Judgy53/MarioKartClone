@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ItemTripleMushroom : ItemMushroom {
 
-	private int UseLeft = 3;
+	public int UseLeft = 3;
 
 	public override Item StartUse(CarItemHandler car, bool useBehind)
 	{

@@ -55,7 +55,8 @@ public class LevelMgr : MonoSingleton<LevelMgr> {
             newBotCar.tag = "Bot";
 
             newBotCar.AddComponent<CarAutoDrive>();
-            newBotCar.AddComponent<CarItemHandler>();
+            //newBotCar.AddComponent<CarItemHandler>();
+			newBotCar.AddComponent<AIItemHandler>();
         }
 
         pos = startingLine.Floor;
