@@ -5,11 +5,11 @@ using UnityStandardAssets.Vehicles.Car;
 [RequireComponent(typeof(CarController))]
 public class CarItemHandler : MonoBehaviour, IItemCollision {
 
-	protected Item currentItem = null;
+	private Item currentItem = null;
 	public Item CurrentItem { get { return currentItem; } }
 
-	private Item pickedItem = null; // used for random display
-	private bool RandomDisplaying = true;
+	protected Item pickedItem = null; // used for random display
+	protected bool RandomDisplaying = true;
 
 	private CarController carCtrl = null;
 	public CarController Controller { get { return carCtrl; } }

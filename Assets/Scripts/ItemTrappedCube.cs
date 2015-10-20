@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ItemTrappedCube : Item, IItemUpdatable {
 
-	private bool Summoned = false;
+	public bool Summoned = false;
 	protected ItemBoxFake box = null;
 	
 	private float DistFromCar = 5.0f;

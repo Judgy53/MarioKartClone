@@ -4,8 +4,6 @@ using System;
 
 public class ItemTripleGreenShell : ItemGreenShell {
 
-	private bool Summoned = false;
-
 	private const int MAXSHELLS = 3;
 	private GreenShell[] Shells = new GreenShell[MAXSHELLS];
 

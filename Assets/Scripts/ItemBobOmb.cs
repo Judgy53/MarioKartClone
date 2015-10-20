@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ItemBobOmb : Item, IItemUpdatable {
 
-	private bool Summoned = false;
+	public bool Summoned = false;
 	private BobOmb bomb = null;
 	
 	private float DistFromCar = 5.0f;

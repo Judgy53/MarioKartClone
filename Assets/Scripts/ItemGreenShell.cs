@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ItemGreenShell : Item, IItemUpdatable {
 
-	private bool Summoned = false;
+	public bool Summoned = false;
 	protected GreenShell Shell = null;
 
 	private float DistFromCar = 5.0f;
