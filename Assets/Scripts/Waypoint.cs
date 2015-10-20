@@ -3,12 +3,17 @@ using System.Collections;
 
 public class Waypoint : MonoBehaviour {
 
+    [SerializeField]
+    private bool DontRespawnHere = false;
+
     private Waypoint nextWaypoint = null;
 
     private Vector3 floor;
 
     public Waypoint NextWp { get { return nextWaypoint; } }
     public Vector3 Floor { get { return floor; } }
+
+    public bool CanRespawnHere { get { return !DontRespawnHere; } }
 
 	// Use this for initialization
 	void Awake () {
