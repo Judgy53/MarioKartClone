@@ -3,6 +3,12 @@ using System.Collections;
 
 public class Explosion : MonoBehaviour {
 
+	[SerializeField]
+	private float ExplosionRadiusRatio = 2.0f;
+
+	[SerializeField]
+	private float TimeToExplode = 0.10f;
+
 	void Start()
 	{
 		StartCoroutine ("Boom");
@@ -18,9 +24,9 @@ public class Explosion : MonoBehaviour {
 
 	IEnumerator Boom()
 	{
-		for (int i = 0; i < 25; i++) 
+		for (int i = 0; i < 100 * TimeToExplode; i++) 
 		{
-			transform.localScale += new Vector3(0.5f, 0.5f, 0.5f);
+			transform.localScale += new Vector3(ExplosionRadiusRatio, ExplosionRadiusRatio, ExplosionRadiusRatio);
 			yield return new WaitForSeconds (0.01f);
 		}
 		

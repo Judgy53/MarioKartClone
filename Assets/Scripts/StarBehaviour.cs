@@ -12,7 +12,8 @@ public class StarBehaviour : MonoBehaviour {
 
 	private BoxCollider starCollider;
 
-	private const float speedMultiplier = 2.5f;
+	[SerializeField]
+	private float speedMultiplier = 2.5f;
 
 	// Use this for initialization
 	void Start () {

@@ -46,6 +46,8 @@ public class ItemGreenShell : Item, IItemUpdatable {
 			Shell.transform.position = car.transform.position + car.transform.forward * DistFromCar;
 		}
 
+		Shell.transform.Rotate (Vector3.forward.x - Shell.transform.eulerAngles.x, 0f, 0f);
+
 		ReleaseShell (Shell);
 
 		return null;
