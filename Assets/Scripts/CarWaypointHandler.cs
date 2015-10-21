@@ -73,8 +73,6 @@ public class CarWaypointHandler : MonoBehaviour {
 
                 timeAtLastLap = LevelMgr.Instance.raceClock.LocalTime;
 
-                Debug.Log(timeAtLastLap.ToString());
-
                 if (laps == LevelMgr.Instance.LapsToDo)
                 {
                     Ranker.Instance.LockFirstNotLocked();
