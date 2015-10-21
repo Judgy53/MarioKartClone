@@ -68,7 +68,7 @@ public class BobOmb : MonoBehaviour {
 	{
 		Exploding = true;
 
-		yield return new WaitForSeconds (0.2f);
+		yield return new WaitForSeconds (0.1f);
 
 		Instantiate (ExplosionPrefab, transform.position, transform.rotation);
 

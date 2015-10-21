@@ -37,6 +37,7 @@ public class RedShell : GreenShell {
 		transform.LookAt (target);
 
 		Vector3 vel = new Vector3 (transform.forward.x, 0f, transform.forward.z);
+		vel *= 2.0f;
 
 		transform.position += vel;
 	}

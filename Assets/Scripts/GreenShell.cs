@@ -6,7 +6,7 @@ public class GreenShell : MonoBehaviour, IItemCollision {
 	protected Rigidbody body = null;
 
 	[SerializeField]
-	protected float Speed = 70f;
+	protected float Speed = 100f;
 	[SerializeField]
 	protected float GravityModifier = -7f;
 
