@@ -5,7 +5,7 @@ using UnityStandardAssets.Vehicles.Car;
 [RequireComponent(typeof(CarController))]
 public class CarItemHandler : MonoBehaviour, IItemCollision {
 
-	private Item currentItem = null;
+	protected Item currentItem = null;
 	public Item CurrentItem { get { return currentItem; } }
 
 	protected Item pickedItem = null; // used for random display
