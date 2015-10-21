@@ -17,6 +17,8 @@ public class CarWaypointHandler : MonoBehaviour {
     private int waypointCount = 0;
     private float timeAtLastLap = 0;
 
+    private bool finished = false;
+
     private bool isCheckingForBlocked = false;
 
     public Waypoint LastWp { get { return LastWaypoint; } }
@@ -25,8 +27,8 @@ public class CarWaypointHandler : MonoBehaviour {
     public int WaypointCount { get { return waypointCount; } }
     public float TimeAtLastLap { get { return timeAtLastLap; } }
 
+    public bool HasFinished { get { return finished; } }
     public int rank = 0;
-    public bool rankIsLocked = false;
 
     // Use this for initialization
     void Start()
@@ -71,10 +73,11 @@ public class CarWaypointHandler : MonoBehaviour {
 
                 timeAtLastLap = LevelMgr.Instance.raceClock.LocalTime;
 
-                Debug.Log(timeAtLastLap.ToString());
-
                 if (laps == LevelMgr.Instance.LapsToDo)
+                {
                     Ranker.Instance.LockFirstNotLocked();
+                    finished = true;
+                }
             }
         }
     }

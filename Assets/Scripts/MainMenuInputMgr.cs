@@ -65,6 +65,6 @@ public class MainMenuInputMgr : MonoSingleton<MainMenuInputMgr> {
     public void SelectPreviousCircuit()
     {
         CircuitShowdown.Instance.PreviousCircuit();
-        choice = choice == 0 ? nbrOfTracks - 1 : choice - 1;
+        choice = (choice == 0) ? nbrOfTracks - 1 : choice - 1;
     }
 }
