@@ -43,7 +43,7 @@ to see
 this title#SHAKY
 SHAKY#VROOM#TUT-TUT#What Is Kart?#DRUNK
 BOTS#BRING
-IT#"It's not a glitch,
+IT.#"It's not a glitch,
 it's a feature!"#NINJA TURTLES
 ON MAGIC STARS
 WIFF MUSHROOMS#KART 11#Kart
@@ -98,8 +98,7 @@ of
 The Karts#Lord
 of
 the Kart#Kartoffel#They see me kartin'#I don't know
-what
-we're
+what we're
 KARTING ABOUT#/SFW/#The
 Lion
 Kart#A Fistful
@@ -119,4 +118,20 @@ Kart#Age
 of
 Karts#What
 The
-Kart#Kart-Zero
+Kart#Kart-Zero#CRASH
+CRASH
+CRASH
+CRASH#And Unity was like "could you send us a report plz?"#Shameless
+Clone#Kart
+Fortress#The
+Elder
+Karts#Realm
+of the
+Mad Kart#KartVania#Back
+To
+The
+Kart#Kart
+To
+The
+Futur#Sleeping
+Kart
