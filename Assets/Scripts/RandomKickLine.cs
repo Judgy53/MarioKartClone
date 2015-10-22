@@ -7,6 +7,8 @@ public class RandomKickLine : MonoSingleton<RandomKickLine> {
     private Text text = null;
     private string[] lines = null;
 
+    private bool wasSeenOnce = false;
+
 	// Use this for initialization
 	void Awake () {
         text = GetComponent<Text>();
@@ -17,7 +19,13 @@ public class RandomKickLine : MonoSingleton<RandomKickLine> {
 
     void OnEnable()
     {
-        ChangeLine();
+        if (!wasSeenOnce)
+        {
+            wasSeenOnce = true;
+            text.text = "Mario Kart";
+        }
+        else
+            ChangeLine();
     }
 
     public void ChangeLine()

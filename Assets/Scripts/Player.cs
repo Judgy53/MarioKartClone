@@ -21,11 +21,21 @@ public class Player : CarItemHandler {
 
 	void Awake()
 	{
-		//currentItem = new ItemRedShell();
 		instance = this;
 
         record = new Record();
-        record.SetHolderName(GameMgr.Instance.PlayerName);
+
+        char[] nameChars = GameMgr.Instance.PlayerName.ToCharArray();
+
+        string trueName = string.Empty;
+
+        for (int ite = 0; ite < nameChars.Length; ++ite)
+        {
+            if (nameChars[ite] != '#')
+                trueName += nameChars[ite];
+        }
+        
+        record.SetHolderName(trueName);
 	}
 
     void LapEnded(int laps)
