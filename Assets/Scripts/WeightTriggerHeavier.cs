@@ -7,7 +7,7 @@ public class WeightTriggerHeavier : MonoBehaviour {
     {
         if (collider.tag == "Player" || collider.tag == "Bot")
         {
-            collider.gameObject.SendMessage("SetDownForce", 200, SendMessageOptions.DontRequireReceiver);
+            collider.gameObject.SendMessage("SetDownForce", 500, SendMessageOptions.DontRequireReceiver);
             collider.GetComponent<Rigidbody>().useGravity = false;
         }
     }
