@@ -16,6 +16,8 @@ public class CarItemHandler : MonoBehaviour, IItemCollision {
 
 	private Rigidbody body = null;
 
+    private CarWaypointHandler carWPHandler = null;
+
 	[SerializeField]
 	private float OnHitTurns = 2f;
 
@@ -29,6 +31,7 @@ public class CarItemHandler : MonoBehaviour, IItemCollision {
 	{
 		body = GetComponent<Rigidbody> ();
 		carCtrl = GetComponent<CarController> ();
+        carWPHandler = GetComponent<CarWaypointHandler>();
         cam = Camera.main.GetComponent<DrivingCamera>();
 	}
 
@@ -59,10 +62,10 @@ public class CarItemHandler : MonoBehaviour, IItemCollision {
 	{
 		for (int i = 0; i < 30 && RandomDisplaying; i++) 
 		{
-			Item newItem = Item.RandomItem();
+            Item newItem = Item.RandomItem();
 
 			while(newItem == null || (currentItem != null && (newItem.ToString() == currentItem.ToString())))
-				newItem = Item.RandomItem();
+                newItem = Item.RandomItem();
 			currentItem = newItem;
 			yield return new WaitForSeconds(0.1f);
 		}

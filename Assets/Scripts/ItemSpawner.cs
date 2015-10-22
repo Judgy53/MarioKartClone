@@ -42,7 +42,7 @@ public class ItemSpawner : MonoBehaviour {
 		
 		if (picker != null && boxSpawned != null) 
 		{
-			picker.OnPickItemBox(Item.RandomItem());
+            picker.OnPickItemBox(ItemGiver.Instance.BalancedRandomItem(collider.GetComponent<CarWaypointHandler>().rank));
 
 			boxSpawned.SendMessage("Explode");
 			
