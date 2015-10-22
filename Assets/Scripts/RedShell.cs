@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 public class RedShell : GreenShell {
 
@@ -36,7 +37,26 @@ public class RedShell : GreenShell {
 
 		transform.LookAt (target);
 
-		Vector3 vel = new Vector3 (transform.forward.x, 0f, transform.forward.z);
+		Vector3 start = transform.position;
+		
+		RaycastHit[] hits = Physics.RaycastAll(start, -transform.up, Mathf.Infinity).OrderBy(h=>h.distance).ToArray();
+		
+		if(hits.Length > 0)
+		{
+			foreach(RaycastHit hit in hits)
+			{
+				if(hit.collider.isTrigger)
+					continue;
+
+				Quaternion rot = Quaternion.FromToRotation(Vector3.up, hit.normal);
+
+				transform.rotation = new Quaternion(rot.x, transform.rotation.y, rot.z, transform.rotation.w);
+
+				break;
+			}
+		}
+
+		Vector3 vel = transform.forward;
 		vel *= 2.0f;
 
 		transform.position += vel;

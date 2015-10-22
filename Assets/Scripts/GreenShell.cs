@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 public class GreenShell : MonoBehaviour, IItemCollision {
 
@@ -15,6 +16,8 @@ public class GreenShell : MonoBehaviour, IItemCollision {
 	
 	void Start () {
 		body = GetComponent<Rigidbody> ();
+
+		body.centerOfMass = new Vector3 (0f, -2f, 0f);
 	}
 
 	public virtual void Init()
@@ -26,6 +29,23 @@ public class GreenShell : MonoBehaviour, IItemCollision {
 	protected virtual void FixedUpdate () {
 		if (Updatable) 
 		{
+			Vector3 start = transform.position + transform.forward;
+
+			RaycastHit[] hits = Physics.RaycastAll(start, -transform.up, Mathf.Infinity).OrderBy(h=>h.distance).ToArray();
+
+			if(hits.Length > 0)
+			{
+				foreach(RaycastHit hit in hits)
+				{
+					if(hit.collider.isTrigger)
+						continue;
+
+					body.rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
+
+					break;
+				}
+			}
+
 			Vector3 vel = body.velocity.normalized * Speed;
 			vel.y = body.velocity.y;
 
