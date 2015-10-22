@@ -28,6 +28,7 @@ public class RaceUIMgr : MonoSingleton<RaceUIMgr> {
         if (Ranking == null)
             Debug.Log("Please bind a rank interface canvas to the UI manager.");
 
+        Ranking.gameObject.SetActive(false);
         Resume();
 	}
 	
@@ -39,7 +40,6 @@ public class RaceUIMgr : MonoSingleton<RaceUIMgr> {
     public void Pause()
     {
         Ranking.gameObject.SetActive(false);
-        InGameInterface.gameObject.SetActive(false);
         PauseMenu.gameObject.SetActive(true);
         Time.timeScale = 0f;
     }
