@@ -11,6 +11,8 @@ public class GreenShell : MonoBehaviour, IItemCollision {
 	[SerializeField]
 	protected float GravityModifier = -7f;
 
+	protected Vector3 LastPosition;
+	
 	[HideInInspector]
 	public bool Updatable = true;
 	
@@ -24,6 +26,8 @@ public class GreenShell : MonoBehaviour, IItemCollision {
 	{
 		if (Updatable)
 			body.velocity = transform.forward;
+
+		LastPosition = transform.position;
 	}
 
 	protected virtual void FixedUpdate () {
@@ -52,6 +56,8 @@ public class GreenShell : MonoBehaviour, IItemCollision {
 			body.velocity = vel;
 
 			body.AddForce (0f, GravityModifier, 0f, ForceMode.Force);
+
+			LastPosition = transform.position;
 		}
 	}
 
