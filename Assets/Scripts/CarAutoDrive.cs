@@ -40,7 +40,7 @@ public class CarAutoDrive : MonoBehaviour {
         if ((angle / 180f) - steer > 0f)
             steer -= (angle / 180f) - steer;
 
-        accel -= Random.Range(0f, 0.2f);
+        //accel -= Random.Range(0f, 0.2f);
 
         carController.Move(steer, accel, accel, 0f);
 	}
