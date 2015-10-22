@@ -65,7 +65,7 @@ public class DrivingCamera : MonoBehaviour {
 
         cam.fieldOfView = speedRatio * (FoVMax - FoVMin) + FoVMin;
 
-        Shake(speedRatio*speedRatio);
+        Shake(speedRatio*speedRatio*speedRatio);
 	}
 
     private Vector3 FindRigidPos()
@@ -104,8 +104,6 @@ public class DrivingCamera : MonoBehaviour {
             Vector3 newShake = new Vector3(Mathf.Cos(shakeAngle), Mathf.Sin(shakeAngle), 0f);
 
             newShake *= power * shakeFactor;
-
-            //newShake = transform.InverseTransformPoint(newShake);
 
             transform.position += newShake;
 

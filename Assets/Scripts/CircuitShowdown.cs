@@ -50,32 +50,4 @@ public class CircuitShowdown : MonoSingleton<CircuitShowdown> {
 
         displayedCircuit = Instantiate(circuitPrefabs[circuitCursor], Vector3.left * 1000f, Quaternion.AngleAxis(0f, Vector3.up)) as GameObject;
     }
-
-    //// BROKEN.
-    /*private IEnumerator SlideToNextCircuit (bool toRight)
-    {
-        while (toRight ? displayedCircuit.transform.position.x > -900 : displayedCircuit.transform.position.x < 900)
-        {
-            displayedCircuit.transform.position = Vector3.Lerp(displayedCircuit.transform.position, (toRight ? Vector3.left : Vector3.right) * 1000f, 0.1f);
-            yield return new WaitForSeconds(0.01f);
-        }
-
-        Destroy(displayedCircuit, 0f);
-
-        if (toRight)
-            circuitCursor = (circuitCursor + 1) % circuitPrefabs.Length;
-        else
-            circuitCursor = circuitCursor == 0 ? circuitPrefabs.Length - 1 : circuitCursor - 1;
-
-        displayedCircuit = Instantiate(circuitPrefabs[circuitCursor], (toRight ? Vector3.right : Vector3.left) * 1000f, Quaternion.AngleAxis(0f, Vector3.up)) as GameObject;
-
-        while (toRight ? displayedCircuit.transform.position.x > 0.1f : displayedCircuit.transform.position.x < -0.1f)
-        {
-            displayedCircuit.transform.position = Vector3.Lerp(displayedCircuit.transform.position, Vector3.zero, 0.1f);
-            yield return new WaitForSeconds(0.01f);
-        }
-        Debug.Log(Mathf.Approximately(displayedCircuit.transform.position.x, 0f).ToString());
-
-        yield return 0;
-    }*/
 }

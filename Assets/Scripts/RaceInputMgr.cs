@@ -17,16 +17,10 @@ public class RaceInputMgr : MonoSingleton<RaceInputMgr> {
         if (Input.GetButtonDown("Cancel"))
             RaceUIMgr.Instance.Pause();
 
-        if (Input.GetKeyDown(KeyCode.Tab))
-            RaceUIMgr.Instance.DisplayRanking();
-
-        if (Input.GetKeyUp(KeyCode.Tab))
-            RaceUIMgr.Instance.DisplayRankingNot();
-
-		if (Input.GetKeyDown(KeyCode.Space))
+		if (Input.GetKeyDown(KeyCode.Space) && GameMgr.Instance.state != GameMgr.GameState.EndOfRace)
 			Player.Instance.StartUseItem(Input.GetKey(KeyCode.DownArrow));
 		
-		if (Input.GetKeyUp(KeyCode.Space))
+		if (Input.GetKeyUp(KeyCode.Space) && GameMgr.Instance.state != GameMgr.GameState.EndOfRace)
 			Player.Instance.StopUseItem(Input.GetKey(KeyCode.DownArrow));
     }
 
