@@ -10,12 +10,6 @@ public class RedShell : GreenShell {
 	[HideInInspector]
 	public Waypoint LastWaypoint = null;
 
-	public override void Init()
-	{
-		if (Updatable)
-			body.velocity = transform.forward;
-	}
-
 	protected override void FixedUpdate () {
 
 		if (!Updatable)
@@ -57,9 +51,11 @@ public class RedShell : GreenShell {
 		}
 
 		Vector3 vel = transform.forward;
-		vel *= 2.0f;
+		vel *= Speed/50f; // arbritrary value to have same speed as greenshell
 
 		transform.position += vel;
+
+		LastPosition = transform.position;
 	}
 
 	public void SetLastWaypoint(Waypoint wp)
