@@ -6,7 +6,8 @@ public class ItemBanana : Item, IItemUpdatable {
 	public Banana banana = null;
 	public bool Summoned = false;
 
-	protected const float OrigDistFromCar = 5.0f;
+	protected const float StartDistFromCar = 4.0f;
+	protected const float OrigDistFromCar = 7.0f;
 	protected float DistFromCar;
 
 	private GameObject prefab = null;
@@ -19,7 +20,7 @@ public class ItemBanana : Item, IItemUpdatable {
 
 	public override Item StartUse(CarItemHandler car, bool useBehind)
 	{
-		Vector3 translation = car.transform.position + car.transform.forward * DistFromCar * -1;
+		Vector3 translation = car.transform.position + car.transform.forward * StartDistFromCar * -1;
 		
 		Quaternion rotation = car.transform.rotation;
 
@@ -48,9 +49,9 @@ public class ItemBanana : Item, IItemUpdatable {
 		
 		ReleaseBanana (banana);
 
-		if (!useBehind)
-			banana.GetComponent<Rigidbody> ().AddForce (banana.transform.forward * 70f + Vector3.up * 20f, ForceMode.Impulse);
-		
+		if (!useBehind) 
+			banana.GetComponent<Rigidbody> ().AddForce (banana.transform.forward * 70f + Vector3.up * 15f, ForceMode.Impulse);
+
 		return null;
 	}
 
@@ -86,8 +87,10 @@ public class ItemBanana : Item, IItemUpdatable {
 			return false;
 		else 
 		{
-			banana.transform.position = car.transform.position + car.transform.forward * DistFromCar * -1;
+			banana.transform.position = car.transform.position + car.transform.forward * StartDistFromCar * -1;
 			banana.transform.rotation = car.transform.rotation;
+
+			banana.transform.Translate(0f, banana.GetComponent<BoxCollider> ().bounds.extents.y, 0f);
 		}
 		
 		return true;
