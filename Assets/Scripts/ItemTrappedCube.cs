@@ -5,8 +5,9 @@ public class ItemTrappedCube : Item, IItemUpdatable {
 
 	public bool Summoned = false;
 	protected ItemBoxFake box = null;
-	
-	private float DistFromCar = 5.0f;
+
+	private float StartDistFromCar = 4.0f;
+	private float DistFromCar = 7.0f;
 	
 	private GameObject prefab = null;
 
@@ -17,7 +18,7 @@ public class ItemTrappedCube : Item, IItemUpdatable {
 	
 	public override Item StartUse(CarItemHandler car, bool useBehind)
 	{		
-		Vector3 translation = car.transform.position + car.transform.forward * DistFromCar * -1;
+		Vector3 translation = car.transform.position + car.transform.forward * StartDistFromCar * -1;
 		
 		Quaternion rotation = car.transform.rotation;
 		
@@ -49,7 +50,7 @@ public class ItemTrappedCube : Item, IItemUpdatable {
 		ReleaseBox (box);
 		
 		if (!useBehind)
-			box.GetComponent<Rigidbody> ().AddForce (box.transform.forward * 70f + Vector3.up * 20f, ForceMode.Impulse);
+			box.GetComponent<Rigidbody> ().AddForce (box.transform.forward * 70f + Vector3.up * 15f, ForceMode.Impulse);
 		
 		return null;
 	}
@@ -86,7 +87,7 @@ public class ItemTrappedCube : Item, IItemUpdatable {
 			return false;
 		else 
 		{
-			box.transform.position = car.transform.position + car.transform.forward * DistFromCar * -1;
+			box.transform.position = car.transform.position + car.transform.forward * StartDistFromCar * -1;
 			box.transform.rotation = car.transform.rotation;
 
 			box.transform.Translate(0f, box.GetComponent<BoxCollider> ().bounds.extents.y, 0f);

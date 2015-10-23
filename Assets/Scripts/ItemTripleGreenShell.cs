@@ -9,7 +9,7 @@ public class ItemTripleGreenShell : ItemGreenShell {
 
 	private int NbLaunchedShells = 0;
 
-	private const float DistFromCar = 5f;
+	private const float DistFromCar = 7.0f;
 	private float AngleBetweenShells = 360f / (float)MAXSHELLS;
 
 	private const float RotationSpeed = 1f;
@@ -133,7 +133,7 @@ public class ItemTripleGreenShell : ItemGreenShell {
 
 			shell.transform.position = target + car.transform.forward * DistFromCar;
 			shell.transform.RotateAround(target, car.transform.up, rotationTicks + (float)i * AngleBetweenShells);
-			shell.transform.LookAt(target);
+			shell.transform.LookAt(car.transform.position);
 		}
 
 		return updated;

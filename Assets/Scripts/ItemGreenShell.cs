@@ -6,7 +6,8 @@ public class ItemGreenShell : Item, IItemUpdatable {
 	public bool Summoned = false;
 	protected GreenShell Shell = null;
 
-	private float DistFromCar = 5.0f;
+	private float StartDistFromCar = 4.0f;
+	private float DistFromCar = 7.0f;
 
 	protected GameObject prefab = null;
 
@@ -17,7 +18,7 @@ public class ItemGreenShell : Item, IItemUpdatable {
 	
 	public override Item StartUse(CarItemHandler car, bool useBehind)
 	{
-		Vector3 translation = car.transform.position + car.transform.forward * DistFromCar * -1;
+		Vector3 translation = car.transform.position + car.transform.forward * StartDistFromCar * -1;
 
 		Quaternion rotation = car.transform.rotation;
 
@@ -61,7 +62,7 @@ public class ItemGreenShell : Item, IItemUpdatable {
 			return false;
 		else 
 		{
-			Shell.transform.position = car.transform.position + car.transform.forward * DistFromCar * -1;
+			Shell.transform.position = car.transform.position + car.transform.forward * StartDistFromCar * -1;
 			Shell.transform.rotation = car.transform.rotation;
 		}
 
