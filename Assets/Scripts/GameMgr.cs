@@ -86,13 +86,5 @@ public class GameMgr : MonoSingleton<GameMgr> {
         RaceUIMgr.Instance.DisplayRanking();
         LevelMgr.Instance.raceClock.Stop();
         state = GameState.EndOfRace;
-
-        StartCoroutine("DelayedBackToMenu");
-    }
-
-    IEnumerator DelayedBackToMenu()
-    {
-        yield return new WaitForSeconds(10f);
-        LaunchMenu();
     }
 }

@@ -100,4 +100,8 @@ Kart#Days
 of
 Futur
 Kart#If it's Kart,
-It's Smart
+It's Smart#HADOKART#Kart Story#Dungeons
+&
+Karts#Karts
+&
+Dragons

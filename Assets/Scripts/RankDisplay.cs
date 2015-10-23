@@ -18,7 +18,7 @@ public class RankDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        text.text = "Rank: ";
+        text.text = string.Empty;
 
         int rank = carWpHandler.rank;
 
