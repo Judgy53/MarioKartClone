@@ -24,6 +24,9 @@ public class GameMgr : MonoSingleton<GameMgr> {
     [SerializeField]
     private string[] Levels;
 
+    [SerializeField]
+    private bool isStartingFromMenu = true;
+
     private int currentLevel = 0;
 
     public string PlayerName { get { return NameOfPlayer; } }
@@ -45,10 +48,13 @@ public class GameMgr : MonoSingleton<GameMgr> {
         DontDestroyOnLoad(gameObject);
     }
 
-
 	// Use this for initialization
 	void Start () {
-		state = GameState.MainMenu;
+        if (isStartingFromMenu)
+            state = GameState.MainMenu;
+
+        else
+            state = GameState.StartOfRace;
 	}
 	
 	// Update is called once per frame

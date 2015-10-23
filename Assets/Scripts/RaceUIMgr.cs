@@ -39,7 +39,7 @@ public class RaceUIMgr : MonoSingleton<RaceUIMgr> {
 
     public void Pause()
     {
-        Ranking.gameObject.SetActive(false);
+        InGameInterface.gameObject.SetActive(false);
         PauseMenu.gameObject.SetActive(true);
         Time.timeScale = 0f;
     }
