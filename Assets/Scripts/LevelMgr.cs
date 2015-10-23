@@ -69,7 +69,7 @@ public class LevelMgr : MonoSingleton<LevelMgr> {
         playerCar.tag = "Player";
         playerCar.AddComponent<Player>();
         playerCar.AddComponent<PlayerCarPreController>();
-        playerCar.AddComponent<CheatyBoost>();
+        //playerCar.AddComponent<CheatyBoost>();
         CarAutoDrive auto = playerCar.AddComponent<CarAutoDrive>();
         auto.enabled = false;
 
