@@ -45,9 +45,10 @@ public class GameMgr : MonoSingleton<GameMgr> {
         DontDestroyOnLoad(gameObject);
     }
 
+
 	// Use this for initialization
 	void Start () {
-        //state = 0; should be there.
+		state = GameState.MainMenu;
 	}
 	
 	// Update is called once per frame
