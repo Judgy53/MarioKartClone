@@ -89,7 +89,6 @@ public class ItemTripleBanana : ItemBanana {
 		currentBanana.owner = null;
 
 		banana = currentBanana;
-		DistFromCar = BaseOffset + DistBetweenBananas * bananaPos;
 		base.StopUse (car, useBehind);
 
 		bananas [bananaPos] = null; // set it to null because we don't want to interact with it anymore
@@ -125,8 +124,6 @@ public class ItemTripleBanana : ItemBanana {
 			if(currentBanana == null)
 				continue;
 
-			//currentBanana.gameObject.transform.position = targetPos;
-			//currentBanana.gameObject.transform.rotation = targetRot;
 			currentBanana.gameObject.transform.position = Vector3.Lerp(currentBanana.gameObject.transform.position, targetPos, 0.25f);
 			currentBanana.gameObject.transform.rotation = Quaternion.Lerp(currentBanana.gameObject.transform.rotation, targetRot, 0.25f);
 
