@@ -24,6 +24,6 @@ public class LapDisplay : MonoBehaviour {
         else
             manyLaps = ((int)carWpHandler.Laps + 1).ToString();
 
-            text.text = "Lap: " + manyLaps + "/" + LevelMgr.Instance.LapsToDo.ToString();
+            text.text = manyLaps + "/" + LevelMgr.Instance.LapsToDo.ToString() + " Laps";
     }
 }

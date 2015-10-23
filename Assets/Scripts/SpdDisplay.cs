@@ -16,6 +16,6 @@ public class SpdDisplay : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        text.text = "Speed: " + ((int)carController.CurrentSpeed*2f).ToString() + " Km/h";
+        text.text = ((int)carController.CurrentSpeed*2f).ToString() + " Km/h";
 	}
 }
